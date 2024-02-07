@@ -58,7 +58,7 @@ $query->execute();
 while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
 
-    //if ($row['ICCAT_CODE']!=="6SAC08") {
+    if ($row['ICCAT_CODE']!=="9002") {
 
         $data .= " " . $row['DI_DATE'] . ",";
         $data .= " " . $month_name . ",";
@@ -115,7 +115,7 @@ while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
         $data .= $TRD_G_KEYIN . ",";
         $data .= str_replace(",", "^", $row['WL_CODE']) . "\n";
 
-   //}
+   }
 
 }
 

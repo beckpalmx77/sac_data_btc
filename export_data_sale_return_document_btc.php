@@ -3,6 +3,12 @@ include('includes/Header.php');
 if (strlen($_SESSION['alogin']) == "") {
     header("Location: index.php");
 } else {
+    include("config/connect_db.php");
+    $sql_branch = " SELECT * FROM ims_branch ";
+    $stmt_branch = $conn->prepare($sql_branch);
+    $stmt_branch->execute();
+    $BranchRecords = $stmt_branch->fetchAll();
+
     ?>
 
     <!DOCTYPE html>
@@ -84,13 +90,14 @@ if (strlen($_SESSION['alogin']) == "") {
                                                                     </div>
 
                                                                     <div class="form-group">
-                                                                        <label for="branch"
-                                                                               class="control-label">สาขา</label>
-                                                                        <select id="branch" name="branch"
-                                                                                class="form-control"
-                                                                                data-live-search="true"
-                                                                                title="Please select">
-                                                                            <option>ALL</option>
+                                                                        <label for="branch">เลือกสาขา :</label>
+                                                                        <select name="branch" id="branch"
+                                                                                class="form-control" required>
+                                                                            <?php foreach ($BranchRecords as $row) { ?>
+                                                                                <option value="<?php echo $row["branch"]; ?>">
+                                                                                    <?php echo $row["branch_name"]; ?>
+                                                                                </option>
+                                                                            <?php } ?>
                                                                         </select>
                                                                     </div>
                                                                 </div>

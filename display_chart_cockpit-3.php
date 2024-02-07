@@ -6,7 +6,7 @@ if (strlen($_SESSION['alogin']) == "") {
 
     include("config/connect_db.php");
 
-    $month_num = str_replace('0','',date('m'));
+    $month_num = str_replace('0', '', date('m'));
 
     $sql_curr_month = " SELECT * FROM ims_month where month = '" . $month_num . "'";
 
@@ -27,7 +27,7 @@ if (strlen($_SESSION['alogin']) == "") {
     $MonthRecords = $stmt_month->fetchAll();
 
     $sql_year = " SELECT DISTINCT(DI_YEAR) AS DI_YEAR
- FROM ims_product_sale_cockpit WHERE DI_YEAR >= 2019
+ FROM ims_product_sale_sac WHERE DI_YEAR >= 2019
  order by DI_YEAR desc ";
     $stmt_year = $conn->prepare($sql_year);
     $stmt_year->execute();
@@ -83,44 +83,50 @@ if (strlen($_SESSION['alogin']) == "") {
 
                                                         <form id="myform" name="myform" method="post">
 
-                                                                <div class="row">
-                                                                    <div class="col-sm-12">
-                                                                                <label for="month">เลือกเดือน :</label>
-                                                                                <select name="month" id="month" class="form-control" required>
-                                                                                    <option value="<?php echo $month_num;?>" selected><?php echo $month_name;?></option>
-                                                                                    <?php foreach ($MonthRecords as $row) { ?>
-                                                                                        <option value="<?php echo $row["month"]; ?>">
-                                                                                            <?php echo $row["month_name"]; ?>
-                                                                                        </option>
-                                                                                    <?php } ?>
-                                                                                </select>
-                                                                                <label for="year">เลือกปี :</label>
-                                                                                <select name="year" id="year" class="form-control" required>
-                                                                                    <?php foreach ($YearRecords as $row) { ?>
-                                                                                        <option value="<?php echo $row["DI_YEAR"]; ?>">
-                                                                                            <?php echo $row["DI_YEAR"]; ?>
-                                                                                        </option>
-                                                                                    <?php } ?>
-                                                                                </select>
-                                                                                <label for="branch">เลือกสาขา :</label>
-                                                                                <select name="branch" id="branch" class="form-control" required>
-                                                                                    <?php foreach ($BranchRecords as $row) { ?>
-                                                                                        <option value="<?php echo $row["branch"]; ?>">
-                                                                                            <?php echo $row["branch_name"]; ?>
-                                                                                        </option>
-                                                                                    <?php } ?>
-                                                                                </select>
-                                                                                <br>
-                                                                                <div class="row">
-                                                                                    <div class="col-sm-12">
-                                                                                        <button type="button" id="BtnSale" name="BtnSale" class="btn btn-primary mb-3">แสดง
-                                                                                            Chart ยอดขาย รายเดือน
-                                                                                        </button>
-                                                                                    </div>
-                                                                                </div>
-
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <label for="month">เลือกเดือน :</label>
+                                                                    <select name="month" id="month" class="form-control"
+                                                                            required>
+                                                                        <option value="<?php echo $month_num; ?>"
+                                                                                selected><?php echo $month_name; ?></option>
+                                                                        <?php foreach ($MonthRecords as $row) { ?>
+                                                                            <option value="<?php echo $row["month"]; ?>">
+                                                                                <?php echo $row["month_name"]; ?>
+                                                                            </option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                    <label for="year">เลือกปี :</label>
+                                                                    <select name="year" id="year" class="form-control"
+                                                                            required>
+                                                                        <?php foreach ($YearRecords as $row) { ?>
+                                                                            <option value="<?php echo $row["DI_YEAR"]; ?>">
+                                                                                <?php echo $row["DI_YEAR"]; ?>
+                                                                            </option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                    <label for="branch">เลือกสาขา :</label>
+                                                                    <select name="branch" id="branch"
+                                                                            class="form-control" required>
+                                                                        <?php foreach ($BranchRecords as $row) { ?>
+                                                                            <option value="<?php echo $row["branch"]; ?>">
+                                                                                <?php echo $row["branch_name"]; ?>
+                                                                            </option>
+                                                                        <?php } ?>
+                                                                    </select>
+                                                                    <br>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <button type="button" id="BtnSale"
+                                                                                    name="BtnSale"
+                                                                                    class="btn btn-primary mb-3">แสดง
+                                                                                Chart ยอดขาย รายเดือน
+                                                                            </button>
+                                                                        </div>
                                                                     </div>
+
                                                                 </div>
+                                                            </div>
                                                         </form>
                                                     </div>
                                                 </div>

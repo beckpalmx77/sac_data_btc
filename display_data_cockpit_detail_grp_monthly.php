@@ -8,10 +8,10 @@ $total = 0;
 $total_sale = 0;
 
 $sql_data = "  SELECT BRANCH,PGROUP,ims_pgroup.pgroup_name,sum(CAST(TRD_G_KEYIN AS DECIMAL(10,2))) as  TRD_G_KEYIN
- FROM ims_product_sale_cockpit 
+ FROM ims_product_sale_sac 
  LEFT JOIN ims_pgroup
- ON ims_pgroup.pgroup_id = ims_product_sale_cockpit.pgroup
- WHERE DI_MONTH = '" . $month . "' AND DI_YEAR = '" . $year . "' AND BRANCH = '" . $branch . "' AND TRD_G_KEYIN > 0  
+ ON ims_pgroup.pgroup_id = ims_product_sale_sac.pgroup
+ WHERE DI_MONTH = '" . $month . "' AND DI_YEAR = '" . $year . "' AND BRANCH = '" . $branch . "' AND TRD_G_KEYIN > 0 
  GROUP BY  BRANCH,PGROUP,pgroup_name 
  ORDER BY PGROUP  ";
 

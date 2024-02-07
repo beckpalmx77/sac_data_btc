@@ -82,6 +82,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                         $sql_daily = "SELECT SLMN_NAME,sum(CAST(TRD_G_KEYIN AS DECIMAL(10,2))) as  TRD_G_KEYIN
                                                       FROM ims_product_sale_sac 
                                                       WHERE DI_DATE = '" . $date . "'
+                                                      AND BRANCH = 'BTC'
                                                       GROUP BY  SLMN_NAME
                                                       ORDER BY SLMN_NAME";
 
@@ -141,6 +142,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                                       FROM ims_product_sale_sac 
                                                       WHERE DI_MONTH = '" . date("n") . "'
                                                       AND DI_YEAR = '" . date("Y") . "'
+                                                      AND BRANCH = 'BTC'
                                                       GROUP BY  SLMN_NAME
                                                       ORDER BY SLMN_NAME";
 

@@ -8,10 +8,12 @@ $dbname = 'SAC';
 */
 
 //$host = 'BECKPALMX-HP\SQLEXPRESS';
+
 $host = '192.168.88.40';
 $dbuser = 'SYY';
 $dbpass = '39122222';
 $dbname = 'SAC';
+
 
 /*
 $host = 'SAC-SHINEIT\MSSQLEXPRESS';

@@ -16,7 +16,8 @@ $sql_get = "
  ,sum(CAST(TRD_G_KEYIN AS DECIMAL(10,2))) as  TRD_G_KEYIN
  FROM ims_product_sale_sac
  WHERE DI_YEAR = '" . $year . "'   
- and BRN_NAME = '" . $brn_name . "'
+ AND BRN_NAME = '" . $brn_name . "'
+ AND BRANCH = 'BTC'
  GROUP BY  BRN_NAME,DI_MONTH,DI_MONTH_NAME 
  ORDER BY BRN_NAME,DI_MONTH
  ";

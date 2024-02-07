@@ -13,6 +13,7 @@ $sql_get = "
  FROM ims_product_sale_sac 
  WHERE PGROUP IN ('P1')
  AND DI_YEAR = '" . $year . "'
+ AND BRANCH = 'BTC' 
  GROUP BY BRN_NAME
  ORDER BY BRN_NAME 
  ";

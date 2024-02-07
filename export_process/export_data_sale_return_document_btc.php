@@ -58,7 +58,7 @@ $query->execute();
 while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
 
-    if ($row['ICCAT_CODE']!=="9002") {
+    if ($row['SKU_CODE']!=="9002") {
 
         $data .= " " . $row['DI_DATE'] . ",";
         $data .= " " . $month_name . ",";

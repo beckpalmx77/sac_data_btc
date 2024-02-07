@@ -11,9 +11,14 @@ $sql_data = "  SELECT BRANCH,PGROUP,ims_pgroup.pgroup_name,sum(CAST(TRD_G_KEYIN 
  FROM ims_product_sale_sac 
  LEFT JOIN ims_pgroup
  ON ims_pgroup.pgroup_id = ims_product_sale_sac.pgroup
- WHERE DI_MONTH = '" . $month . "' AND DI_YEAR = '" . $year . "' AND BRANCH = '" . $branch . "' AND TRD_G_KEYIN > 0 
+ WHERE DI_MONTH = '" . $month . "' AND DI_YEAR = '" . $year . "' AND BRANCH = '" . $branch . "'  
  GROUP BY  BRANCH,PGROUP,pgroup_name 
  ORDER BY PGROUP  ";
+/*
+$my_file = fopen("qry_file_btc3.txt", "w") or die("Unable to open file!");
+fwrite($my_file, $sql_data);
+fclose($my_file);
+*/
 
 ?>
 <br>

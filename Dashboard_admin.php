@@ -145,6 +145,11 @@ if (strlen($_SESSION['alogin']) == "") {
                                                       AND BRANCH = 'BTC'
                                                       GROUP BY  SLMN_NAME
                                                       ORDER BY SLMN_NAME";
+/*
+                                        $my_file = fopen("qry_file_btc_admin.txt", "w") or die("Unable to open file!");
+                                        fwrite($my_file, $sql_daily);
+                                        fclose($my_file);
+*/
 
                                         $statement_daily = $conn->query($sql_daily);
                                         $results_daily = $statement_daily->fetchAll(PDO::FETCH_ASSOC);

@@ -13,7 +13,7 @@ $branch = $_POST["branch"];
 
 $sql_get = "
  SELECT BRANCH,DI_MONTH,DI_MONTH_NAME,DI_DATE,sum(CAST(TRD_G_KEYIN AS DECIMAL(10,2))) as  TRD_G_KEYIN
- FROM ims_product_sale_cockpit 
+ FROM ims_product_sale_sac 
  WHERE DI_YEAR = '" . $year . "'   
  and BRANCH like '%" . $branch . "'
  GROUP BY  BRANCH,DI_MONTH,DI_MONTH_NAME 

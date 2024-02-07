@@ -27,7 +27,7 @@ if (strlen($_SESSION['alogin']) == "") {
     $MonthRecords = $stmt_month->fetchAll();
 
     $sql_year = " SELECT DISTINCT(DI_YEAR) AS DI_YEAR
- FROM ims_product_sale_cockpit WHERE DI_YEAR >= 2019
+ FROM ims_product_sale_sac WHERE DI_YEAR >= 2019
  order by DI_YEAR desc ";
     $stmt_year = $conn->prepare($sql_year);
     $stmt_year->execute();
@@ -39,7 +39,7 @@ if (strlen($_SESSION['alogin']) == "") {
     $BranchRecords = $stmt_branch->fetchAll();
 
     $sql_sale_man = " SELECT DISTINCT(SLMN_NAME) AS SLMN_NAME
-    FROM ims_product_sale_sac WHERE DI_YEAR >= 2022
+    FROM ims_product_sale_sac WHERE DI_YEAR >= 2019
     order by SLMN_NAME desc  ";
     $stmt_sale_man = $conn->prepare($sql_sale_man);
     $stmt_sale_man->execute();

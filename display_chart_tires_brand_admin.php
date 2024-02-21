@@ -97,36 +97,22 @@
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <!--div id="content-wrapper" class="d-flex flex-column">
                 <div id="content">
                     <div>
                         <div class="card-header">
-                            สถิติ ยอดขาย BTC เดือน <?php echo $month_name . " ปี " . $year; ?>
+                            สถิติ ยอดขาย BTC
+                            <?php echo $month_name . " " . $year; ?>
                         </div>
                         <div class="card-body">
-
-                            <?php include('cp_bar_chart_dash_day.php'); ?>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div id="content">
-                    <div>
-                        <div class="card-header">
-                            สถิติ ยอดขาย BTC เดือน <?php echo $month_name . " ปี " . $year; ?>
-                        </div>
-                        <div class="card-body">
-
                             <?php include('cp_bar_chart_dash_day-2.php'); ?>
 
                         </div>
                     </div>
                 </div>
-
-
-            </div>
-
+            </div-->
 
 
         </div>

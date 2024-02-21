@@ -19,15 +19,17 @@ $str_group1 = array("1SAC03","3SAC02","4SAC02","1SAC04","1SAC02","5SAC02","1SAC1
 $str_group2 = array("8SAC11","TA01-001","8CPA01-001","8CPA01-002","8SAC09","8BTCA01-001","8BTCA01-002");
 $str_group3 = array("9SA01","999-07","999-14","999-08");
 $str_group4 = array("SAC08");
+$str_group5 = array("6SAC08");
+
 
 echo "Today is " . date("Y/m/d");
 echo "\n\r" . date("Y/m/d", strtotime("yesterday"));
 
 $query_daily_cond_ext = " AND (DOCTYPE.DT_DOCCODE in ('CCS6','CCS7','DDS5','IC5','IC6','IIS5','IIS6','IV3')) ";
 
-$query_year = " AND DI_DATE BETWEEN '" . date("Y/m/d", strtotime("yesterday")) . "' AND '" . date("Y/m/d") . "'";
+//$query_year = " AND DI_DATE BETWEEN '" . date("Y/m/d", strtotime("yesterday")) . "' AND '" . date("Y/m/d") . "'";
 
-//$query_year = " AND DI_DATE BETWEEN '2018/01/01' AND '2022/12/31'";
+$query_year = " AND DI_DATE BETWEEN '2024/02/08' AND '2024/12/31'";
 
 //$query_year = " AND DI_DATE BETWEEN '2023/01/01' AND '" . date("Y/m/d") . "'";
 
@@ -112,6 +114,10 @@ while ($result_sqlsvr = $stmt_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
 
     if (in_array($ICCAT_CODE, $str_group4)) {
         $p_group = "P4";
+    }
+
+    if (in_array($ICCAT_CODE, $str_group5)) {
+        $p_group = "P5";
     }
 
     $sql_find = "SELECT * FROM ims_product_sale_sac "

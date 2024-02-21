@@ -9,16 +9,20 @@ include("../config/connect_db.php");
 
 $delete_data = "";
 
-$day = substr(date("Y/m/d"),8,2);
-$month = substr(date("Y/m/d"),5,2);
-$year = substr(date("Y/m/d"),0,4);
+$day = substr(date("Y/m/d"), 8, 2);
+$month = substr(date("Y/m/d"), 5, 2);
+$year = substr(date("Y/m/d"), 0, 4);
 
 echo $year . " | " . $month . " | " . $day;
 
+/*
 $sql_sqlsvr = "SELECT DOCINFO.DI_KEY,DOCINFO.DI_REF,DI_DATE,DOCINFO.DI_ACTIVE FROM DOCINFO 
 WHERE DOCINFO.DI_ACTIVE = 1 AND DI_DATE >= DATEADD(month, -2, GETDATE()) AND DI_DATE <= GETDATE();";
+*/
 
-echo " MSSQL DATA " . $sql_sqlsvr;
+$sql_sqlsvr = "SELECT DOCINFO.DI_KEY,DOCINFO.DI_REF,DI_DATE,DOCINFO.DI_ACTIVE FROM DOCINFO WHERE DOCINFO.DI_ACTIVE = 1 ;";
+
+echo " MSSQL DATA " . $sql_sqlsvr . "  ..... ";
 
 $stmt_sqlsvr = $conn_sqlsvr->prepare($sql_sqlsvr);
 $stmt_sqlsvr->execute();

@@ -25,13 +25,13 @@ echo "\n\r" . date("Y/m/d", strtotime("yesterday"));
 
 $query_daily_cond_ext = " AND (DOCTYPE.DT_DOCCODE in ('CCS6','CCS7','DDS5','IC5','IC6','IIS5','IIS6','IV3')) ";
 
-//$query_year = " AND DI_DATE BETWEEN '" . date("Y/m/d", strtotime("yesterday")) . "' AND '" . date("Y/m/d") . "'";
+$query_year = " AND DI_DATE BETWEEN '" . date("Y/m/d", strtotime("yesterday")) . "' AND '" . date("Y/m/d") . "'";
 
-$query_year = " AND DI_DATE BETWEEN '2014/01/01' AND '2021/12/31'";
+//$query_year = " AND DI_DATE BETWEEN '2018/01/01' AND '2022/12/31'";
 
-//$query_year = " AND DI_DATE BETWEEN '2022/01/01' AND '" . date("Y/m/d") . "'";
+//$query_year = " AND DI_DATE BETWEEN '2023/01/01' AND '" . date("Y/m/d") . "'";
 
-//$query_year = " AND DI_DATE BETWEEN '2022/08/21' AND '" . date("Y/m/d") . "'";
+//$query_year = " AND DI_DATE BETWEEN '2021/01/01' AND '" . date("Y/m/d") . "'";
 
 $sql_sqlsvr = $select_query_daily . $select_query_daily_cond . $query_daily_cond_ext . $query_year . $select_query_daily_order;
 

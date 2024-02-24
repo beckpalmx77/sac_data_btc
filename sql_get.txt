@@ -1,3 +1,0 @@
-SELECT *  FROM ims_product_sale_sac_day 
-        WHERE year = '2024' AND month = '2' AND BRANCH = 'BTC'                  
-        ORDER BY CAST(day AS UNSIGNED) 

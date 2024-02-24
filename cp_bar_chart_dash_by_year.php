@@ -36,7 +36,7 @@ include('engine/get_data_chart_dash_year.php');
             datasets: [{
                 label: 'BTC',
                 data: <?php echo $data1?>,
-                backgroundColor: "#cd0051",
+                backgroundColor: "#800136",
                 fill: false
             }]
         },

@@ -18,7 +18,7 @@ include("engine/get_data_chart_dash_day.php");
             labels: <?php echo $labels?>,
             datasets: [{
                 label: "BTC",
-                backgroundColor: "#3bc7e0",
+                backgroundColor: "#ec1cd7",
                 data: <?php echo $data4?>
             }]
         },

@@ -8,6 +8,7 @@ if (strlen($_SESSION['alogin']) == "") {
     require_once 'vendor/mobiledetect/mobiledetectlib/Mobile_Detect.php';
     $detect = new Mobile_Detect;
 
+
     $year = date("Y");
     $month = date("n");
     $date = date("d/m/Y");
@@ -149,11 +150,11 @@ if (strlen($_SESSION['alogin']) == "") {
                                                       AND BRANCH = 'BTC'
                                                       GROUP BY  SLMN_NAME
                                                       ORDER BY SLMN_NAME";
-/*
-                                        $my_file = fopen("qry_file_btc_admin.txt", "w") or die("Unable to open file!");
-                                        fwrite($my_file, $sql_daily);
-                                        fclose($my_file);
-*/
+                                        /*
+                                                                                $my_file = fopen("qry_file_btc_admin.txt", "w") or die("Unable to open file!");
+                                                                                fwrite($my_file, $sql_daily);
+                                                                                fclose($my_file);
+                                        */
 
                                         $statement_daily = $conn->query($sql_daily);
                                         $results_daily = $statement_daily->fetchAll(PDO::FETCH_ASSOC);
@@ -203,7 +204,7 @@ if (strlen($_SESSION['alogin']) == "") {
                             </div>
                         </div>
 
-                        <?php include('display_chart_tires_brand_admin.php'); ?>
+                        <?php include('display_chart_tires_brand_admin_test.php'); ?>
 
                     </div>
 

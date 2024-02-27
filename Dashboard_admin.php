@@ -87,6 +87,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                                       FROM ims_product_sale_sac 
                                                       WHERE DI_DATE = '" . $date . "'
                                                       AND BRANCH = 'BTC'
+                                                      AND ICCAT_CODE <> '6SAC08'  AND (DT_DOCCODE <> 'IS' OR DT_DOCCODE <> 'IIS' OR DT_DOCCODE <> 'IC')
                                                       GROUP BY  SLMN_NAME
                                                       ORDER BY SLMN_NAME";
 
@@ -147,13 +148,14 @@ if (strlen($_SESSION['alogin']) == "") {
                                                       WHERE DI_MONTH = '" . date("n") . "'
                                                       AND DI_YEAR = '" . date("Y") . "'
                                                       AND BRANCH = 'BTC'
+                                                      AND ICCAT_CODE <> '6SAC08'  AND (DT_DOCCODE <> 'IS' OR DT_DOCCODE <> 'IIS' OR DT_DOCCODE <> 'IC')
                                                       GROUP BY  SLMN_NAME
                                                       ORDER BY SLMN_NAME";
-/*
-                                        $my_file = fopen("qry_file_btc_admin.txt", "w") or die("Unable to open file!");
-                                        fwrite($my_file, $sql_daily);
-                                        fclose($my_file);
-*/
+                                        /*
+                                                                                $my_file = fopen("qry_file_btc_admin.txt", "w") or die("Unable to open file!");
+                                                                                fwrite($my_file, $sql_daily);
+                                                                                fclose($my_file);
+                                        */
 
                                         $statement_daily = $conn->query($sql_daily);
                                         $results_daily = $statement_daily->fetchAll(PDO::FETCH_ASSOC);

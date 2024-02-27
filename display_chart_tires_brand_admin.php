@@ -56,6 +56,7 @@
                                         WHERE PGROUP IN ('P1')                                        
                                         AND DI_YEAR = '" . $year . "'
                                         AND BRANCH = 'BTC' 
+                                        AND ICCAT_CODE <> '6SAC08'  AND (DT_DOCCODE <> 'IS' OR DT_DOCCODE <> 'IIS' OR DT_DOCCODE <> 'IC')
                                         GROUP BY BRN_CODE,BRN_NAME
                                         ORDER BY BRN_CODE ";
 

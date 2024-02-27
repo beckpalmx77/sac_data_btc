@@ -5,19 +5,20 @@ error_reporting(~0);
 
 include("../config/connect_db.php");
 
-$year = date("Y");
+//$year = 2024;
+//$month = 1;
 
+$year = date("Y");
 $month = date("n");
 
 $str_insert = "OK Insert";
 $str_update = "OK Update";
 
-$day = cal_days_in_month(CAL_GREGORIAN, $month, $year);
-
 //echo $year . " - " . $month . " | " . $day . " Count <br>";
 
-
 $branch = "BTC";
+
+$day = cal_days_in_month(CAL_GREGORIAN, $month, $year);
 
 for ($day_loop = 1; $day_loop <= $day; $day_loop++) {
 
@@ -48,14 +49,14 @@ for ($day_loop = 1; $day_loop <= $day; $day_loop++) {
 
         foreach ($results as $result) {
 
-            echo $branch . " | " . $day_loop . " | " . $result['TRD_G_KEYIN'];
+            echo $branch . " | " . $year . " | " . $month . " | " . $day_loop . " | " . $result['TRD_G_KEYIN'] . "\n\r";
             $total = $result['TRD_G_KEYIN'];
 
         }
 
     } else {
 
-        echo $branch . " | " . $day_loop . " = 0 ";
+        echo $branch . " | " . $year . " | " . $month . " | " . $day_loop . " = 0 " . "\n\r";
         $total = "0.00";
 
     }
@@ -79,7 +80,7 @@ for ($day_loop = 1; $day_loop <= $day; $day_loop++) {
         $query->execute();
         $lastInsertId = $conn->lastInsertId();
         if ($lastInsertId) {
-            echo " | " . $str_insert . "<br>";
+            echo " | " . $str_insert . "\n\r";
         }
     } else {
         $sql_update = "UPDATE ims_product_sale_sac_day SET total=:total , remark=:remark               
@@ -92,7 +93,6 @@ for ($day_loop = 1; $day_loop <= $day; $day_loop++) {
         $query->bindParam(':month', $month, PDO::PARAM_STR);
         $query->bindParam(':year', $year, PDO::PARAM_STR);
         $query->execute();
-        echo " | " . $str_update . "<br>";
+        echo " | " . $str_update . "\n\r";
     }
-
 }

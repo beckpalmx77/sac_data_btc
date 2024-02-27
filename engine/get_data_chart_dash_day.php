@@ -43,10 +43,11 @@ for ($day_loop = 1; $day_loop <= $current_day; $day_loop++) {
         WHERE year = '" . $year . "' AND month = '" . $month . "' AND BRANCH = '" . $branch . "'                  
         ORDER BY CAST(day AS UNSIGNED) ";
 
-
+/*
 $myfile = fopen("sql_get.txt", "w") or die("Unable to open file!");
 fwrite($myfile, $sql_get);
 fclose($myfile);
+*/
 
 
     $statement = $conn->query($sql_get);

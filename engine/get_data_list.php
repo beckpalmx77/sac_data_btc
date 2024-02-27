@@ -16,6 +16,7 @@ $sql_get = "
  FROM ims_product_sale_sac
  WHERE  PGROUP = '" . $p_group . "'  
  AND DI_YEAR = '" . $year . "'   
+ AND ICCAT_CODE <> '6SAC08'  AND (DT_DOCCODE <> 'IS' OR DT_DOCCODE <> 'IIS' OR DT_DOCCODE <> 'IC')
  GROUP BY BRN_NAME
  ORDER BY BRN_NAME 
 ";

@@ -17,7 +17,8 @@ $sql_get = "
  FROM ims_product_sale_sac
  WHERE DI_YEAR = '" . $year . "'   
  AND BRN_NAME = '" . $brn_name . "'
- AND BRANCH = 'BTC'
+ AND BRANCH = 'BTC'                                          
+ AND ICCAT_CODE <> '6SAC08'  AND (DT_DOCCODE <> 'IS' OR DT_DOCCODE <> 'IIS' OR DT_DOCCODE <> 'IC')
  GROUP BY  BRN_NAME,DI_MONTH,DI_MONTH_NAME 
  ORDER BY BRN_NAME,DI_MONTH
  ";

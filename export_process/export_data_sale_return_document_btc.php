@@ -46,7 +46,7 @@ $String_Sql = $select_query_daily . $select_query_daily_cond . " AND DI_DATE BET
     . $query_daily_cond_ext
     . $select_query_daily_order;
 
-//$my_file = fopen("D-CP.txt", "w") or die("Unable to open file!");
+//$my_file = fopen("sql_btc.txt", "w") or die("Unable to open file!");
 //fwrite($my_file, $String_Sql);
 //fclose($my_file);
 
@@ -58,7 +58,7 @@ $query->execute();
 while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
 
-    if ($row['SKU_CODE']!=="9002") {
+    //if ($row['SKU_CODE']!=="9002") {
 
         $data .= " " . $row['DI_DATE'] . ",";
         $data .= " " . $month_name . ",";
@@ -115,7 +115,7 @@ while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
         $data .= $TRD_G_KEYIN . ",";
         $data .= str_replace(",", "^", $row['WL_CODE']) . "\n";
 
-   }
+   //}
 
 }
 

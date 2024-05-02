@@ -17,7 +17,7 @@ $sql = "SELECT *,pm.dashboard_page as dashboard_page,slt.SLT_CODE,slt.SLT_NAME F
         left join ims_slteam slt  on slt.SLT_KEY = ims_user.manage_team_id         
         left join ims_permission pm on pm.permission_id = ims_user.account_type WHERE email=:username ";
 
-$query = $conn->prepare($sql);
+$query = $conn_btc->prepare($sql);
 $query->bindParam(':username', $username, PDO::PARAM_STR);
 $query->execute();
 $results = $query->fetchAll(PDO::FETCH_OBJ);

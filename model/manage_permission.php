@@ -12,7 +12,7 @@ if ($_POST["action"] === 'INIT') {
     $table_sub_name = $_POST["table_sub_name"];
 
     $sql_get_main = "SELECT * FROM " . $table_main_name . " ORDER BY sort " ;
-    $statement = $conn->query($sql_get_main);
+    $statement = $conn_btc->query($sql_get_main);
     $main_results = $statement->fetchAll(PDO::FETCH_ASSOC);
     $checkbox = "<ul>";
     foreach ($main_results as $main_result) {
@@ -20,7 +20,7 @@ if ($_POST["action"] === 'INIT') {
         $checkbox .= "<input type='checkbox' id='" . $main_result['main_menu_id'] . "' name='menu_main' value='" . $main_result['main_menu_id'] . "'>" . " " . "<b>". $main_result['main_menu_id'] . " " . $main_result['label'].  "</b><br/>" ;
 
         $sql_get_sub = "SELECT * FROM " . $table_sub_name . " WHERE main_menu_id = '" . $main_result['main_menu_id'] . "' ORDER BY main_menu_id,sub_menu_id " ;
-        $statement = $conn->query($sql_get_sub);
+        $statement = $conn_btc->query($sql_get_sub);
         $sub_results = $statement->fetchAll(PDO::FETCH_ASSOC);
         foreach ($sub_results as $sub_result) {
 
@@ -39,7 +39,7 @@ if ($_POST["action"] === 'LOAD_PERMISSION') {
     $return_arr = array();
 
     $sql_get = "SELECT * FROM ims_permission WHERE permission_id = '" . $permission_id . "'";
-    $statement = $conn->query($sql_get);
+    $statement = $conn_btc->query($sql_get);
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($results as $result) {
@@ -58,7 +58,7 @@ if ($_POST["action"] === 'CHECK_DUP') {
 
     $permission_id = $_POST["permission_id"];
     $sql_find = "SELECT * FROM ims_permission WHERE permission_id = '" . $permission_id . "'";
-    $nRows = $conn->query($sql_find)->fetchColumn();
+    $nRows = $conn_btc->query($sql_find)->fetchColumn();
     if ($nRows > 0) {
         echo "have";
     } else {
@@ -82,18 +82,18 @@ if ($_POST["action"] === 'SAVE') {
 
     if ($permission_id !=="" && $permission_detail !=="" && $main_list_value !=="" && $sub_list_value !=="") {
         $sql_find = "SELECT * FROM ims_permission WHERE permission_id = '" . $permission_id . "'";
-        $nRows = $conn->query($sql_find)->fetchColumn();
+        $nRows = $conn_btc->query($sql_find)->fetchColumn();
         if ($nRows <= 0) {
             $sql = "INSERT INTO ims_permission(permission_id,permission_detail,dashboard_page,main_menu,sub_menu) 
                     VALUES (:permission_id,:permission_detail,:dashboard_page,:main_list_value,:sub_list_value)";
-            $query = $conn->prepare($sql);
+            $query = $conn_btc->prepare($sql);
             $query->bindParam(':permission_id', $permission_id, PDO::PARAM_STR);
             $query->bindParam(':permission_detail', $permission_detail, PDO::PARAM_STR);
             $query->bindParam(':dashboard_page', $dashboard_page, PDO::PARAM_STR);
             $query->bindParam(':main_list_value', $main_list_value, PDO::PARAM_STR);
             $query->bindParam(':sub_list_value', $sub_list_value, PDO::PARAM_STR);
             $query->execute();
-            $lastInsertId = $conn->lastInsertId();
+            $lastInsertId = $conn_btc->lastInsertId();
 
             if ($lastInsertId) {
                 echo json_encode(array("statusCode"=>200));
@@ -105,7 +105,7 @@ if ($_POST["action"] === 'SAVE') {
             $sql_update = "UPDATE ims_permission SET permission_detail=:permission_detail,dashboard_page=:dashboard_page
             ,main_menu=:main_list_value,sub_menu=:sub_list_value            
             WHERE permission_id = :permission_id";
-            $query = $conn->prepare($sql_update);
+            $query = $conn_btc->prepare($sql_update);
             $query->bindParam(':permission_detail', $permission_detail, PDO::PARAM_STR);
             $query->bindParam(':dashboard_page', $dashboard_page, PDO::PARAM_STR);
             $query->bindParam(':main_list_value', $main_list_value, PDO::PARAM_STR);
@@ -146,19 +146,19 @@ if ($_POST["action"] === 'GET_PERMISSION') {
     }
 
 ## Total number of records without filtering
-    $stmt = $conn->prepare("SELECT COUNT(*) AS allcount FROM ims_permission ");
+    $stmt = $conn_btc->prepare("SELECT COUNT(*) AS allcount FROM ims_permission ");
     $stmt->execute();
     $records = $stmt->fetch();
     $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-    $stmt = $conn->prepare("SELECT COUNT(*) AS allcount FROM ims_permission WHERE 1 " . $searchQuery);
+    $stmt = $conn_btc->prepare("SELECT COUNT(*) AS allcount FROM ims_permission WHERE 1 " . $searchQuery);
     $stmt->execute($searchArray);
     $records = $stmt->fetch();
     $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
-    $stmt = $conn->prepare("SELECT * FROM ims_permission WHERE 1 " . $searchQuery
+    $stmt = $conn_btc->prepare("SELECT * FROM ims_permission WHERE 1 " . $searchQuery
         . " ORDER BY " . $columnName . " " . $columnSortOrder . " LIMIT :limit,:offset");
 
 // Bind values

@@ -35,7 +35,7 @@ include('config/lang.php');
 
         $sql = "SELECT sub_menu, main_menu, permission_detail FROM ims_permission where permission_id = '"
             . $permission_id . "' order by main_menu,sub_menu ";
-        $query = $conn->prepare($sql);
+        $query = $conn_btc->prepare($sql);
         $query->execute();
         $results = $query->fetchAll(PDO::FETCH_OBJ);
 
@@ -47,7 +47,7 @@ include('config/lang.php');
                 foreach ($main_menu_ids as $main_menu_id) {
 
                     $sql_main_menu = "SELECT * FROM menu_main where main_menu_id = '" . $main_menu_id . "' order by main_menu_id ";
-                    $query_main_menu = $conn->prepare($sql_main_menu);
+                    $query_main_menu = $conn_btc->prepare($sql_main_menu);
                     $query_main_menu->execute();
                     $result_mains = $query_main_menu->fetchAll(PDO::FETCH_OBJ);
 
@@ -79,7 +79,7 @@ include('config/lang.php');
 
                                         $sql_sub_menu = "SELECT * FROM menu_sub where main_menu_id = '" . $main_menu_id . "' and  sub_menu_id = '" . $sub_menus_id . "'"
                                             . " order by main_menu_id,sub_menu_id  ";
-                                        $query_sub_menu = $conn->prepare($sql_sub_menu);
+                                        $query_sub_menu = $conn_btc->prepare($sql_sub_menu);
                                         $query_sub_menu->execute();
                                         $result_subs = $query_sub_menu->fetchAll(PDO::FETCH_OBJ);
 

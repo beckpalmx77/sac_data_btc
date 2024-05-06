@@ -37,10 +37,10 @@ $month_arr=array(
     "12"=>"ธันวาคม"
 );
 
-$month = substr($_POST['doc_date_start'], 3, 2);
-$month_name = $month_arr[$month];
+//$month = substr($_POST['doc_date_start'], 3, 2);
+//$month_name = $month_arr[$month];
 
-$year = substr($_POST['doc_date_to'], 6, 4);
+//$year = substr($_POST['doc_date_to'], 6, 4);
 
 $String_Sql = $select_query_daily . $select_query_daily_cond . " AND DI_DATE BETWEEN '" . $doc_date_start . "' AND '" . $doc_date_to . "' "
     . $query_daily_cond_ext
@@ -59,6 +59,10 @@ while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
 
 
     //if ($row['SKU_CODE']!=="9002") {
+
+        $month = substr($row['DI_DATE'], 3, 2);
+        $month_name = $month_arr[$month];
+        $year = substr($row['DI_DATE'], 6, 4);
 
         $data .= " " . $row['DI_DATE'] . ",";
         $data .= " " . $month_name . ",";
@@ -100,11 +104,11 @@ while ($row = $query->fetch(PDO::FETCH_ASSOC)) {
             $TRD_G_KEYIN = "0";
         }
 
-
-        //$my_file = fopen("D-sac_str_return.txt", "w") or die("Unable to open file!");
-        //fwrite($my_file, "Data " . " = " . $TRD_QTY . " | " . $TRD_U_PRC . " | "
-        //. $TRD_DSC_KEYINV . " | " . $TRD_B_SELL . " | " . $TRD_B_VAT . " | " . $TRD_G_KEYIN);
-        //fclose($my_file);
+/*
+        $my_file = fopen("D-sac_str_return.txt", "w") or die("Unable to open file!");
+        fwrite($my_file, "Date Data " . " = " . $row['DI_DATE'] . " | date screen = " . $_POST['doc_date_start']);
+        fclose($my_file);
+*/
 
         $data .= $TRD_QTY . ",";
         $data .= $TRD_U_PRC . ",";

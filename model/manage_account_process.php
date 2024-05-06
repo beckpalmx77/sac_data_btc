@@ -14,7 +14,7 @@ if ($_POST["action"] === 'GET_DATA') {
     $return_arr = array();
 
     $sql_get = "SELECT * FROM ims_user WHERE id = " . $id;
-    $statement = $conn->query($sql_get);
+    $statement = $conn_btc->query($sql_get);
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($results as $result) {
@@ -49,13 +49,13 @@ if ($_POST["action"] === 'ADD') {
 
         $sql_find = "SELECT * FROM ims_user WHERE email = '" . $email . "'";
 
-        $nRows = $conn->query($sql_find)->fetchColumn();
+        $nRows = $conn_btc->query($sql_find)->fetchColumn();
         if ($nRows > 0) {
             echo 2;
         } else {
             $sql = "INSERT INTO ims_user(user_id,email,password,first_name,last_name,account_type,picture,status)
             VALUES (:user_id,:email,:password,:first_name,:last_name,:account_type,:picture,:status)";
-            $query = $conn->prepare($sql);
+            $query = $conn_btc->prepare($sql);
             $query->bindParam(':user_id', $user_id, PDO::PARAM_STR);
             $query->bindParam(':email', $email, PDO::PARAM_STR);
             $query->bindParam(':password', $password, PDO::PARAM_STR);
@@ -66,9 +66,9 @@ if ($_POST["action"] === 'ADD') {
             $query->bindParam(':status', $status, PDO::PARAM_STR);
             $query->execute();
 
-            $lastInsertId = $conn->lastInsertId();
+            $lastInsertId = $conn_btc->lastInsertId();
             if ($lastInsertId) {
-                Reorder_Record($conn, "ims_user");
+                Reorder_Record($conn_btc, "ims_user");
                 echo 1;
             } else {
                 echo 3;
@@ -90,12 +90,12 @@ if ($_POST["action"] === 'UPDATE') {
         $account_type = $_POST["account_type"];
         $picture = $account_type === 'admin' ? "img/icon/admin-001.png" : "img/icon/user-001.png";
         $sql_find = "SELECT * FROM ims_user WHERE email = '" . $email . "'";
-        $nRows = $conn->query($sql_find)->fetchColumn();
+        $nRows = $conn_btc->query($sql_find)->fetchColumn();
         if ($nRows > 0) {
             $sql_update = "UPDATE ims_user SET first_name=:first_name,last_name=:last_name,status=:status,account_type=:account_type
             ,picture=:picture
             WHERE id = :id";
-            $query = $conn->prepare($sql_update);
+            $query = $conn_btc->prepare($sql_update);
             $query->bindParam(':first_name', $first_name, PDO::PARAM_STR);
             $query->bindParam(':last_name', $last_name, PDO::PARAM_STR);
             $query->bindParam(':account_type', $account_type, PDO::PARAM_STR);
@@ -116,13 +116,13 @@ if ($_POST["action"] === 'DELETE') {
     $id = $_POST["id"];
 
     $sql_find = "SELECT * FROM ims_user WHERE id = " . $id;
-    $nRows = $conn->query($sql_find)->fetchColumn();
+    $nRows = $conn_btc->query($sql_find)->fetchColumn();
     if ($nRows > 0) {
         try {
             $sql = "DELETE FROM ims_user WHERE id = " . $id;
-            $query = $conn->prepare($sql);
+            $query = $conn_btc->prepare($sql);
             $query->execute();
-            Reorder_Record($conn, "ims_user");
+            Reorder_Record($conn_btc, "ims_user");
             echo $del_success;
         } catch (Exception $e) {
             echo 'Message: ' . $e->getMessage();
@@ -141,7 +141,7 @@ if ($_POST["action"] === 'CHG') {
         //fclose($myfile);
 
         $sql_update = "UPDATE ims_user SET password=:password WHERE email = :email";
-        $query = $conn->prepare($sql_update);
+        $query = $conn_btc->prepare($sql_update);
         $query->bindParam(':password', $password, PDO::PARAM_STR);
         $query->bindParam(':email', $email, PDO::PARAM_STR);
         $query->execute();
@@ -156,7 +156,7 @@ if ($_POST["action"] === 'CHL') {
         $lang = $_POST['lang'];
         $id = $_POST["login_id"];
         $sql_update = "UPDATE ims_user SET lang=:lang WHERE id = :id";
-        $query = $conn->prepare($sql_update);
+        $query = $conn_btc->prepare($sql_update);
         $query->bindParam(':lang', $lang, PDO::PARAM_STR);
         $query->bindParam(':id', $id, PDO::PARAM_STR);
         $query->execute();
@@ -194,19 +194,19 @@ if ($_POST["action"] === 'GET_ACCOUNT') {
 
 
 ## Total number of records without filtering
-    $stmt = $conn->prepare("SELECT COUNT(*) AS allcount FROM ims_user ");
+    $stmt = $conn_btc->prepare("SELECT COUNT(*) AS allcount FROM ims_user ");
     $stmt->execute();
     $records = $stmt->fetch();
     $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-    $stmt = $conn->prepare("SELECT COUNT(*) AS allcount FROM ims_user WHERE 1 " . $searchQuery);
+    $stmt = $conn_btc->prepare("SELECT COUNT(*) AS allcount FROM ims_user WHERE 1 " . $searchQuery);
     $stmt->execute($searchArray);
     $records = $stmt->fetch();
     $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
-    $stmt = $conn->prepare("SELECT * FROM ims_user WHERE 1 " . $searchQuery
+    $stmt = $conn_btc->prepare("SELECT * FROM ims_user WHERE 1 " . $searchQuery
         . " ORDER BY " . $columnName . " " . $columnSortOrder . " LIMIT :limit,:offset");
 
 // Bind values

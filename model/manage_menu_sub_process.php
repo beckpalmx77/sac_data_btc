@@ -13,7 +13,7 @@ if ($_POST["action"] === 'GET_DATA') {
     LEFT JOIN  menu_main 
     ON menu_main.main_menu_id =  menu_sub.main_menu_id
     WHERE menu_sub.id = " . $id;
-    $statement = $conn->query($sql_get);
+    $statement = $conn_btc->query($sql_get);
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($results as $result) {
@@ -35,7 +35,7 @@ if ($_POST["action"] === 'SEARCH') {
     if ($_POST["label"] !== '') {
         $label = $_POST["label"];
         $sql_find = "SELECT * FROM menu_sub WHERE label = '" . $label . "'";
-        $nRows = $conn->query($sql_find)->fetchColumn();
+        $nRows = $conn_btc->query($sql_find)->fetchColumn();
         if ($nRows > 0) {
             echo 2;
         } else {
@@ -49,7 +49,7 @@ if ($_POST["action"] === 'ADD') {
         $main_menu_id = $_POST["main_menu_id"];
         $prefix_menu_id = "S" . substr($_POST["main_menu_id"],3);
 
-        $last_id = LAST_ID_COND($conn, "menu_sub", $prefix_menu_id,'sub_menu_id');
+        $last_id = LAST_ID_COND($conn_btc, "menu_sub", $prefix_menu_id,'sub_menu_id');
 
         if ($last_id<10) {
             $sub_menu_id = $prefix_menu_id . sprintf('%02s', $last_id);
@@ -69,13 +69,13 @@ if ($_POST["action"] === 'ADD') {
         $privilege = $_POST["privilege"];
         $sql_find = "SELECT * FROM menu_sub WHERE label = '" . $label . "' AND sub_menu_id = '" . $sub_menu_id . "'";
 
-        $nRows = $conn->query($sql_find)->fetchColumn();
+        $nRows = $conn_btc->query($sql_find)->fetchColumn();
         if ($nRows > 0) {
             echo $dup;
         } else {
             $sql = "INSERT INTO menu_sub(sub_menu_id,main_menu_id,label,label_en,link,icon,privilege) 
             VALUES (:sub_menu_id,:main_menu_id,:label,:label_en,:link,:icon,:privilege)";
-            $query = $conn->prepare($sql);
+            $query = $conn_btc->prepare($sql);
             $query->bindParam(':sub_menu_id', $sub_menu_id, PDO::PARAM_STR);
             $query->bindParam(':main_menu_id', $main_menu_id, PDO::PARAM_STR);
             $query->bindParam(':label', $label, PDO::PARAM_STR);
@@ -85,7 +85,7 @@ if ($_POST["action"] === 'ADD') {
             $query->bindParam(':icon', $icon, PDO::PARAM_STR);
             $query->bindParam(':privilege', $privilege, PDO::PARAM_STR);
             $query->execute();
-            $lastInsertId = $conn->lastInsertId();
+            $lastInsertId = $conn_btc->lastInsertId();
 
             if ($lastInsertId) {
                 echo $save_success;
@@ -106,12 +106,12 @@ if ($_POST["action"] === 'UPDATE') {
         $icon = $_POST["icon"];
         $privilege = $_POST["privilege"];
         $sql_find = "SELECT * FROM menu_sub WHERE id = '" . $id . "'";
-        $nRows = $conn->query($sql_find)->fetchColumn();
+        $nRows = $conn_btc->query($sql_find)->fetchColumn();
         if ($nRows > 0) {
             $sql_update = "UPDATE menu_sub SET label=:label
             ,link=:link,icon=:icon,privilege=:privilege
             WHERE id = :id";
-            $query = $conn->prepare($sql_update);
+            $query = $conn_btc->prepare($sql_update);
             $query->bindParam(':label', $label, PDO::PARAM_STR);
             $query->bindParam(':link', $link, PDO::PARAM_STR);
             $query->bindParam(':icon', $icon, PDO::PARAM_STR);
@@ -127,11 +127,11 @@ if ($_POST["action"] === 'UPDATE') {
 if ($_POST["action"] === 'DELETE') {
     $id = $_POST["id"];
     $sql_find = "SELECT * FROM menu_sub WHERE id = " . $id;
-    $nRows = $conn->query($sql_find)->fetchColumn();
+    $nRows = $conn_btc->query($sql_find)->fetchColumn();
     if ($nRows > 0) {
         try {
             $sql = "DELETE FROM menu_sub WHERE id = " . $id;
-            $query = $conn->prepare($sql);
+            $query = $conn_btc->prepare($sql);
             $query->execute();
             echo $del_success;
         } catch (Exception $e) {
@@ -163,19 +163,19 @@ if ($_POST["action"] === 'GET_SUB_MENU') {
     }
 
 ## Total number of records without filtering
-    $stmt = $conn->prepare("SELECT COUNT(*) AS allcount FROM menu_sub ");
+    $stmt = $conn_btc->prepare("SELECT COUNT(*) AS allcount FROM menu_sub ");
     $stmt->execute();
     $records = $stmt->fetch();
     $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-    $stmt = $conn->prepare("SELECT COUNT(*) AS allcount FROM menu_sub WHERE 1 " . $searchQuery);
+    $stmt = $conn_btc->prepare("SELECT COUNT(*) AS allcount FROM menu_sub WHERE 1 " . $searchQuery);
     $stmt->execute($searchArray);
     $records = $stmt->fetch();
     $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
-    $stmt = $conn->prepare("SELECT * FROM menu_sub WHERE 1 " . $searchQuery
+    $stmt = $conn_btc->prepare("SELECT * FROM menu_sub WHERE 1 " . $searchQuery
         . " ORDER BY " . $columnName . " " . $columnSortOrder . " LIMIT :limit,:offset");
 
 // Bind values

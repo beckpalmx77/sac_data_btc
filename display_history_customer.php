@@ -82,14 +82,19 @@ if (strlen($_SESSION['alogin']) == "") {
                                                         <div class="row">
                                                             <br>
                                                             <div class="col-sm-12">
-                                                                <div class="form-group has-success">
+
+                                                                <input type="hidden" name="customer_name"
+                                                                       class="form-control"
+                                                                       id="customer_name" value="">
+
+                                                                <!--div class="form-group has-success">
                                                                     <label for="success" class="control-label">ค้นหาตามชื่อลูกค้า</label>
                                                                     <div class="">
                                                                         <input type="text" name="customer_name"
                                                                                class="form-control"
                                                                                id="customer_name" value="">
                                                                     </div>
-                                                                </div>
+                                                                </div-->
 
                                                                 <div class="form-group has-success">
                                                                     <label for="success" class="control-label">ค้นหาตามทะเบียนรถยนต์</label>
@@ -100,14 +105,18 @@ if (strlen($_SESSION['alogin']) == "") {
                                                                     </div>
                                                                 </div>
 
-                                                                <div class="form-group has-success">
+                                                                <input type="hidden" name="sku_name"
+                                                                       class="form-control"
+                                                                       id="sku_name" value="">
+
+                                                                <!--div class="form-group has-success">
                                                                     <label for="sku_name" class="control-label">ค้นหาตามสินค้า-บริการ</label>
                                                                     <div class="">
                                                                         <input type="text" name="sku_name"
                                                                                class="form-control"
                                                                                id="sku_name" value="">
                                                                     </div>
-                                                                </div>
+                                                                </div-->
 
                                                                 <br>
                                                                 <div class="row">

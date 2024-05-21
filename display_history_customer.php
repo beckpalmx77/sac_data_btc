@@ -78,58 +78,55 @@ if (strlen($_SESSION['alogin']) == "") {
                                             <div class="col-md-12 col-md-offset-2">
                                                 <div class="panel">
                                                     <div class="panel-body">
-                                                        <form id="myform" name="myform" action="" enctype="multipart/form-data">
-                                                        <div class="row">
-                                                            <br>
-                                                            <div class="col-sm-12">
-
-                                                                <input type="hidden" name="customer_name"
-                                                                       class="form-control"
-                                                                       id="customer_name" value="">
-
-                                                                <!--div class="form-group has-success">
-                                                                    <label for="success" class="control-label">ค้นหาตามชื่อลูกค้า</label>
-                                                                    <div class="">
-                                                                        <input type="text" name="customer_name"
-                                                                               class="form-control"
-                                                                               id="customer_name" value="">
-                                                                    </div>
-                                                                </div-->
-
-                                                                <div class="form-group has-success">
-                                                                    <label for="success" class="control-label">ค้นหาตามทะเบียนรถยนต์</label>
-                                                                    <div class="">
-                                                                        <input type="text" name="car_no"
-                                                                               class="form-control"
-                                                                               id="car_no" value="">
-                                                                    </div>
-                                                                </div>
-
-                                                                <input type="hidden" name="sku_name"
-                                                                       class="form-control"
-                                                                       id="sku_name" value="">
-
-                                                                <!--div class="form-group has-success">
-                                                                    <label for="sku_name" class="control-label">ค้นหาตามสินค้า-บริการ</label>
-                                                                    <div class="">
-                                                                        <input type="text" name="sku_name"
-                                                                               class="form-control"
-                                                                               id="sku_name" value="">
-                                                                    </div>
-                                                                </div-->
-
+                                                        <form id="myform" name="myform" action=""
+                                                              enctype="multipart/form-data">
+                                                            <div class="row">
                                                                 <br>
-                                                                <div class="row">
-                                                                    <div class="col-sm-12">
-                                                                        <button type="button" id="BtnSale"
-                                                                                name="BtnSale"
-                                                                                class="btn btn-primary mb-3">ค้นหา
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
+                                                                <div class="col-sm-12">
 
+                                                                    <div class="form-group has-success">
+                                                                        <label for="success" class="control-label">ค้นหาตามทะเบียนรถยนต์</label>
+                                                                        <div class="">
+                                                                            <input type="text" name="car_no"
+                                                                                   class="form-control"
+                                                                                   id="car_no" value="">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <div class="form-group has-success">
+                                                                        <label for="success" class="control-label">ค้นหาตามชื่อลูกค้า</label>
+                                                                        <div class="">
+                                                                            <input type="text" name="customer_name"
+                                                                                   class="form-control"
+                                                                                   id="customer_name" value="">
+                                                                        </div>
+                                                                    </div>
+
+                                                                    <input type="hidden" name="sku_name"
+                                                                           class="form-control"
+                                                                           id="sku_name" value="">
+
+                                                                    <!--div class="form-group has-success">
+                                                                        <label for="sku_name" class="control-label">ค้นหาตามสินค้า-บริการ</label>
+                                                                        <div class="">
+                                                                            <input type="text" name="sku_name"
+                                                                                   class="form-control"
+                                                                                   id="sku_name" value="">
+                                                                        </div>
+                                                                    </div-->
+
+                                                                    <br>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-12">
+                                                                            <button type="button" id="BtnSale"
+                                                                                    name="BtnSale"
+                                                                                    class="btn btn-primary mb-3">ค้นหา
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
                                                             </div>
-                                                        </div>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -201,7 +198,7 @@ if (strlen($_SESSION['alogin']) == "") {
 
             let customer_name = document.getElementById("customer_name").value;
             let car_no = document.getElementById("car_no").value;
-            
+
             document.forms['myform'].action = 'export_process/export_process_data_history_customer';
             document.forms['myform'].target = '_blank';
             document.forms['myform'].submit();
@@ -214,15 +211,15 @@ if (strlen($_SESSION['alogin']) == "") {
 
         $("#BtnExport-BAKA").click(function () {
 
-                $.ajax({
-                    type: 'post',
-                    url: 'export_process/export_process_data_history_customer.php',
-                    data: $('form').serialize(),
-                    success: function () {
-                        alert('Success');
-                    }
-                });
-                return true;
+            $.ajax({
+                type: 'post',
+                url: 'export_process/export_process_data_history_customer.php',
+                data: $('form').serialize(),
+                success: function () {
+                    alert('Success');
+                }
+            });
+            return true;
         });
 
     </script>

@@ -49,30 +49,74 @@ if (strlen($_SESSION['alogin']) == "") {
                                                               action="export_process/export_process_data_history_customer.php"
                                                               enctype="multipart/form-data">
 
-                                                            <div class="form-group has-success">
-                                                                <label for="success" class="control-label">ค้นหาตามทะเบียนรถยนต์</label>
-                                                                <div class="">
-                                                                    <input type="text" name="car_no"
-                                                                           class="form-control"
-                                                                           id="car_no" value="">
+                                                            <div class="modal-body">
+
+                                                                <div class="modal-body">
+                                                                    <div class="form-group row">
+                                                                        <div class="col-sm-12">
+                                                                            <div class="modal-body">
+                                                                                <div class="form-group row">
+
+                                                                                    <div class="col-sm-3">
+                                                                                        <label for="doc_date_start"
+                                                                                               class="control-label">จากวันที่</label>
+                                                                                        <i class="fa fa-calendar"
+                                                                                           aria-hidden="true"></i>
+                                                                                        <input type="text" class="form-control"
+                                                                                               id="doc_date_start"
+                                                                                               name="doc_date_start"
+                                                                                               required="required"
+                                                                                               readonly="true"
+                                                                                               placeholder="จากวันที่">
+                                                                                    </div>
+
+                                                                                    <div class="col-sm-3">
+                                                                                        <label for="doc_date_to"
+                                                                                               class="control-label">ถึงวันที่</label>
+                                                                                        <i class="fa fa-calendar"
+                                                                                           aria-hidden="true"></i>
+                                                                                        <input type="text" class="form-control"
+                                                                                               id="doc_date_to"
+                                                                                               name="doc_date_to"
+                                                                                               required="required"
+                                                                                               readonly="true"
+                                                                                               placeholder="ถึงวันที่">
+                                                                                    </div>
+
+
+                                                                                </div>
+                                                                            </div>
+
+                                                                            <label for="AR_CODE">เลือกลูกค้า :</label>
+                                                                            <input type="hidden" name="AR_CODE" id="AR_CODE"
+                                                                                   class="form-control">
+                                                                            <input type="hidden" name="AR_NAME" id="AR_NAME"
+                                                                                   class="form-control">
+                                                                            <select id='selCustomer' class='form-control'
+                                                                                    onchange="Onchange_AR_CODE();">
+                                                                                <option value='0'>- ค้นหารายชื่อลูกค้า -
+                                                                                </option>
+                                                                            </select>
+
+                                                                        </div>
+                                                                        <div class="col-sm-12">
+                                                                            <div class="form-group has-success">
+                                                                                <label for="success"
+                                                                                       class="control-label">ค้นหาตามทะเบียนรถยนต์</label>
+                                                                                <div class="">
+                                                                                    <input type="text" name="car_no"
+                                                                                           class="form-control"
+                                                                                           id="car_no" value="">
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+
+
+                                                                    </div>
                                                                 </div>
-                                                            </div>
 
-                                                            <div class="form-group has-success">
-                                                                <input type="hidden" name="AR_CODE" id="AR_CODE"
-                                                                       class="form-control">
-                                                                <input type="hidden" name="AR_NAME" id="AR_NAME"
-                                                                       class="form-control">
-                                                                <select id='selCustomer' class='form-control'
-                                                                        onchange="Onchange_AR_CODE();">
-                                                                    <option value='0'>- ค้นหารายชื่อลูกค้า -
-                                                                    </option>
-                                                                </select>
-                                                            </div>
 
-                                                            <input type="hidden" name="sku_name"
-                                                                   class="form-control"
-                                                                   id="sku_name" value="">
+                                                            </div>
 
                                                             <div class="modal-footer">
                                                                 <input type="hidden" name="id" id="id"/>

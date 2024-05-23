@@ -12,24 +12,23 @@ $filename = "Data_Customer_History-" . date('m/d/Y H:i:s', time()) . ".csv";
 $customer_name = $_POST["AR_NAME"];
 $car_no = $_POST["car_no"];
 
+$doc_date_start = substr($_POST['doc_date_start'], 6, 4) . "/" . substr($_POST['doc_date_start'], 3, 2) . "/" . substr($_POST['doc_date_start'], 0, 2);
+$doc_date_to = substr($_POST['doc_date_to'], 6, 4) . "/" . substr($_POST['doc_date_to'], 3, 2) . "/" . substr($_POST['doc_date_to'], 0, 2);
+
+$sql_where_ext = " AND DI_DATE BETWEEN '" . $doc_date_start . "' AND '" . $doc_date_to . "' " ;
+
 $sql_cmd = "";
 
 $data = "ลำดับที่,เลขที่เอกสาร,วันที่,ชื่อลูกค้า,หมายเลขโทรศัพท์,ทะเบียนรถ,ยี่ห้อรถ/รุ่น,เลขไมล์,รหัสสินค้า,ชื่อสินค้า,จำนวน,จำนวนเงิน(บาท)\n";
 
-$sql_data_select_main = "SELECT * FROM  ADDRBOOK WHERE ADDB_COMPANY LIKE '%" . $customer_name.  "%'";
+$sql_data_select_main = "SELECT * FROM  ADDRBOOK WHERE ADDB_COMPANY LIKE '" . $customer_name.  "'";
 
-$sql_where_ext = "";
-
-/*
-$myfile = fopen("qry_file_mysql_server1.txt", "w") or die("Unable to open file!");
-fwrite($myfile, $sql_data_select_main);
-fclose($myfile);
-*/
 
 $stmt_sqlsvr = $conn_sqlsvr->prepare($sql_data_select_main);
 $stmt_sqlsvr->execute();
 
 while ($result_sqlsvr_main = $stmt_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
+
 
 $sql_data_selectDetail =  " SELECT 
 TRANSTKD.TRD_KEY , 
@@ -66,8 +65,8 @@ TRANSTKD ,
 SKUMASTER
  
 WHERE
-ADDRBOOK.ADDB_COMPANY like '%" . $customer_name . "%' AND
-ADDRBOOK.ADDB_SEARCH like '%" . $car_no . "%' AND
+ADDRBOOK.ADDB_COMPANY ='" . $result_sqlsvr_main["ADDB_COMPANY"] . "' AND
+ADDRBOOK.ADDB_SEARCH = '" . $result_sqlsvr_main["ADDB_BRANCH"] . "' AND
 ADDRBOOK.ADDB_KEY = '" . $result_sqlsvr_main["ADDB_KEY"] . "' AND
 (ADDRBOOK.ADDB_KEY = ARADDRESS.ARA_ADDB) AND 
 (ARDETAIL.ARD_AR = ARADDRESS.ARA_AR) AND 
@@ -84,6 +83,7 @@ $order_by = " ORDER BY ADDRBOOK.ADDB_COMPANY , TRD_KEY DESC , SKUMASTER.SKU_CODE
     fwrite($myfile, $sql_string);
     fclose($myfile);
 */
+
     $statement_sqlsvr = $conn_sqlsvr->prepare($sql_string);
     $statement_sqlsvr->execute();
     $line = 0 ;

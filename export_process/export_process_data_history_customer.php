@@ -16,22 +16,7 @@ $sql_cmd = "";
 
 $data = "ลำดับที่,เลขที่เอกสาร,วันที่,ชื่อลูกค้า,หมายเลขโทรศัพท์,ทะเบียนรถ,ยี่ห้อรถ/รุ่น,เลขไมล์,รหัสสินค้า,ชื่อสินค้า,จำนวน,จำนวนเงิน(บาท)\n";
 
-$sql_data_select_main = "SELECT * FROM  ADDRBOOK WHERE ADDB_COMPANY LIKE '%" . $customer_name.  "%'";
-
-$sql_where_ext = "";
-
-/*
-$myfile = fopen("qry_file_mysql_server1.txt", "w") or die("Unable to open file!");
-fwrite($myfile, $sql_data_select_main);
-fclose($myfile);
-*/
-
-$stmt_sqlsvr = $conn_sqlsvr->prepare($sql_data_select_main);
-$stmt_sqlsvr->execute();
-
-while ($result_sqlsvr_main = $stmt_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
-
-$sql_data_selectDetail =  " SELECT 
+$sql_data_selectDetail =  "  SELECT 
 TRANSTKD.TRD_KEY , 
 ADDRBOOK.ADDB_KEY , 
 ADDRBOOK.ADDB_BRANCH , 
@@ -67,8 +52,8 @@ TRANSTKD ,
 SKUMASTER
  
 WHERE
-ADDRBOOK.ADDB_COMPANY like '%" . $customer_name . "%' AND
-ADDRBOOK.ADDB_BRANCH like '%" . $car_no . "%' AND
+ADDRBOOK.ADDB_COMPANY like '%". $customer_name . "%' AND
+ADDRBOOK.ADDB_BRANCH like '%". $car_no . "%' AND
 (ADDRBOOK.ADDB_KEY = ARADDRESS.ARA_ADDB) AND 
 TRANSTKH.TRH_SHIP_ADDB = ADDRBOOK.ADDB_KEY AND 
 (ARDETAIL.ARD_AR = ARADDRESS.ARA_AR) AND 
@@ -77,18 +62,18 @@ TRANSTKH.TRH_SHIP_ADDB = ADDRBOOK.ADDB_KEY AND
 (TRANSTKH.TRH_KEY = TRANSTKD.TRD_TRH) AND 
 (TRANSTKD.TRD_SKU = SKUMASTER.SKU_KEY) ";
 
-$order_by = " ORDER BY ADDRBOOK.ADDB_COMPANY , TRD_KEY DESC , SKUMASTER.SKU_CODE ";
+$order_by = " ORDER BY ADDRBOOK.ADDB_COMPANY , ADDRBOOK.ADDB_BRANCH , TRANSTKD.TRD_KEY , SKUMASTER.SKU_CODE ";
 
 // ADDRBOOK.ADDB_KEY = '" . $result_sqlsvr_main["ADDB_KEY"] . "' AND
 
 
-    $sql_string = $sql_data_selectDetail . $sql_where_ext . $order_by ;
+    $sql_string = $sql_data_selectDetail . $order_by ;
 
-    /*
+/*
     $myfile = fopen("qry_file_mysql_server2.txt", "w") or die("Unable to open file!");
     fwrite($myfile, $sql_string);
     fclose($myfile);
-    */
+*/
 
     $statement_sqlsvr = $conn_sqlsvr->prepare($sql_string);
     $statement_sqlsvr->execute();
@@ -114,7 +99,7 @@ $order_by = " ORDER BY ADDRBOOK.ADDB_COMPANY , TRD_KEY DESC , SKUMASTER.SKU_CODE
 
     }
 
-}
+
 
 
 // $data = iconv("utf-8", "tis-620", $data);

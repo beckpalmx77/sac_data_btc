@@ -67,9 +67,9 @@ SKUMASTER
  
 WHERE
 ADDRBOOK.ADDB_COMPANY like '%" . $customer_name . "%' AND
-ADDRBOOK.ADDB_SEARCH like '%" . $car_no . "%' AND
-ADDRBOOK.ADDB_KEY = '" . $result_sqlsvr_main["ADDB_KEY"] . "' AND
+ADDRBOOK.ADDB_BRANCH like '%" . $car_no . "%' AND
 (ADDRBOOK.ADDB_KEY = ARADDRESS.ARA_ADDB) AND 
+TRANSTKH.TRH_SHIP_ADDB = ADDRBOOK.ADDB_KEY AND 
 (ARDETAIL.ARD_AR = ARADDRESS.ARA_AR) AND 
 (DOCINFO.DI_KEY = ARDETAIL.ARD_DI) AND 
 (DOCINFO.DI_KEY = TRANSTKH.TRH_DI) AND 
@@ -78,12 +78,17 @@ ADDRBOOK.ADDB_KEY = '" . $result_sqlsvr_main["ADDB_KEY"] . "' AND
 
 $order_by = " ORDER BY ADDRBOOK.ADDB_COMPANY , TRD_KEY DESC , SKUMASTER.SKU_CODE ";
 
+// ADDRBOOK.ADDB_KEY = '" . $result_sqlsvr_main["ADDB_KEY"] . "' AND
+
+
     $sql_string = $sql_data_selectDetail . $sql_where_ext . $order_by ;
-/*
+
+    /*
     $myfile = fopen("qry_file_mysql_server2.txt", "w") or die("Unable to open file!");
     fwrite($myfile, $sql_string);
     fclose($myfile);
-*/
+    */
+
     $statement_sqlsvr = $conn_sqlsvr->prepare($sql_string);
     $statement_sqlsvr->execute();
     $line = 0 ;

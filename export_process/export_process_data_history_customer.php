@@ -12,6 +12,8 @@ $filename = "Data_Customer_History-" . date('m/d/Y H:i:s', time()) . ".csv";
 $customer_name = $_POST["AR_NAME"];
 $car_no = $_POST["car_no"];
 
+$addb_phone = "";
+
 $sql_cmd = "";
 
 $data = "ลำดับที่,เลขที่เอกสาร,วันที่,ชื่อลูกค้า,หมายเลขโทรศัพท์,ทะเบียนรถ,ยี่ห้อรถ/รุ่น,เลขไมล์,รหัสสินค้า,ชื่อสินค้า,จำนวน,จำนวนเงิน(บาท)\n";
@@ -82,13 +84,24 @@ $order_by = " ORDER BY ADDRBOOK.ADDB_COMPANY , ADDRBOOK.ADDB_BRANCH , TRANSTKD.T
 
         $line++;
 
+        $sql_cust_string = "
+        SELECT ADDRBOOK.ADDB_PHONE,ARADDRESS.ARA_ADDB
+        FROM ARADDRESS
+        LEFT JOIN ADDRBOOK ON ADDRBOOK.ADDB_KEY = ARADDRESS.ARA_ADDB
+        WHERE ADDRBOOK.ADDB_COMPANY LIKE '%" . $result_sqlsvr_detail['ADDB_COMPANY'] . "%' AND ARA_DEFAULT = 'Y' ";
+        $statement_cust_sqlsvr = $conn_sqlsvr->prepare($sql_cust_string);
+        $statement_cust_sqlsvr->execute();
+        while ($result_sqlsvr_cust = $statement_cust_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
+            $addb_phone = "^" . $result_sqlsvr_cust['ADDB_PHONE'];
+        }
+
         $TRD_QTY = $result_sqlsvr_detail['TRD_Q_FREE'] > 0 ? $result_sqlsvr_detail['TRD_QTY'] = $result_sqlsvr_detail['TRD_QTY'] + $result_sqlsvr_detail['TRD_Q_FREE'] : $result_sqlsvr_detail['TRD_QTY'];
 
         $data .= $line . ",";
         $data .= $result_sqlsvr_detail['DI_REF'] . ",";
         $data .= $result_sqlsvr_detail['DI_DAY'] . "/" . $result_sqlsvr_detail['DI_MONTH'] . "/" . $result_sqlsvr_detail['DI_YEAR'] . ",";
         $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_COMPANY']) . ",";
-        $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_PHONE']===null?"-":$result_sqlsvr_detail['ADDB_PHONE']) . ",";
+        $data .= str_replace(",", "^", $addb_phone===null?"-":$addb_phone) . ",";
         $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_SEARCH']) . ",";
         $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_ADDB_1']) . "  " . str_replace(",", "^", $result_sqlsvr_detail['ADDB_ADDB_2']) . ",";
         $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_ADDB_3']) . ",";

@@ -52,6 +52,8 @@ if ($_POST["action"] === 'GET_HISTORY_DETAIL') {
     $customer_name = $_POST['customer_name'];
     $sku_name = $_POST['sku_name'];
 
+    $addb_phone = "";
+
     $sql_data_select = " SELECT 
 TRANSTKD.TRD_KEY , 
 ADDRBOOK.ADDB_KEY , 
@@ -141,11 +143,22 @@ ORDER BY ADDRBOOK.ADDB_COMPANY , TRD_KEY DESC , SKUMASTER.SKU_CODE ";
             $TRD_QTY = $row['TRD_Q_FREE'] > 0 ? $row['TRD_QTY'] = $row['TRD_QTY'] + $row['TRD_Q_FREE'] : $row['TRD_QTY'];
             $line_no++;
 
+            $sql_cust_string = "
+            SELECT ADDRBOOK.ADDB_PHONE,ARADDRESS.ARA_ADDB
+            FROM ARADDRESS
+            LEFT JOIN ADDRBOOK ON ADDRBOOK.ADDB_KEY = ARADDRESS.ARA_ADDB
+            WHERE ADDRBOOK.ADDB_COMPANY LIKE '%" . $row['ADDB_COMPANY'] . "%' AND ARADDRESS.ARA_DEFAULT = 'Y' ";
+            $statement_cust_sqlsvr = $conn_sqlsvr->prepare($sql_cust_string);
+            $statement_cust_sqlsvr->execute();
+            while ($result_sqlsvr_cust = $statement_cust_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
+                $addb_phone = $result_sqlsvr_cust['ADDB_PHONE'];
+            }
+
             $data[] = array(
                 "line_no" => $line_no,
                 "DI_REF" => $row['DI_REF'],
                 "DI_DATE" => $row['DI_DAY'] . "/" . $row['DI_MONTH'] . "/" . $row['DI_YEAR'],
-                "ADDB_COMPANY" => $row['ADDB_COMPANY'] . "  " . $row['ADDB_PHONE'],
+                "ADDB_COMPANY" => $row['ADDB_COMPANY'] . "  " . $addb_phone,
                 "ADDB_SEARCH" => $row['ADDB_SEARCH'],
                 "ADDB_ADDB" => $row['ADDB_ADDB_1'] . "-" . $row['ADDB_ADDB_2'],
                 "KM" => $row['ADDB_ADDB_3'],

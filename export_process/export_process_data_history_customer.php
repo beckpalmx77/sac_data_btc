@@ -102,7 +102,7 @@ $order_by = " ORDER BY ADDRBOOK.ADDB_COMPANY , ADDRBOOK.ADDB_BRANCH , TRANSTKD.T
         $data .= $result_sqlsvr_detail['DI_DAY'] . "/" . $result_sqlsvr_detail['DI_MONTH'] . "/" . $result_sqlsvr_detail['DI_YEAR'] . ",";
         $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_COMPANY']) . ",";
         $data .= str_replace(",", "^", $addb_phone===null?"-":$addb_phone) . ",";
-        $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_SEARCH']) . ",";
+        $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_SEARCH']===null?"-":$result_sqlsvr_detail['ADDB_SEARCH']) . ",";
         $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_ADDB_1']) . "  " . str_replace(",", "^", $result_sqlsvr_detail['ADDB_ADDB_2']) . ",";
         $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_ADDB_3']) . ",";
         $data .= str_replace(",", "^", $result_sqlsvr_detail['SKU_CODE']) . ",";

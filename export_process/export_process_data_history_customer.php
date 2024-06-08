@@ -12,6 +12,9 @@ $filename = "Data_Customer_History-" . date('m/d/Y H:i:s', time()) . ".csv";
 $customer_name = $_POST["AR_NAME"];
 $car_no = $_POST["car_no"];
 
+$doc_date_start = substr($_POST['doc_date_start'], 6, 4) . "/" . substr($_POST['doc_date_start'], 3, 2) . "/" . substr($_POST['doc_date_start'], 0, 2);
+$doc_date_to = substr($_POST['doc_date_to'], 6, 4) . "/" . substr($_POST['doc_date_to'], 3, 2) . "/" . substr($_POST['doc_date_to'], 0, 2);
+
 $addb_phone = "";
 
 $sql_cmd = "";
@@ -62,7 +65,7 @@ TRANSTKH.TRH_SHIP_ADDB = ADDRBOOK.ADDB_KEY AND
 (DOCINFO.DI_KEY = ARDETAIL.ARD_DI) AND 
 (DOCINFO.DI_KEY = TRANSTKH.TRH_DI) AND 
 (TRANSTKH.TRH_KEY = TRANSTKD.TRD_TRH) AND 
-(TRANSTKD.TRD_SKU = SKUMASTER.SKU_KEY) ";
+(TRANSTKD.TRD_SKU = SKUMASTER.SKU_KEY) AND DOCINFO.DI_DATE BETWEEN '" . $doc_date_start . "' AND '" . $doc_date_to . "' ";
 
 $order_by = " ORDER BY ADDRBOOK.ADDB_COMPANY , ADDRBOOK.ADDB_BRANCH , TRANSTKD.TRD_KEY , SKUMASTER.SKU_CODE ";
 

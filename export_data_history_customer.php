@@ -49,6 +49,37 @@ if (strlen($_SESSION['alogin']) == "") {
                                                               action="export_process/export_process_data_history_customer.php"
                                                               enctype="multipart/form-data">
 
+                                                            <div class="form-group row">
+
+                                                                <div class="col-sm-3">
+                                                                    <label for="doc_date_start"
+                                                                           class="control-label">จากวันที่</label>
+                                                                    <i class="fa fa-calendar"
+                                                                       aria-hidden="true"></i>
+                                                                    <input type="text" class="form-control"
+                                                                           id="doc_date_start"
+                                                                           name="doc_date_start"
+                                                                           required="required"
+                                                                           readonly="true"
+                                                                           placeholder="จากวันที่">
+                                                                </div>
+
+                                                                <div class="col-sm-3">
+                                                                    <label for="doc_date_to"
+                                                                           class="control-label">ถึงวันที่</label>
+                                                                    <i class="fa fa-calendar"
+                                                                       aria-hidden="true"></i>
+                                                                    <input type="text" class="form-control"
+                                                                           id="doc_date_to"
+                                                                           name="doc_date_to"
+                                                                           required="required"
+                                                                           readonly="true"
+                                                                           placeholder="ถึงวันที่">
+                                                                </div>
+
+
+                                                            </div>
+
                                                             <div class="form-group has-success">
                                                                 <label for="success" class="control-label">ค้นหาตามทะเบียนรถยนต์</label>
                                                                 <div class="">

@@ -2,7 +2,7 @@
 session_start();
 error_reporting(0);
 
-include('../config/connect_db_btc.php');
+include('../config/connect_db.php');
 include('../config/lang.php');
 include('../util/record_util.php');
 
@@ -10,7 +10,7 @@ if ($_POST["action"] === 'GET_DATA') {
     $id = $_POST["id"];
     $return_arr = array();
     $sql_get = "SELECT * FROM menu_main WHERE id = " . $id;
-    $statement = $conn_btc->query($sql_get);
+    $statement = $conn->query($sql_get);
     $results = $statement->fetchAll(PDO::FETCH_ASSOC);
 
     foreach ($results as $result) {
@@ -32,7 +32,7 @@ if ($_POST["action"] === 'SEARCH') {
     if ($_POST["label"] !== '') {
         $label = $_POST["label"];
         $sql_find = "SELECT * FROM menu_main WHERE label = '" . $label . "'";
-        $nRows = $conn_btc->query($sql_find)->fetchColumn();
+        $nRows = $conn->query($sql_find)->fetchColumn();
         if ($nRows > 0) {
             echo 2;
         } else {
@@ -43,7 +43,7 @@ if ($_POST["action"] === 'SEARCH') {
 
 if ($_POST["action"] === 'ADD') {
     if ($_POST["label"] !== '') {
-        $main_menu_id = "M" . sprintf('%03s', LAST_ID($conn_btc, "menu_main", 'id'));
+        $main_menu_id = "M" . sprintf('%03s', LAST_ID($conn, "menu_main", 'id'));
         $label = $_POST["label"];
         $link = $_POST["link"];
         $icon = $_POST["icon"];
@@ -52,13 +52,21 @@ if ($_POST["action"] === 'ADD') {
         $privilege = $_POST["privilege"];
         $sql_find = "SELECT * FROM menu_main WHERE label = '" . $label . "'";
 
-        $nRows = $conn_btc->query($sql_find)->fetchColumn();
+        $nRows = $conn->query($sql_find)->fetchColumn();
         if ($nRows > 0) {
             echo $dup;
         } else {
-            $sql = "INSERT INTO menu_main(main_menu_id,label,link,icon,data_target,aria_controls,privilege) 
-            VALUES (:main_menu_id,:label,:link,:icon,:data_target,:aria_controls,:privilege)";
-            $query = $conn_btc->prepare($sql);
+
+            $sql_get = "SELECT MAX(sort) AS last_sort FROM menu_main ";
+            $statement = $conn->query($sql_get);
+            $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+            foreach ($results as $result) {
+                $last_sort = intval($result['last_sort']) + 1 ;
+            }
+
+            $sql = "INSERT INTO menu_main(main_menu_id,label,link,icon,data_target,aria_controls,sort,privilege) 
+            VALUES (:main_menu_id,:label,:link,:icon,:data_target,:aria_controls,:last_sort,:privilege)";
+            $query = $conn->prepare($sql);
             $query->bindParam(':main_menu_id', $main_menu_id, PDO::PARAM_STR);
             $query->bindParam(':label', $label, PDO::PARAM_STR);
             $query->bindParam(':link', $link, PDO::PARAM_STR);
@@ -66,9 +74,10 @@ if ($_POST["action"] === 'ADD') {
             $query->bindParam(':data_target', $data_target, PDO::PARAM_STR);
             $query->bindParam(':aria_controls', $aria_controls, PDO::PARAM_STR);
             $query->bindParam(':icon', $icon, PDO::PARAM_STR);
+            $query->bindParam(':last_sort', $last_sort, PDO::PARAM_STR);
             $query->bindParam(':privilege', $privilege, PDO::PARAM_STR);
             $query->execute();
-            $lastInsertId = $conn_btc->lastInsertId();
+            $lastInsertId = $conn->lastInsertId();
 
             if ($lastInsertId) {
                 echo $save_success;
@@ -91,12 +100,12 @@ if ($_POST["action"] === 'UPDATE') {
         $aria_controls = $_POST["aria_controls"];
         $privilege = $_POST["privilege"];
         $sql_find = "SELECT * FROM menu_main WHERE id = '" . $id . "'";
-        $nRows = $conn_btc->query($sql_find)->fetchColumn();
+        $nRows = $conn->query($sql_find)->fetchColumn();
         if ($nRows > 0) {
             $sql_update = "UPDATE menu_main SET label=:label
             ,link=:link,icon=:icon,data_target=:data_target,aria_controls=:aria_controls,privilege=:privilege
             WHERE id = :id";
-            $query = $conn_btc->prepare($sql_update);
+            $query = $conn->prepare($sql_update);
             $query->bindParam(':label', $label, PDO::PARAM_STR);
             $query->bindParam(':link', $link, PDO::PARAM_STR);
             $query->bindParam(':icon', $icon, PDO::PARAM_STR);
@@ -114,11 +123,11 @@ if ($_POST["action"] === 'UPDATE') {
 if ($_POST["action"] === 'DELETE') {
     $id = $_POST["id"];
     $sql_find = "SELECT * FROM menu_main WHERE id = " . $id;
-    $nRows = $conn_btc->query($sql_find)->fetchColumn();
+    $nRows = $conn->query($sql_find)->fetchColumn();
     if ($nRows > 0) {
         try {
             $sql = "DELETE FROM menu_main WHERE id = " . $id;
-            $query = $conn_btc->prepare($sql);
+            $query = $conn->prepare($sql);
             $query->execute();
             echo $del_success;
         } catch (Exception $e) {
@@ -150,19 +159,19 @@ if ($_POST["action"] === 'GET_MAIN_MENU') {
     }
 
 ## Total number of records without filtering
-    $stmt = $conn_btc->prepare("SELECT COUNT(*) AS allcount FROM menu_main ");
+    $stmt = $conn->prepare("SELECT COUNT(*) AS allcount FROM menu_main ");
     $stmt->execute();
     $records = $stmt->fetch();
     $totalRecords = $records['allcount'];
 
 ## Total number of records with filtering
-    $stmt = $conn_btc->prepare("SELECT COUNT(*) AS allcount FROM menu_main WHERE 1 " . $searchQuery);
+    $stmt = $conn->prepare("SELECT COUNT(*) AS allcount FROM menu_main WHERE 1 " . $searchQuery);
     $stmt->execute($searchArray);
     $records = $stmt->fetch();
     $totalRecordwithFilter = $records['allcount'];
 
 ## Fetch records
-    $stmt = $conn_btc->prepare("SELECT * FROM menu_main WHERE 1 " . $searchQuery
+    $stmt = $conn->prepare("SELECT * FROM menu_main WHERE 1 " . $searchQuery
         . " ORDER BY " . $columnName . " " . $columnSortOrder . " LIMIT :limit,:offset");
 
 // Bind values

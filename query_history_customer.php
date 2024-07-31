@@ -46,7 +46,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <div class="panel-body">
 
                                                         <form id="from_data" method="post"
-                                                              action="export_process/export_process_data_history_customer.php"
+                                                              action="model/query_process_data_history_customer.php"
                                                               enctype="multipart/form-data">
 
                                                             <div class="form-group row">
@@ -111,10 +111,14 @@ if (strlen($_SESSION['alogin']) == "") {
                                                                        id="save_status"/>
                                                                 <input type="hidden" name="action" id="action"
                                                                        value=""/>
-                                                                <button type="submit" class="btn btn-success"
-                                                                        id="btnExport"> Export <i
+                                                                <button type="submit" class="btn btn-primary"
+                                                                        id="btnQuery"> ค้นหาข้อมูล <i
                                                                             class="fa fa-check"></i>
                                                                 </button>
+                                                                <!--button type="button" class="btn btn-success"
+                                                                        id="btnExport"> Export <i
+                                                                            class="fa fa-check"></i>
+                                                                </button-->
                                                             </div>
 
 
@@ -262,7 +266,16 @@ if (strlen($_SESSION['alogin']) == "") {
         }
     </script>
 
-
+    <script>
+        $(document).ready(function () {
+            $('#doc_date_to').datepicker({
+                format: "dd-mm-yyyy",
+                todayHighlight: true,
+                language: "th",
+                autoclose: true
+            });
+        });
+    </script>
 
 
     </body>

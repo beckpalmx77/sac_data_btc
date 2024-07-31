@@ -94,7 +94,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                                                        class="form-control">
                                                                 <input type="hidden" name="AR_NAME" id="AR_NAME"
                                                                        class="form-control">
-                                                                <select id='selCustomer' class='form-control'
+                                                                <select id='selCustomer' class="form-control" style="width: 100%;"
                                                                         onchange="Onchange_AR_CODE();">
                                                                     <option value='0'>- ค้นหารายชื่อลูกค้า -
                                                                     </option>
@@ -234,7 +234,7 @@ if (strlen($_SESSION['alogin']) == "") {
                     url: "model/get_customer_ajax.php",
                     type: "post",
                     dataType: 'json',
-                    delay: 250,
+                    delay: 200,
                     data: function (params) {
                         return {
                             searchTerm: params.term // search term

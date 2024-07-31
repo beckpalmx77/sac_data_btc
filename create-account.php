@@ -1,4 +1,5 @@
 <?php
+include('config/connect_db_btc.php');
 include('includes/Header.php');
 if (strlen($_SESSION['alogin']) == "") {
     header("Location: index.php");
@@ -92,25 +93,12 @@ if (strlen($_SESSION['alogin']) == "") {
                                                                 <label class="control-label" for="select-testing">ประเภทผู้ใช้
                                                                     Account Type (Administrator = สิทธิ์จัดการระบบ)</label>
 
-                                                                <div class=”form-group”>
-                                                                    <select id="account_type" name="account_type"
-                                                                            class="form-control" data-live-search="true"
-                                                                            title="Please select">
-                                                                        <option
-                                                                                value="<?php echo htmlentities($result->permission_id); ?>"
-                                                                                selected><?php echo htmlentities($result->permission_detail); ?></option>
-                                                                        <?php $sql1 = "SELECT * from ims_permission";
-                                                                        $query1 = $conn->prepare($sql1);
-                                                                        $query1->execute();
-                                                                        $results1 = $query1->fetchAll(PDO::FETCH_OBJ);
-                                                                        if ($query1->rowCount() > 0) {
-                                                                            foreach ($results1 as $result1) { ?>
-                                                                                <option
-                                                                                        value="<?php echo htmlentities($result1->permission_id); ?>"><?php echo htmlentities($result1->permission_detail); ?></option>
-                                                                            <?php }
-                                                                        } ?>
-                                                                    </select>
+                                                                <select id="mySelect">
+                                                                    <option value="">Select an option</option>
+                                                                </select>
 
+                                                                <div class=”form-group”>
+                                                                    <input type="text" class="form-control" id="account_type" name="account_type" value="admin">
                                                                 </div>
                                                                 <span class="help-block"></span>
                                                             </div>
@@ -248,6 +236,32 @@ if (strlen($_SESSION['alogin']) == "") {
             }
         });
 
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $.ajax({
+                url: 'model/fetch_options.php',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    if (data.error) {
+                        console.error('Error:', data.error);
+                    } else {
+                        // Populate the select element with options
+                        $.each(data, function(index, permission) {
+                            $('#mySelect').append($('<option>', {
+                                value: permission.permission_id,
+                                text: permission.permission_detail
+                            }));
+                        });
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('AJAX Error:', status, error);
+                }
+            });
+        });
     </script>
 
     </body>

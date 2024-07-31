@@ -15,7 +15,7 @@ $sql_get = "
  SELECT BRANCH,DAY(STR_TO_DATE(DI_DATE,'%d/%m/%Y')) as DI_DATE,DATE(STR_TO_DATE(DI_DATE,'%d/%m/%Y')) as D_DI_DATE,sum(CAST(TRD_G_KEYIN AS DECIMAL(10,2))) as  TRD_G_KEYIN
  FROM ims_product_sale_sac 
  WHERE DI_YEAR = '" . $year . "'   AND DI_MONTH = '" . $month . "'
- and BRANCH like '%" . $branch . "'
+ AND BRANCH = 'BTC'
  GROUP BY  BRANCH,DI_DATE,D_DI_DATE
  ORDER BY STR_TO_DATE(DI_DATE,'%d/%m/%Y')
 ";

@@ -9,7 +9,6 @@ if ($_SESSION['alogin'] != '') {
     $_SESSION['alogin'] = '';
 }
 
-
 $username = $_POST['username'];
 $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
 $remember = $_POST['remember'];

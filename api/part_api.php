@@ -1,5 +1,5 @@
 <?php
-include('../config/connect_pg_db.php');
+include('../config/connect_pg_dbs.php');
 include('../config/lang.php');
 
 

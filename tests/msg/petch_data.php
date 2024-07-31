@@ -1,5 +1,5 @@
 <?php
-include "../../config/connect_pg_db.php";
+include "../../config/connect_pg_dbs.php";
 
 $statement = $conn->query('SELECT DI_REF, DI_DATE, DI_UPD_DATE '
     . 'FROM SC_DOCINFO '

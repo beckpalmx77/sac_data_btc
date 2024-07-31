@@ -1,5 +1,6 @@
 <?php
 include('includes/Header.php');
+include('config/connect_db_btc.php');
 if (strlen($_SESSION['alogin']) == "") {
     header("Location: index.php");
 } else {
@@ -128,7 +129,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                                 value="<?php echo htmlentities($result->permission_id); ?>"
                                                 selected><?php echo htmlentities($result->permission_detail); ?></option>
                                         <?php $sql1 = "SELECT * from ims_permission";
-                                        $query1 = $conn->prepare($sql1);
+                                        $query1 = $conn_btc->prepare($sql1);
                                         $query1->execute();
                                         $results1 = $query1->fetchAll(PDO::FETCH_OBJ);
                                         if ($query1->rowCount() > 0) {

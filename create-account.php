@@ -92,14 +92,8 @@ if (strlen($_SESSION['alogin']) == "") {
                                                             <div class="form-group has-success">
                                                                 <label class="control-label" for="select-testing">ประเภทผู้ใช้
                                                                     Account Type (Administrator = สิทธิ์จัดการระบบ)</label>
-
-                                                                <select id="mySelect">
-                                                                    <option value="">Select an option</option>
+                                                                <select name="account_type" id="account_type" class="form-control">
                                                                 </select>
-
-                                                                <div class=”form-group”>
-                                                                    <input type="text" class="form-control" id="account_type" name="account_type" value="admin">
-                                                                </div>
                                                                 <span class="help-block"></span>
                                                             </div>
 
@@ -241,24 +235,18 @@ if (strlen($_SESSION['alogin']) == "") {
     <script>
         $(document).ready(function() {
             $.ajax({
-                url: 'model/fetch_options.php',
+                url: 'model/fetch_permissions.php',
                 type: 'GET',
                 dataType: 'json',
                 success: function(data) {
-                    if (data.error) {
-                        console.error('Error:', data.error);
-                    } else {
-                        // Populate the select element with options
-                        $.each(data, function(index, permission) {
-                            $('#mySelect').append($('<option>', {
-                                value: permission.permission_id,
-                                text: permission.permission_detail
-                            }));
-                        });
-                    }
+                    let options = '';
+                    data.forEach(permission => {
+                        options += `<option value="${permission.permission_id}">${permission.permission_id}</option>`;
+                    });
+                    $('#account_type').html(options);
                 },
-                error: function(xhr, status, error) {
-                    console.error('AJAX Error:', status, error);
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus, errorThrown);
                 }
             });
         });

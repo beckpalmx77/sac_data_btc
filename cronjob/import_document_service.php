@@ -75,11 +75,12 @@ while ($result_sqlsvr = $stmt_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
     $nRows = $conn->query($sql_find)->fetchColumn();
     if ($nRows > 0) {
 
-        $sql_update = " UPDATE ims_document_customer_service  SET CAR_NO=:CAR_NO                
+        $sql_update = " UPDATE ims_document_customer_service  SET CAR_NO=:CAR_NO , DI_DATE=:DI_DATE               
         WHERE DI_REF  = :DI_REF ";
 
         $query = $conn->prepare($sql_update);
         $query->bindParam(':CAR_NO', $result_sqlsvr["ADDB_BRANCH"], PDO::PARAM_STR);
+        $query->bindParam(':DI_DATE', $result_sqlsvr["DI_DATE"], PDO::PARAM_STR);
         $query->bindParam(':DI_REF', $result_sqlsvr["DI_REF"], PDO::PARAM_STR);
         $query->execute();
 
@@ -87,6 +88,7 @@ while ($result_sqlsvr = $stmt_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
         echo "UPDATE DATA " . $update_data;
 
     } else {
+
         $sql = " INSERT INTO ims_document_customer_service (DI_REF,DI_DATE,ADDB_KEY,ADDB_COMPANY,ADDB_PHONE,CAR_NO,DI_DAY,DI_MONTH,DI_YEAR)
                  VALUES (:DI_REF,:DI_DATE,:ADDB_KEY,:ADDB_COMPANY,:ADDB_PHONE,:CAR_NO,:DI_DAY,:DI_MONTH,:DI_YEAR) ";
         $query = $conn->prepare($sql);

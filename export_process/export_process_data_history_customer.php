@@ -58,7 +58,7 @@ SKUMASTER
  
 WHERE
 ADDRBOOK.ADDB_COMPANY like '%". $customer_name . "%' AND
-ADDRBOOK.ADDB_BRANCH like '%". $car_no . "%' AND
+ADDRBOOK.ADDB_SEARCH like '%". $car_no . "%' AND
 (ADDRBOOK.ADDB_KEY = ARADDRESS.ARA_ADDB) AND 
 TRANSTKH.TRH_SHIP_ADDB = ADDRBOOK.ADDB_KEY AND 
 (ARDETAIL.ARD_AR = ARADDRESS.ARA_AR) AND 
@@ -67,7 +67,7 @@ TRANSTKH.TRH_SHIP_ADDB = ADDRBOOK.ADDB_KEY AND
 (TRANSTKH.TRH_KEY = TRANSTKD.TRD_TRH) AND 
 (TRANSTKD.TRD_SKU = SKUMASTER.SKU_KEY) AND DOCINFO.DI_DATE BETWEEN '" . $doc_date_start . "' AND '" . $doc_date_to . "' ";
 
-$order_by = " ORDER BY ADDRBOOK.ADDB_COMPANY , ADDRBOOK.ADDB_BRANCH , TRANSTKD.TRD_KEY , SKUMASTER.SKU_CODE ";
+$order_by = " ORDER BY ADDRBOOK.ADDB_COMPANY , ADDRBOOK.ADDB_SEARCH , TRANSTKD.TRD_KEY , SKUMASTER.SKU_CODE ";
 
 // ADDRBOOK.ADDB_KEY = '" . $result_sqlsvr_main["ADDB_KEY"] . "' AND
 
@@ -105,7 +105,7 @@ $order_by = " ORDER BY ADDRBOOK.ADDB_COMPANY , ADDRBOOK.ADDB_BRANCH , TRANSTKD.T
         $data .= $result_sqlsvr_detail['DI_DAY'] . "/" . $result_sqlsvr_detail['DI_MONTH'] . "/" . $result_sqlsvr_detail['DI_YEAR'] . ",";
         $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_COMPANY']) . ",";
         $data .= str_replace(",", "^", $addb_phone===null?"-":$addb_phone) . ",";
-        $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_BRANCH']===null?"-":$result_sqlsvr_detail['ADDB_BRANCH']) . ",";
+        $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_SEARCH']===null?"-":$result_sqlsvr_detail['ADDB_SEARCH']) . ",";
         $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_ADDB_1']) . "  "
                . str_replace(",", "^", $result_sqlsvr_detail['ADDB_ADDB_2']) . ",";
         $data .= str_replace(",", "^", $result_sqlsvr_detail['ADDB_ADDB_3']) . ",";

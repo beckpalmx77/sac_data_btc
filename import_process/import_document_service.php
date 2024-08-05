@@ -62,7 +62,6 @@ $return_arr = array();
 
 while ($result_sqlsvr = $stmt_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
 
-
     $sql_cust_string = "
         SELECT ADDRBOOK.ADDB_PHONE,ARADDRESS.ARA_ADDB
         FROM ARADDRESS
@@ -79,7 +78,7 @@ while ($result_sqlsvr = $stmt_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
         WHERE DI_REF  = :DI_REF ";
 
         $query = $conn->prepare($sql_update);
-        $query->bindParam(':CAR_NO', $result_sqlsvr["ADDB_BRANCH"], PDO::PARAM_STR);
+        $query->bindParam(':CAR_NO', $result_sqlsvr["ADDB_SEARCH"], PDO::PARAM_STR);
         $query->bindParam(':DI_REF', $result_sqlsvr["DI_REF"], PDO::PARAM_STR);
         $query->execute();
 
@@ -95,7 +94,7 @@ while ($result_sqlsvr = $stmt_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
         $query->bindParam(':ADDB_KEY', $result_sqlsvr["ADDB_KEY"], PDO::PARAM_STR);
         $query->bindParam(':ADDB_COMPANY', $result_sqlsvr["ADDB_COMPANY"], PDO::PARAM_STR);
         $query->bindParam(':ADDB_PHONE', $result_sqlsvr["ADDB_PHONE"], PDO::PARAM_STR);
-        $query->bindParam(':CAR_NO', $result_sqlsvr["ADDB_BRANCH"], PDO::PARAM_STR);
+        $query->bindParam(':CAR_NO', $result_sqlsvr["ADDB_SEARCH"], PDO::PARAM_STR);
         $query->bindParam(':DI_DAY', $result_sqlsvr["DI_DAY"], PDO::PARAM_STR);
         $query->bindParam(':DI_MONTH', $result_sqlsvr["DI_MONTH"], PDO::PARAM_STR);
         $query->bindParam(':DI_YEAR', $result_sqlsvr["DI_YEAR"], PDO::PARAM_STR);

@@ -44,9 +44,9 @@ $sql_group = " GROUP BY DOCINFO.DI_DATE,DOCINFO.DI_REF";
 echo "Today is " . date("Y/m/d");
 echo "\n\r" . date("Y/m/d", strtotime("yesterday"));
 
-//$select_query_daily_cond = " AND DI_DATE BETWEEN '2024/01/01' AND '" . date("Y/m/d") . "'";
+$select_query_daily_cond = " AND DI_DATE BETWEEN '2024/01/01' AND '" . date("Y/m/d") . "'";
 
-$select_query_daily_cond = " AND DOCINFO.DI_DATE BETWEEN '" . date("Y/m/d", strtotime("yesterday")) . "' AND '" . date("Y/m/d") . "'";
+//$select_query_daily_cond = " AND DOCINFO.DI_DATE BETWEEN '" . date("Y/m/d", strtotime("yesterday")) . "' AND '" . date("Y/m/d") . "'";
 
 $sql_sqlsvr = $sql_query_data . $select_query_daily_cond . $sql_group . " ORDER BY DOCINFO.DI_REF ";
 
@@ -80,12 +80,12 @@ while ($result_sqlsvr = $stmt_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
         WHERE DI_REF  = :DI_REF ";
 
         $query = $conn->prepare($sql_update);
-        $query->bindParam(':CAR_NO', $result_sqlsvr["ADDB_BRANCH"], PDO::PARAM_STR);
+        $query->bindParam(':CAR_NO', $result_sqlsvr["ADDB_SEARCH"], PDO::PARAM_STR);
         $query->bindParam(':DI_DATE', $result_sqlsvr["DI_DATE"], PDO::PARAM_STR);
         $query->bindParam(':DI_REF', $result_sqlsvr["DI_REF"], PDO::PARAM_STR);
         $query->execute();
 
-        $update_data = $result_sqlsvr["DI_DATE"] . " : " . $result_sqlsvr["DI_REF"] . " | " . $result_sqlsvr["ADDB_BRANCH"] . "\n\r";
+        $update_data = $result_sqlsvr["DI_DATE"] . " : " . $result_sqlsvr["DI_REF"] . " | " . $result_sqlsvr["ADDB_SEARCH"] . "\n\r";
         echo "UPDATE DATA " . $update_data;
 
     } else {
@@ -98,14 +98,14 @@ while ($result_sqlsvr = $stmt_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
         $query->bindParam(':ADDB_KEY', $result_sqlsvr["ADDB_KEY"], PDO::PARAM_STR);
         $query->bindParam(':ADDB_COMPANY', $result_sqlsvr["ADDB_COMPANY"], PDO::PARAM_STR);
         $query->bindParam(':ADDB_PHONE', $result_sqlsvr["ADDB_PHONE"], PDO::PARAM_STR);
-        $query->bindParam(':CAR_NO', $result_sqlsvr["ADDB_BRANCH"], PDO::PARAM_STR);
+        $query->bindParam(':CAR_NO', $result_sqlsvr["ADDB_SEARCH"], PDO::PARAM_STR);
         $query->bindParam(':DI_DAY', $result_sqlsvr["DI_DAY"], PDO::PARAM_STR);
         $query->bindParam(':DI_MONTH', $result_sqlsvr["DI_MONTH"], PDO::PARAM_STR);
         $query->bindParam(':DI_YEAR', $result_sqlsvr["DI_YEAR"], PDO::PARAM_STR);
         $query->execute();
         $lastInsertId = $conn->lastInsertId();
         if ($lastInsertId) {
-            $insert_data = $result_sqlsvr["DI_DATE"] . " : " . $result_sqlsvr["DI_REF"] . " | " . $result_sqlsvr["ADDB_BRANCH"] . "\n\r";
+            $insert_data = $result_sqlsvr["DI_DATE"] . " : " . $result_sqlsvr["DI_REF"] . " | " . $result_sqlsvr["ADDB_SEARCH"] . "\n\r";
             echo "INSERT DATA " . $insert_data;
         } else {
             echo " Error ";

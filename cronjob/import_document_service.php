@@ -39,11 +39,12 @@ WHERE
      DOCINFO.DI_REF LIKE 'IIS6%' OR
      DOCINFO.DI_REF LIKE 'IV3%') ";
 
-$sql_group = " GROUP BY DOCINFO.DI_REF ";
+$sql_group = " GROUP BY DOCINFO.DI_DATE,DOCINFO.DI_REF";
 
 echo "Today is " . date("Y/m/d");
 echo "\n\r" . date("Y/m/d", strtotime("yesterday"));
 
+//$select_query_daily_cond = " AND DI_DATE BETWEEN '2024/01/01' AND '" . date("Y/m/d") . "'";
 
 $select_query_daily_cond = " AND DOCINFO.DI_DATE BETWEEN '" . date("Y/m/d", strtotime("yesterday")) . "' AND '" . date("Y/m/d") . "'";
 

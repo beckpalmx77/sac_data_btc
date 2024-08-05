@@ -44,9 +44,9 @@ $sql_group = " GROUP BY DOCINFO.DI_DATE,DOCINFO.DI_REF";
 echo "Today is " . date("Y/m/d");
 echo "\n\r" . date("Y/m/d", strtotime("yesterday"));
 
-$select_query_daily_cond = " AND DI_DATE BETWEEN '2024/01/01' AND '" . date("Y/m/d") . "'";
+//$select_query_daily_cond = " AND DI_DATE BETWEEN '2024/01/01' AND '" . date("Y/m/d") . "'";
 
-//$select_query_daily_cond = " AND DOCINFO.DI_DATE BETWEEN '" . date("Y/m/d", strtotime("yesterday")) . "' AND '" . date("Y/m/d") . "'";
+$select_query_daily_cond = " AND DOCINFO.DI_DATE BETWEEN '" . date("Y/m/d", strtotime("yesterday")) . "' AND '" . date("Y/m/d") . "'";
 
 $sql_sqlsvr = $sql_query_data . $select_query_daily_cond . $sql_group . " ORDER BY DOCINFO.DI_REF ";
 

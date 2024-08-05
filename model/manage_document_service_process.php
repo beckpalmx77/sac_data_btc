@@ -165,7 +165,7 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
             $data[] = array(
                 "id" => $row['id'],
                 "DI_REF" => $row['DI_REF'],
-                "DI_DATE" => $row['DI_DATE'],
+                "DI_DATE" => substr($row['DI_DATE'],0,10),
                 "ADDB_COMPANY" => $row['ADDB_COMPANY'],
                 "ADDB_PHONE" => $row['ADDB_PHONE'],
                 "CAR_NO" => $row['CAR_NO'],

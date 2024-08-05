@@ -325,7 +325,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         $('#recordModal').modal('show');
                         $('#id').val(id);
                         $('#DI_REF').val(DI_REF);
-                        $('#DI_DATE').val(DI_DATE);
+                        $('#DI_DATE').val(DI_DATE.substring(0, 10));
                         $('#ADDB_COMPANY').val(ADDB_COMPANY);
                         $('#ADDB_PHONE').val(ADDB_PHONE);
                         $('#CAR_NO').val(CAR_NO);

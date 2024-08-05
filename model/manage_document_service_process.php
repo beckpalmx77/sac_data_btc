@@ -44,60 +44,6 @@ if ($_POST["action"] === 'SEARCH') {
     }
 }
 
-if ($_POST["action"] === 'UPDATE') {
-
-    if ($_POST["product_id"] != '') {
-
-        $id = $_POST["id"];
-        $product_id = $_POST["product_id"];
-        $name_t = $_POST["name_t"];
-        $quantity = $_POST["quantity"];
-        $status = $_POST["status"];
-        $pgroup_id = $_POST["pgroup_id"];
-        $brand_id = $_POST["brand_id"];
-        $unit_id = $_POST["unit_id"];
-        $picture = "product-001.png";
-        $sql_find = "SELECT * FROM ims_document_customer_service WHERE product_id = '" . $product_id . "'";
-        $nRows = $conn->query($sql_find)->fetchColumn();
-        if ($nRows > 0) {
-            $sql_update = "UPDATE ims_document_customer_service SET name_t=:name_t,quantity=:quantity,status=:status
-            ,pgroup_id=:pgroup_id,brand_id=:brand_id,unit_id=:unit_id,picture=:picture
-            WHERE id = :id";
-            $query = $conn->prepare($sql_update);
-            $query->bindParam(':name_t', $name_t, PDO::PARAM_STR);
-            $query->bindParam(':quantity', $quantity, PDO::PARAM_STR);
-            $query->bindParam(':pgroup_id', $pgroup_id, PDO::PARAM_STR);
-            $query->bindParam(':brand_id', $brand_id, PDO::PARAM_STR);
-            $query->bindParam(':unit_id', $unit_id, PDO::PARAM_STR);
-            $query->bindParam(':picture', $picture, PDO::PARAM_STR);
-            $query->bindParam(':status', $status, PDO::PARAM_STR);
-            $query->bindParam(':id', $id, PDO::PARAM_STR);
-            $query->execute();
-            echo $save_success;
-        }
-
-    }
-}
-
-if ($_POST["action"] === 'DELETE') {
-
-    $id = $_POST["id"];
-
-    $sql_find = "SELECT * FROM ims_document_customer_service WHERE id = " . $id;
-    $nRows = $conn->query($sql_find)->fetchColumn();
-    if ($nRows > 0) {
-        try {
-            $sql = "DELETE FROM ims_document_customer_service WHERE id = " . $id;
-            $query = $conn->prepare($sql);
-            $query->execute();
-            Reorder_Record($conn, "ims_document_customer_service");
-            echo $del_success;
-        } catch (Exception $e) {
-            echo 'Message: ' . $e->getMessage();
-        }
-    }
-}
-
 if ($_POST["action"] === 'GET_DOCUMENT') {
 
 ## Read value

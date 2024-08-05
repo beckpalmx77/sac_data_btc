@@ -36,36 +36,43 @@ if (strlen($_SESSION['alogin']) == "") {
                             <div class="form-group row">
                                 <div class="col-sm-6">
                                     <label for="DI_REF" class="control-label">เลขที่เอกสาร</label>
-                                    <input type="text" class="form-control" id="DI_REF" name="DI_REF" readonly="true" placeholder="">
+                                    <input type="text" class="form-control" id="DI_REF" name="DI_REF" readonly="true"
+                                           placeholder="">
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="DI_DATE" class="control-label">วันที่เอกสาร</label>
-                                    <input type="text" class="form-control" id="DI_DATE" name="DI_DATE" readonly="true" placeholder="วันที่เอกสาร">
+                                    <input type="text" class="form-control" id="DI_DATE" name="DI_DATE" readonly="true"
+                                           placeholder="วันที่เอกสาร">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-6">
                                     <label for="ADDB_COMPANY" class="control-label">ชื่อลูกค้า</label>
-                                    <input type="text" class="form-control" id="ADDB_COMPANY" name="ADDB_COMPANY" readonly="true" required="required" placeholder="">
+                                    <input type="text" class="form-control" id="ADDB_COMPANY" name="ADDB_COMPANY"
+                                           readonly="true" required="required" placeholder="">
                                 </div>
                                 <div class="col-sm-4">
                                     <label for="ADDB_PHONE" class="control-label">โทรศัพท์</label>
-                                    <input type="text" class="form-control" id="ADDB_PHONE" name="ADDB_PHONE" readonly="true" placeholder="">
+                                    <input type="text" class="form-control" id="ADDB_PHONE" name="ADDB_PHONE"
+                                           readonly="true" placeholder="">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-10">
                                     <label for="CAR_NO" class="control-label">ทะเบียนรถ</label>
-                                    <input type="text" class="form-control" id="CAR_NO" name="CAR_NO" readonly="true" placeholder="">
+                                    <input type="text" class="form-control" id="CAR_NO" name="CAR_NO" readonly="true"
+                                           placeholder="">
                                 </div>
                             </div>
 
                             <div class="form-group row">
                                 <div class="col-sm-10">
-                                    <label for="fileToUpload" class="control-label">เลือกไฟล์ EXCEL หรือ PDF ที่ต้องการ Upload</label>
-                                    <input class="form-control" type="file" name="fileToUpload" id="fileToUpload" accept=".xls,.xlsx,.pdf">
+                                    <label for="fileToUpload" class="control-label">เลือกไฟล์ EXCEL หรือ PDF ที่ต้องการ
+                                        Upload</label>
+                                    <input class="form-control" type="file" name="fileToUpload" id="fileToUpload"
+                                           accept=".xls,.xlsx,.pdf">
                                     <div>Upload File (ไฟล์ .XLS & XLSX หรือ PDF เท่านั้น)</div>
                                 </div>
                             </div>
@@ -77,7 +84,8 @@ if (strlen($_SESSION['alogin']) == "") {
                             <span class="icon-input-btn">
                             <input class="btn btn-success" type="button" value="Upload" onclick="uploadFile()">
                         </span>
-                            <button type="button" class="btn btn-danger" id="btnClose">Close <i class="fa fa-window-close"></i></button>
+                            <button type="button" class="btn btn-danger" id="btnClose">Close <i
+                                        class="fa fa-window-close"></i></button>
                         </div>
                     </form>
                 </div>
@@ -131,13 +139,13 @@ if (strlen($_SESSION['alogin']) == "") {
                 data: formData,
                 contentType: false,
                 processData: false,
-                success: function(data) {
+                success: function (data) {
                     alertify.alert(data);
-                    alertify.alert('Response', data, function(){
+                    alertify.alert('Response', data, function () {
                         alertify.success(data);
                     });
                 },
-                error: function(xhr, status, error) {
+                error: function (xhr, status, error) {
                     alertify.alert('Upload failed: ' + error);
                 }
             });

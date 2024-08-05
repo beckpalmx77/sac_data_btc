@@ -47,6 +47,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <th>ชื่อลูกค้า</th>
                                                     <th>โทรศัพท์</th>
                                                     <th>เลขทะเบียนรถ</th>
+                                                    <th>File</th>
                                                     <th>Action</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -58,6 +59,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <th>ชื่อลูกค้า</th>
                                                     <th>โทรศัพท์</th>
                                                     <th>เลขทะเบียนรถ</th>
+                                                    <th>File</th>
                                                     <th>Action</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -271,6 +273,7 @@ if (strlen($_SESSION['alogin']) == "") {
                     {data: 'ADDB_COMPANY'},
                     {data: 'ADDB_PHONE'},
                     {data: 'CAR_NO'},
+                    {data: 'FILE_UPLOAD'},
                     {data: 'upload'},
                     {data: 'update'}
                 ]

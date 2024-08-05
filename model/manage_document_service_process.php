@@ -155,6 +155,13 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
 
     foreach ($empRecords as $row) {
         if ($_POST['sub_action'] === "GET_MASTER") {
+
+            if ($row['FILE_UPLOAD']!==null && $row['FILE_UPLOAD']!=="") {
+                $FILE_UPLOAD = "<a href='" . $row['FILE_UPLOAD'] . "' target='_blank'>Download File</a>";
+            } else {
+                $FILE_UPLOAD = "-";
+            }
+
             $data[] = array(
                 "id" => $row['id'],
                 "DI_REF" => $row['DI_REF'],
@@ -162,6 +169,7 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
                 "ADDB_COMPANY" => $row['ADDB_COMPANY'],
                 "ADDB_PHONE" => $row['ADDB_PHONE'],
                 "CAR_NO" => $row['CAR_NO'],
+                "FILE_UPLOAD" => $FILE_UPLOAD,
                 "update" => "<button type='button' name='update' id='" . $row['id'] . "' class='btn btn-info btn-xs update' data-toggle='tooltip' title='Update'>Update</button>",
                 "upload" => "<button type='button' name='upload' id='" . $row['id'] . "' class='btn btn-secondary btn-xs upload' data-toggle='tooltip' title='Upload'>Upload File</button>",
                 "picture" => "<img src = '" . $row['picture'] . "'  width='32' height='32' title='" . $row['name_t'] . "'>",

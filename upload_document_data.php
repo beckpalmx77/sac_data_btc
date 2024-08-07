@@ -9,7 +9,7 @@ if (strlen($_SESSION['alogin']) == "") {
 
     <!doctype html>
     <html>
-    <head lang="en">
+    <head lang="th">
         <meta charset="utf-8">
         <title>สงวนออโต้คาร์</title>
         <script type="text/javascript" src="js/jquery-1.11.3-jquery.min.js"></script>

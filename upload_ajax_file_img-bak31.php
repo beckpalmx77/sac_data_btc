@@ -17,7 +17,7 @@ $CAR_NO = $_POST["CAR_NO"];
 if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FILE) {
     $fileCount = count($_FILES['files']['name']);
     if ($fileCount > 5) {
-        echo "คุณสามารถอัปโหลดไฟล์ได้สูงสุด 5 ไฟล์เท่านั้น";
+        echo json_encode(["error" => "คุณสามารถอัปโหลดไฟล์ได้สูงสุด 5 ไฟล์เท่านั้น"], JSON_UNESCAPED_UNICODE);
         exit;
     }
 
@@ -70,11 +70,11 @@ if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FIL
                     }
                 }
             } else {
-                echo "เกิดข้อผิดพลาดในการอัปโหลดไฟล์: " . $fileName;
+                echo json_encode(["error" => "เกิดข้อผิดพลาดในการอัปโหลดไฟล์: " . $fileName], JSON_UNESCAPED_UNICODE);
                 exit;
             }
         } else {
-            echo "ประเภทไฟล์ไม่ถูกต้อง: " . $fileType;
+            echo json_encode(["error" => "ประเภทไฟล์ไม่ถูกต้อง: " . $fileType]);
             exit;
         }
     }
@@ -97,11 +97,11 @@ if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FIL
 
     // Execute the statement
     if ($query->execute()) {
-        echo "อัปโหลดสำเร็จ";
+        echo json_encode(["success" => "อัปโหลดสำเร็จ"], JSON_UNESCAPED_UNICODE);
     } else {
-        echo "เกิดข้อผิดพลาดในการอัปโหลดไฟล์";
+        echo json_encode(["error" => "เกิดข้อผิดพลาดในการอัปโหลดไฟล์"], JSON_UNESCAPED_UNICODE);
     }
 } else {
-    echo "กรุณาเลือกไฟล์";
+    echo json_encode(["error" => "กรุณาเลือกไฟล์"], JSON_UNESCAPED_UNICODE);
 }
 ?>

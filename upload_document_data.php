@@ -69,10 +69,10 @@ if (strlen($_SESSION['alogin']) == "") {
 
                             <div class="form-group row">
                                 <div class="col-sm-10">
-                                    <label for="fileToUpload" class="control-label">เลือกไฟล์ EXCEL หรือ PDF ที่ต้องการ
+                                    <label for="fileToUpload" class="control-label">เลือกไฟล์ EXCEL หรือ PDF หรือ รูปภาพ JPG หรือ PNG ที่ต้องการ
                                         Upload</label>
                                     <input class="form-control" type="file" name="fileToUpload" id="fileToUpload"
-                                           accept=".xls,.xlsx,.pdf">
+                                           accept=".xls,.xlsx,.pdf,.jpg,.png">
                                     <div>Upload File (ไฟล์ .XLS & XLSX หรือ PDF เท่านั้น)</div>
                                 </div>
                             </div>
@@ -134,7 +134,7 @@ if (strlen($_SESSION['alogin']) == "") {
             let formData = new FormData(document.getElementById('uploadForm'));
 
             $.ajax({
-                url: 'upload_ajax_file.php',
+                url: 'upload_ajax_file_img.php',
                 type: 'POST',
                 data: formData,
                 contentType: false,

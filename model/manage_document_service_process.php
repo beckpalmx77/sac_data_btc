@@ -62,12 +62,14 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
     if ($searchValue != '') {
         $searchQuery = " AND (DI_REF LIKE :DI_REF or 
         ADDB_COMPANY LIKE :ADDB_COMPANY OR
-        ADDB_PHONE LIKE :ADDB_PHONE OR         
-        CAR_NO LIKE :CAR_NO ) ";
+        ADDB_PHONE LIKE :ADDB_PHONE OR
+        DI_DATE LIKE :DI_DATE OR                
+        CAR_NO LIKE :CAR_NO) ";
         $searchArray = array(
             'DI_REF' => "%$searchValue%",
             'ADDB_COMPANY' => "%$searchValue%",
             'ADDB_PHONE' => "%$searchValue%",
+            'DI_DATE' => "%$searchValue%",
             'CAR_NO' => "%$searchValue%"
         );
     }

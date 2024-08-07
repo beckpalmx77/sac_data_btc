@@ -82,7 +82,6 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <form method="post" id="recordForm">
                                                         <div class="modal-body">
                                                             <div class="modal-body">
-
                                                                 <div class="form-group row">
                                                                     <div class="col-sm-4">
                                                                         <label for="DI_REF" class="control-label">เลขที่เอกสาร</label>
@@ -91,7 +90,6 @@ if (strlen($_SESSION['alogin']) == "") {
                                                                                readonly="true"
                                                                                placeholder="เลขที่เอกสาร">
                                                                     </div>
-
                                                                     <div class="col-sm-4">
                                                                         <label for="DI_DATE"
                                                                                class="control-label">วันที่</label>
@@ -121,7 +119,6 @@ if (strlen($_SESSION['alogin']) == "") {
                                                                                readonly="true"
                                                                                placeholder="โทรศัพท์">
                                                                     </div>
-
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <div class="col-sm-10">
@@ -130,13 +127,9 @@ if (strlen($_SESSION['alogin']) == "") {
                                                                         <input type="text" class="form-control"
                                                                                id="CAR_NO"
                                                                                name="CAR_NO"
-                                                                               readonly="true"
                                                                                placeholder="ทะเบียนรถ">
                                                                     </div>
-
                                                                 </div>
-
-
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -384,7 +377,6 @@ if (strlen($_SESSION['alogin']) == "") {
         });
 
     </script>
-
 
 
     <!--script>

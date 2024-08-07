@@ -44,6 +44,31 @@ if ($_POST["action"] === 'SEARCH') {
     }
 }
 
+/*
+$myfile = fopen("a_carno.txt", "w") or die("Unable to open file!");
+fwrite($myfile,  $id . " | " . $CAR_NO . " | " . $sql_find . " | " . $sql_update);
+fclose($myfile);
+*/
+
+
+if ($_POST["action"] === 'UPDATE') {
+    if ($_POST["id"] != '') {
+        $id = $_POST["id"];
+        $CAR_NO = $_POST["CAR_NO"];
+        $sql_find = "SELECT * FROM ims_document_customer_service WHERE id = '" . $id . "'";
+        $nRows = $conn->query($sql_find)->fetchColumn();
+        if ($nRows > 0) {
+            $sql_update = "UPDATE ims_document_customer_service SET CAR_NO=:CAR_NO            
+            WHERE id = :id";
+            $query = $conn->prepare($sql_update);
+            $query->bindParam(':CAR_NO', $CAR_NO, PDO::PARAM_STR);
+            $query->bindParam(':id', $id, PDO::PARAM_STR);
+            $query->execute();
+            echo $save_success;
+        }
+    }
+}
+
 if ($_POST["action"] === 'GET_DOCUMENT') {
 
 ## Read value

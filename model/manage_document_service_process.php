@@ -129,11 +129,27 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
     foreach ($empRecords as $row) {
         if ($_POST['sub_action'] === "GET_MASTER") {
 
+            $FILE_UPLOAD1 = "";
+            $FILE_UPLOAD2 = "";
+            $FILE_UPLOAD3 = "";
+            $FILE_UPLOAD4 = "";
+            $FILE_UPLOAD5 = "";
+
             if ($row['FILE_UPLOAD']!==null && $row['FILE_UPLOAD']!=="") {
-                $FILE_UPLOAD = "<a href='" . $row['FILE_UPLOAD'] . "' target='_blank'>Download File</a>";
+                $FILE_UPLOAD = "<a href='" . $row['FILE_UPLOAD'] . "' target='_blank'>DL</a>";
             } else {
                 $FILE_UPLOAD = "-";
             }
+
+            for ($i = 1; $i <= 5; $i++) {
+                $fileKey = 'FILE_UPLOAD' . $i;
+                if (!empty($row[$fileKey])) {
+                    ${$fileKey} = "<a href='" . $row[$fileKey] . "' target='_blank'>File" . $i . "</a>";
+                } else {
+                    ${$fileKey} = "-";
+                }
+            }
+
 
             $data[] = array(
                 "id" => $row['id'],
@@ -142,9 +158,16 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
                 "ADDB_COMPANY" => $row['ADDB_COMPANY'],
                 "ADDB_PHONE" => $row['ADDB_PHONE'],
                 "CAR_NO" => $row['CAR_NO'],
+
                 "FILE_UPLOAD" => $FILE_UPLOAD,
+                "FILE_UPLOAD1" => $FILE_UPLOAD1,
+                "FILE_UPLOAD2" => $FILE_UPLOAD2,
+                "FILE_UPLOAD3" => $FILE_UPLOAD3,
+                "FILE_UPLOAD4" => $FILE_UPLOAD4,
+                "FILE_UPLOAD5" => $FILE_UPLOAD5,
+
                 "update" => "<button type='button' name='update' id='" . $row['id'] . "' class='btn btn-info btn-xs update' data-toggle='tooltip' title='Update'>Update</button>",
-                "upload" => "<button type='button' name='upload' id='" . $row['id'] . "' class='btn btn-secondary btn-xs upload' data-toggle='tooltip' title='Upload'>Upload File</button>",
+                "upload" => "<button type='button' name='upload' id='" . $row['id'] . "' class='btn btn-secondary btn-xs upload' data-toggle='tooltip' title='Upload'>Upload</button>",
                 "picture" => "<img src = '" . $row['picture'] . "'  width='32' height='32' title='" . $row['name_t'] . "'>",
                 "status" => $row['status'] === 'Active' ? "<div class='text-success'>" . $row['status'] . "</div>" : "<div class='text-muted'> " . $row['status'] . "</div>"
             );

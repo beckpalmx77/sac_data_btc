@@ -48,6 +48,10 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <th>โทรศัพท์</th>
                                                     <th>เลขทะเบียนรถ</th>
                                                     <th>File</th>
+                                                    <th>File</th>
+                                                    <th>File</th>
+                                                    <th>File</th>
+                                                    <th>File</th>
                                                     <th>Action</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -59,6 +63,10 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <th>ชื่อลูกค้า</th>
                                                     <th>โทรศัพท์</th>
                                                     <th>เลขทะเบียนรถ</th>
+                                                    <th>File</th>
+                                                    <th>File</th>
+                                                    <th>File</th>
+                                                    <th>File</th>
                                                     <th>File</th>
                                                     <th>Action</th>
                                                     <th>Action</th>
@@ -266,7 +274,11 @@ if (strlen($_SESSION['alogin']) == "") {
                     {data: 'ADDB_COMPANY'},
                     {data: 'ADDB_PHONE'},
                     {data: 'CAR_NO'},
-                    {data: 'FILE_UPLOAD'},
+                    {data: 'FILE_UPLOAD1'},
+                    {data: 'FILE_UPLOAD2'},
+                    {data: 'FILE_UPLOAD3'},
+                    {data: 'FILE_UPLOAD4'},
+                    {data: 'FILE_UPLOAD5'},
                     {data: 'upload'},
                     {data: 'update'}
                 ]
@@ -377,50 +389,6 @@ if (strlen($_SESSION['alogin']) == "") {
         });
 
     </script>
-
-
-    <!--script>
-
-        $("#TableRecordList").on('click', '.upload', function () {
-            let id = $(this).attr("id");
-            let formData = {action: "GET_DATA", id: id};
-            $.ajax({
-                type: "POST",
-                url: 'model/manage_leave_document_process.php',
-                dataType: "json",
-                data: formData,
-                success: function (response) {
-                    let len = response.length;
-                    for (let i = 0; i < len; i++) {
-                        let id = response[i].id;
-                        let DI_REF = response[i].DI_REF;
-                        let DI_DATE = response[i].DI_DATE;
-                        let ADDB_COMPANY = response[i].ADDB_COMPANY;
-                        let ADDB_PHONE = response[i].ADDB_PHONE;
-                        let CAR_NO = response[i].CAR_NO;
-                        let main_menu = "นำเข้าข้อมูล";
-                        let sub_menu = "ข้อมูลเช็ครถเบื้องต้น BTC";
-
-                        let originalURL = "upload_document_data.php?title=ข้อมูลเช็ครถเบื้องต้น (BTC)"
-                            + '&main_menu=' + main_menu + '&sub_menu=' + sub_menu
-                            + '&id=' + id
-                            + '&DI_REF=' + DI_REF + '&DI_DATE=' + DI_DATE
-                            + '&ADDB_COMPANY=' + ADDB_COMPANY + '&ADDB_PHONE=' + ADDB_PHONE
-                            + '&CAR_NO=' + CAR_NO
-                            + '&action=UPDATE';
-
-                        OpenPopupCenter(originalURL, "", "");
-
-                    }
-                },
-                error: function (response) {
-                    alertify.error("error : " + response);
-                }
-            });
-        });
-
-    </script-->
-
 
     </body>
     </html>

@@ -33,23 +33,8 @@ if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FIL
         mkdir($uploadDir, 0755, true);
     }
 
-    // Fetch current file fields from database
-    $sql_fetch = "SELECT FILE_UPLOAD1, FILE_UPLOAD2, FILE_UPLOAD3, FILE_UPLOAD4, FILE_UPLOAD5 FROM ims_document_customer_service WHERE id = :id";
-    $query = $conn->prepare($sql_fetch);
-    $query->bindParam(':id', $id, PDO::PARAM_STR);
-    $query->execute();
-    $row = $query->fetch(PDO::FETCH_ASSOC);
-
-    // Initialize file fields array
-    $fileFields = ['FILE_UPLOAD1', 'FILE_UPLOAD2', 'FILE_UPLOAD3', 'FILE_UPLOAD4', 'FILE_UPLOAD5'];
     $fileNames = [];
-
-    // Populate existing files into fileNames array
-    foreach ($fileFields as $field) {
-        $fileNames[$field] = !empty($row[$field]) ? $row[$field] : null;
-    }
-
-    // Process and upload new files
+    $newFilenames = [];
     for ($i = 0; $i < $fileCount; $i++) {
         $fileName = basename($_FILES['files']['name'][$i]);
         $fileType = $_FILES['files']['type'][$i];
@@ -58,15 +43,10 @@ if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FIL
             $extension = $allowedFileTypes[$fileType];
             $newFilename = uniqid() . '_' . $ADDB_COMPANY . '_' . $DI_REF . '.' . $extension;
             $targetFilePath = $uploadDir . $newFilename;
+            $newFilenames[] = $newFilename;
 
             if (move_uploaded_file($_FILES['files']['tmp_name'][$i], $targetFilePath)) {
-                // Find the next available field
-                foreach ($fileFields as $field) {
-                    if (empty($fileNames[$field])) {
-                        $fileNames[$field] = $uploadDir . $newFilename;
-                        break;
-                    }
-                }
+                $fileNames['file' . ($i + 1)] = $uploadDir . $newFilename;
             } else {
                 echo json_encode(["error" => "Error uploading file: " . $fileName]);
                 exit;
@@ -77,20 +57,21 @@ if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FIL
         }
     }
 
-    // Update the database with new file names
-    $sql_update = "UPDATE ims_document_customer_service SET 
-                   FILE_UPLOAD1=:file1, 
-                   FILE_UPLOAD2=:file2, 
-                   FILE_UPLOAD3=:file3, 
-                   FILE_UPLOAD4=:file4, 
-                   FILE_UPLOAD5=:file5 
-                   WHERE id = :id";
+/*
+    $txt = $id . " | " . implode(" | ", $newFilenames) . "\n\r";
+    $myfile = fopen("upload-param.txt", "w") or die("Unable to open file!");
+    fwrite($myfile, $txt);
+    fclose($myfile);
+*/
+
+    $sql_update = "UPDATE ims_document_customer_service SET FILE_UPLOAD1=:file1, FILE_UPLOAD2=:file2, FILE_UPLOAD3=:file3, FILE_UPLOAD4=:file4, FILE_UPLOAD5=:file5 
+    WHERE id = :id";
     $query = $conn->prepare($sql_update);
-    $query->bindParam(':file1', $fileNames['FILE_UPLOAD1']);
-    $query->bindParam(':file2', $fileNames['FILE_UPLOAD2']);
-    $query->bindParam(':file3', $fileNames['FILE_UPLOAD3']);
-    $query->bindParam(':file4', $fileNames['FILE_UPLOAD4']);
-    $query->bindParam(':file5', $fileNames['FILE_UPLOAD5']);
+    $query->bindParam(':file1', $fileNames['file1']);
+    $query->bindParam(':file2', $fileNames['file2']);
+    $query->bindParam(':file3', $fileNames['file3']);
+    $query->bindParam(':file4', $fileNames['file4']);
+    $query->bindParam(':file5', $fileNames['file5']);
     $query->bindParam(':id', $id, PDO::PARAM_STR);
 
     // Execute the statement
@@ -102,4 +83,3 @@ if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FIL
 } else {
     echo json_encode(["error" => "Error Please SELECT FILE"]);
 }
-

@@ -5,7 +5,7 @@ include('includes/Header.php');
 if (strlen($_SESSION['alogin']) == "") {
     header("Location: index.php");
 } else {
-    ?>
+?>
 
     <!doctype html>
     <html>

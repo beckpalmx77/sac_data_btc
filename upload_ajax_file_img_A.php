@@ -102,4 +102,4 @@ if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FIL
 } else {
     echo json_encode(["error" => "Error Please SELECT FILE"]);
 }
-
+?>

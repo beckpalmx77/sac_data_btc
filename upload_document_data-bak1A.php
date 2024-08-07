@@ -5,7 +5,7 @@ include('includes/Header.php');
 if (strlen($_SESSION['alogin']) == "") {
     header("Location: index.php");
 } else {
-?>
+    ?>
 
     <!doctype html>
     <html>
@@ -16,13 +16,6 @@ if (strlen($_SESSION['alogin']) == "") {
         <script type="text/javascript" src="js/script.js"></script>
         <script type="text/javascript" src="js/alertify/alertify.js"></script>
         <link rel="stylesheet" href="js/alertify/css/alertify.css">
-        <style>
-            .preview-img {
-                max-width: 100px;
-                max-height: 100px;
-                margin: 10px;
-            }
-        </style>
     </head>
     <body>
     <div id="content-wrapper" class="d-flex flex-column">
@@ -76,17 +69,13 @@ if (strlen($_SESSION['alogin']) == "") {
 
                             <div class="form-group row">
                                 <div class="col-sm-10">
-                                    <label for="files" class="control-label">เลือกไฟล์ EXCEL หรือ PDF หรือ รูปภาพ
-                                        JPG หรือ PNG ที่ต้องการ Upload (สูงสุด 5 ไฟล์)</label>
-                                    <input class="form-control" type="file" name="files[]" id="files"
-                                           accept=".xls,.xlsx,.pdf,.jpg,.png" multiple>
+                                    <label for="fileToUpload" class="control-label">เลือกไฟล์ EXCEL หรือ PDF หรือ รูปภาพ
+                                        JPG หรือ PNG ที่ต้องการ
+                                        Upload (ไฟล์ .XLS & XLSX หรือ PDF เท่านั้น) </label>
+                                    <input class="form-control" type="file" name="fileToUpload" id="fileToUpload"
+                                           accept=".xls,.xlsx,.pdf,.jpg,.png">
                                 </div>
                             </div>
-
-                            <div class="form-group row" id="preview"></div>
-                            <input type="hidden" name="id" id="id"/>
-                            <button type="button" class="btn btn-primary" onclick="uploadFile()">Upload</button>
-                        </div>
                     </form>
                 </div>
             </div>
@@ -95,6 +84,7 @@ if (strlen($_SESSION['alogin']) == "") {
         <div id="fileLink"></div> <!-- Add this div for showing file link -->
 
         <div id="err"></div>
+
     </div>
 
     <script type="text/javascript">
@@ -126,36 +116,12 @@ if (strlen($_SESSION['alogin']) == "") {
                 $('#CAR_NO').val(queryString["CAR_NO"]);
             }
         });
-
-        document.getElementById('files').addEventListener('change', function (event) {
-            let preview = document.getElementById('preview');
-            if (this.files.length > 5) {
-                alert('You can only upload up to 5 files.');
-                this.value = ''; // Clear the file input
-                return;
-            }
-            Array.from(this.files).forEach(file => {
-                if (file.type.startsWith('image/')) {
-                    let reader = new FileReader();
-                    reader.onload = function (e) {
-                        let img = document.createElement('img');
-                        img.src = e.target.result;
-                        img.classList.add('preview-img');
-                        preview.appendChild(img);
-                    };
-                    reader.readAsDataURL(file);
-                } else {
-                    let div = document.createElement('div');
-                    div.textContent = file.name;
-                    preview.appendChild(div);
-                }
-            });
-        });
     </script>
 
     <script>
         function uploadFile() {
             let formData = new FormData(document.getElementById('uploadForm'));
+
             $.ajax({
                 url: 'upload_ajax_file_img.php',
                 type: 'POST',
@@ -166,21 +132,6 @@ if (strlen($_SESSION['alogin']) == "") {
                     alertify.alert(data);
                     alertify.alert('Response', data, function () {
                         alertify.success(data);
-                    });
-
-                    let uploadedFiles = JSON.parse(data);
-                    let preview = document.getElementById('preview');
-                    uploadedFiles.forEach(file => {
-                        if (file.type.startsWith('image/')) {
-                            let img = document.createElement('img');
-                            img.src = 'uploads/' + file.name;
-                            img.classList.add('preview-img');
-                            preview.appendChild(img);
-                        } else {
-                            let div = document.createElement('div');
-                            div.textContent = file.name;
-                            preview.appendChild(div);
-                        }
                     });
                 },
                 error: function (xhr, status, error) {
@@ -200,8 +151,6 @@ if (strlen($_SESSION['alogin']) == "") {
     </script>
     </body>
     </html>
-
-
 
     <?php
 }

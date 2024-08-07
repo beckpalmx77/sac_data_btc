@@ -1,4 +1,5 @@
 <?php
+
 include 'config/connect_db.php';
 session_start();
 error_reporting(0);
@@ -10,43 +11,75 @@ $ADDB_COMPANY = $_POST["ADDB_COMPANY"];
 $ADDB_PHONE = $_POST["ADDB_PHONE"];
 $CAR_NO = $_POST["CAR_NO"];
 
-if (isset($_FILES['fileToUpload']) && $_FILES['fileToUpload']['error'] == 0) {
-    $allowedExts = array('xlsx', 'xls', 'pdf','jpg','png');
-    $temp = explode('.', $_FILES['fileToUpload']['name']);
-    $extension = end($temp);
+// ตรวจสอบการอัปโหลดไฟล์
+if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FILE) {
+    $fileCount = count($_FILES['files']['name']);
+    if ($fileCount > 5) {
+        echo json_encode(["error" => "You can only upload up to 5 files."]);
+        exit;
+    }
 
-    if (in_array($extension, $allowedExts)) {
-        $uploadDir = 'uploads/files/';
-        if (!is_dir($uploadDir)) {
-            mkdir($uploadDir, 0777, true);
-        }
+    $allowedFileTypes = [
+        'image/jpeg' => 'jpg',
+        'image/png' => 'png',
+        'application/pdf' => 'pdf',
+        'application/vnd.ms-excel' => 'xls',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' => 'xlsx'
+    ];
+    $uploadDir = 'uploads/files/'; // directory to save uploaded files
 
-        // ตั้งชื่อไฟล์ใหม่โดยการต่อ $DI_REF เข้ากับชื่อไฟล์เดิม
-        $filenameWithoutExtension = pathinfo($_FILES['fileToUpload']['name'], PATHINFO_FILENAME);
-        $newFilename = $filenameWithoutExtension . '_' . $ADDB_COMPANY . '_' . $DI_REF . '.' . $extension;
-        $uploadFile = $uploadDir . basename($newFilename);
+    // Create the upload directory if it doesn't exist
+    if (!is_dir($uploadDir)) {
+        mkdir($uploadDir, 0755, true);
+    }
 
-        if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $uploadFile)) {
-            $response = "Upload ไฟล์สำเร็จ";
-            // คุณสามารถเก็บข้อมูลในฐานข้อมูลที่นี่
-            $sql_update = "UPDATE ims_document_customer_service SET FILE_UPLOAD=:FILE_UPLOAD WHERE id = :id";
-            $query = $conn->prepare($sql_update);
-            $query->bindParam(':FILE_UPLOAD', $uploadFile, PDO::PARAM_STR);
-            $query->bindParam(':id', $id, PDO::PARAM_STR);
-            $query->execute();
+    $fileNames = [];
+    $newFilenames = [];
+    for ($i = 0; $i < $fileCount; $i++) {
+        $fileName = basename($_FILES['files']['name'][$i]);
+        $fileType = $_FILES['files']['type'][$i];
 
-            echo $response;
+        if (array_key_exists($fileType, $allowedFileTypes)) {
+            $extension = $allowedFileTypes[$fileType];
+            $newFilename = uniqid() . '_' . $ADDB_COMPANY . '_' . $DI_REF . '.' . $extension;
+            $targetFilePath = $uploadDir . $newFilename;
+            $newFilenames[] = $newFilename;
 
+            if (move_uploaded_file($_FILES['files']['tmp_name'][$i], $targetFilePath)) {
+                $fileNames['file' . ($i + 1)] = $uploadDir . $newFilename;
+            } else {
+                echo json_encode(["error" => "Error uploading file: " . $fileName]);
+                exit;
+            }
         } else {
-            $response = "เกิดข้อผิดพลาด Upload ไฟล์ ไม่สำเร็จ";
-            echo $response;
+            echo json_encode(["error" => "Invalid file type: " . $fileType]);
+            exit;
         }
+    }
+
+/*
+    $txt = $id . " | " . implode(" | ", $newFilenames) . "\n\r";
+    $myfile = fopen("upload-param.txt", "w") or die("Unable to open file!");
+    fwrite($myfile, $txt);
+    fclose($myfile);
+*/
+
+    $sql_update = "UPDATE ims_document_customer_service SET FILE_UPLOAD1=:file1, FILE_UPLOAD2=:file2, FILE_UPLOAD3=:file3, FILE_UPLOAD4=:file4, FILE_UPLOAD5=:file5 
+    WHERE id = :id";
+    $query = $conn->prepare($sql_update);
+    $query->bindParam(':file1', $fileNames['file1']);
+    $query->bindParam(':file2', $fileNames['file2']);
+    $query->bindParam(':file3', $fileNames['file3']);
+    $query->bindParam(':file4', $fileNames['file4']);
+    $query->bindParam(':file5', $fileNames['file5']);
+    $query->bindParam(':id', $id, PDO::PARAM_STR);
+
+    // Execute the statement
+    if ($query->execute()) {
+        echo json_encode(["success" => "Upload Success"]);
     } else {
-        echo 'เกิดข้อผิดพลาด Upload ไฟล์ ไม่สำเร็จ ต้องเป็นไฟล์ Excel หรือ PDF เท่านั้น';
-        $response = "เกิดข้อผิดพลาด Upload ไฟล์ ไม่สำเร็จ ต้องเป็นไฟล์ Excel หรือ PDF เท่านั้น";
+        echo json_encode(["error" => "Error Upload FILE"]);
     }
 } else {
-    echo 'เกิดข้อผิดพลาดไม่มีไฟล์ กรุณาเลือกไฟล์';
-    $response = "เกิดข้อผิดพลาดไม่มีไฟล์ กรุณาเลือกไฟล์ ";
+    echo json_encode(["error" => "Error Please SELECT FILE"]);
 }
-

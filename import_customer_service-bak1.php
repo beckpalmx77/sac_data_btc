@@ -390,6 +390,27 @@ if (strlen($_SESSION['alogin']) == "") {
 
     </script>
 
+    <script>
+        $(document).ready(function () {
+            $('.open-window').click(function (e) {
+                e.preventDefault();
+
+                let url = $(this).attr('href');
+                let title = $(this).data('title');
+                let favicon = $(this).data('favicon');
+
+                let newWindow = window.open(url, '_blank');
+                newWindow.onload = function () {
+                    let link = document.createElement('link');
+                    link.rel = 'icon';
+                    link.href = favicon;
+                    newWindow.document.head.appendChild(link);
+                    newWindow.document.title = title;
+                };
+            });
+        });
+    </script>
+
     </body>
     </html>
 

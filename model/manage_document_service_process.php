@@ -129,38 +129,28 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
     foreach ($empRecords as $row) {
         if ($_POST['sub_action'] === "GET_MASTER") {
 
+            $FILE_UPLOAD = "";
             $FILE_UPLOAD1 = "";
             $FILE_UPLOAD2 = "";
             $FILE_UPLOAD3 = "";
             $FILE_UPLOAD4 = "";
             $FILE_UPLOAD5 = "";
 
-            if ($row['FILE_UPLOAD']!==null && $row['FILE_UPLOAD']!=="") {
-                $FILE_UPLOAD = "<a href='" . $row['FILE_UPLOAD'] . "' target='_blank'>DL</a>";
-            } else {
-                $FILE_UPLOAD = "-";
-            }
-
-/*
-            for ($i = 1; $i <= 5; $i++) {
-                $fileKey = 'FILE_UPLOAD' . $i;
-                if (!empty($row[$fileKey])) {
-                    ${$fileKey} = "<a href='" . $row[$fileKey] . "' target='_blank'>File" . $i . "</a>";
-                } else {
-                    ${$fileKey} = "-";
-                }
-            }
-*/
-
             for ($i = 1; $i <= 5; $i++) {
                 $fileKey = 'FILE_UPLOAD' . $i;
                 if (!empty($row[$fileKey])) {
                     ${$fileKey} = "<a href='" . $row[$fileKey] . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
+                    $txt .= ${$fileKey} . "\n\r";
                 } else {
                     ${$fileKey} = "-";
                 }
             }
 
+/*
+            $myfile = fopen("file-up-param.txt", "w") or die("Unable to open file!");
+            fwrite($myfile,  $txt );
+            fclose($myfile);
+*/
 
             $data[] = array(
                 "id" => $row['id'],

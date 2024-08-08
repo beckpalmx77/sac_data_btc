@@ -141,10 +141,21 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
                 $FILE_UPLOAD = "-";
             }
 
+/*
             for ($i = 1; $i <= 5; $i++) {
                 $fileKey = 'FILE_UPLOAD' . $i;
                 if (!empty($row[$fileKey])) {
                     ${$fileKey} = "<a href='" . $row[$fileKey] . "' target='_blank'>File" . $i . "</a>";
+                } else {
+                    ${$fileKey} = "-";
+                }
+            }
+*/
+
+            for ($i = 1; $i <= 5; $i++) {
+                $fileKey = 'FILE_UPLOAD' . $i;
+                if (!empty($row[$fileKey])) {
+                    ${$fileKey} = "<a href='" . $row[$fileKey] . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
                 } else {
                     ${$fileKey} = "-";
                 }

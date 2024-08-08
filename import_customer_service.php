@@ -390,6 +390,37 @@ if (strlen($_SESSION['alogin']) == "") {
 
     </script>
 
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('.open-window').forEach(link => {
+                link.addEventListener('click', function (e) {
+                    e.preventDefault();
+
+                    let url = this.href;
+                    let title = this.getAttribute('data-title');
+                    let favicon = this.getAttribute('data-favicon');
+
+                    let newWindow = window.open(url, '_blank');
+
+                    // Wait for the new window to load before modifying it
+                    newWindow.onload = function () {
+                        // Set the title of the new window
+                        newWindow.document.title = title;
+
+                        // Create a link element for the favicon
+                        let linkElement = newWindow.document.createElement('link');
+                        linkElement.rel = 'icon';
+                        linkElement.href = favicon;
+
+                        // Append the link element to the head of the new document
+                        newWindow.document.head.appendChild(linkElement);
+                    };
+                });
+            });
+        });
+    </script>
+
+
     </body>
     </html>
 

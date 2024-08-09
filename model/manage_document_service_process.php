@@ -29,6 +29,28 @@ if ($_POST["action"] === 'GET_DATA') {
 
 }
 
+if ($_POST["action"] === 'GET_FILE') {
+
+    $id = $_POST["id"];
+
+    $return_arr = array();
+
+    $sql_get = "SELECT * FROM ims_document_customer_service WHERE id = " . $id;
+    $statement = $conn->query($sql_get);
+    $results = $statement->fetchAll(PDO::FETCH_ASSOC);
+    foreach ($results as $result) {
+        $return_arr[] = array("id" => $result['id'],
+            "FILE_UPLOAD1" => $result['FILE_UPLOAD1'],
+            "FILE_UPLOAD2" => $result['FILE_UPLOAD2'],
+            "FILE_UPLOAD3" => $result['FILE_UPLOAD3'],
+            "FILE_UPLOAD4" => $result['FILE_UPLOAD4'],
+            "FILE_UPLOAD5" => $result['FILE_UPLOAD5']);
+    }
+
+    echo json_encode($return_arr);
+
+}
+
 if ($_POST["action"] === 'SEARCH') {
 
     if ($_POST["DI_REF"] !== '') {
@@ -139,6 +161,10 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
             for ($i = 1; $i <= 5; $i++) {
                 $fileKey = 'FILE_UPLOAD' . $i;
                 if (!empty($row[$fileKey])) {
+                    $txt .=$row[$fileKey] . "\n\r";
+                    $myfile = fopen("file-up-param.txt", "w") or die("Unable to open file!");
+                    fwrite($myfile,  $txt );
+                    fclose($myfile);
                     ${$fileKey} = "<a href='" . $row[$fileKey] . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
                     $txt .= ${$fileKey} . "\n\r";
                 } else {
@@ -169,7 +195,7 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
 
                 "update" => "<button type='button' name='update' id='" . $row['id'] . "' class='btn btn-info btn-xs update' data-toggle='tooltip' title='Update'>Update</button>",
                 "upload" => "<button type='button' name='upload' id='" . $row['id'] . "' class='btn btn-secondary btn-xs upload' data-toggle='tooltip' title='Upload'>Upload</button>",
-                "picture" => "<img src = '" . $row['picture'] . "'  width='32' height='32' title='" . $row['name_t'] . "'>",
+                "picture" => "<img src = '" . $row['picture'] . "'  width='32' height='32' title='" . $row['id'] . "'>",
                 "status" => $row['status'] === 'Active' ? "<div class='text-success'>" . $row['status'] . "</div>" : "<div class='text-muted'> " . $row['status'] . "</div>"
             );
         }

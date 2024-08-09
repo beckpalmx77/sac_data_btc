@@ -124,6 +124,7 @@ if (strlen($_SESSION['alogin']) == "") {
                 $('#ADDB_COMPANY').val(queryString["ADDB_COMPANY"]);
                 $('#ADDB_PHONE').val(queryString["ADDB_PHONE"]);
                 $('#CAR_NO').val(queryString["CAR_NO"]);
+                Load_File(queryString["id"]);
             }
         });
 
@@ -187,6 +188,12 @@ if (strlen($_SESSION['alogin']) == "") {
                     alertify.alert('Upload failed: ' + error);
                 }
             });
+        }
+    </script>
+
+    <script>
+        function Load_File(id) {
+            alert(id);
         }
     </script>
 

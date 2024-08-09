@@ -87,12 +87,38 @@ if (strlen($_SESSION['alogin']) == "") {
                             <input type="hidden" name="id" id="id"/>
                             <button type="button" class="btn btn-primary" onclick="uploadFile()">Upload</button>
                         </div>
+
+                        <label for="FILE_UPLOAD" class="control-label">File</label>
+
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control" id="FILE_UPLOAD1" name="FILE_UPLOAD1"
+                                   readonly="true" placeholder="">
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control" id="FILE_UPLOAD2" name="FILE_UPLOAD2"
+                                   readonly="true" placeholder="">
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control" id="FILE_UPLOAD3" name="FILE_UPLOAD3"
+                                   readonly="true" placeholder="">
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control" id="FILE_UPLOAD4" name="FILE_UPLOAD4"
+                                   readonly="true" placeholder="">
+                        </div>
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control" id="FILE_UPLOAD5" name="FILE_UPLOAD5"
+                                   readonly="true" placeholder="">
+                        </div>
+                        <div class="col-sm-12">
+                            <div id="fileLink"></div> <!-- Add this div for showing file link -->
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
 
-        <div id="fileLink"></div> <!-- Add this div for showing file link -->
+
 
         <div id="err"></div>
     </div>
@@ -124,6 +150,7 @@ if (strlen($_SESSION['alogin']) == "") {
                 $('#ADDB_COMPANY').val(queryString["ADDB_COMPANY"]);
                 $('#ADDB_PHONE').val(queryString["ADDB_PHONE"]);
                 $('#CAR_NO').val(queryString["CAR_NO"]);
+                loadFile();
             }
         });
 
@@ -185,6 +212,57 @@ if (strlen($_SESSION['alogin']) == "") {
                 },
                 error: function (xhr, status, error) {
                     alertify.alert('Upload failed: ' + error);
+                }
+            });
+        }
+    </script>
+
+    <script>
+
+        function loadFile() {
+            let rec_id = $('#id').val();
+            let formData = {action: "GET_FILE", id: rec_id};
+
+            $.ajax({
+                type: "POST",
+                url: 'model/manage_document_service_process.php',
+                dataType: "json",
+                data: formData,
+                success: function (response) {
+                    let len = response.length;
+                    let fileBasePath = ""; // Base path ของไฟล์ที่ upload
+                    let placeholderImage = "img/file.jpg"; // Path ของรูปภาพแทน
+
+                    for (let i = 0; i < len; i++) {
+                        let fileUpload1 = response[i].FILE_UPLOAD1;
+                        let fileUpload2 = response[i].FILE_UPLOAD2;
+                        let fileUpload3 = response[i].FILE_UPLOAD3;
+                        let fileUpload4 = response[i].FILE_UPLOAD4;
+                        let fileUpload5 = response[i].FILE_UPLOAD5;
+
+                        // Function สำหรับแสดงภาพ
+                        function displayFile(file, inputId) {
+                            if (file) {
+                                let fileType = file.split('.').pop().toLowerCase(); // ตรวจสอบประเภทของไฟล์
+                                let imgSrc = (fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png' || fileType === 'gif')
+                                    ? fileBasePath + file
+                                    : placeholderImage;
+
+                                let imgElement = '<img src="' + imgSrc + '" class="preview-img">';
+                                 $('#' + inputId).val(file).after(imgElement);
+                            }
+                        }
+
+                        // เรียกใช้ function displayFile สำหรับแต่ละไฟล์
+                        displayFile(fileUpload1, 'FILE_UPLOAD1');
+                        displayFile(fileUpload2, 'FILE_UPLOAD2');
+                        displayFile(fileUpload3, 'FILE_UPLOAD3');
+                        displayFile(fileUpload4, 'FILE_UPLOAD4');
+                        displayFile(fileUpload5, 'FILE_UPLOAD5');
+                    }
+                },
+                error: function (xhr, status, error) {
+                    alertify.error("error : " + xhr.responseText);
                 }
             });
         }

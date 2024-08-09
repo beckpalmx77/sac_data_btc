@@ -22,16 +22,11 @@ if (strlen($_SESSION['alogin']) == "") {
                 max-height: 100px;
                 margin: 10px;
             }
-            .card {
-                display: inline-block;
-                margin-right: 10px;
-            }
-
             .card-img {
                 width: 100%;
                 height: auto;
                 object-fit: cover;
-                max-height: 50px; /* กำหนดความสูงสูงสุดของรูปภาพ */
+                max-height: 50px;
             }
         </style>
 
@@ -250,28 +245,27 @@ if (strlen($_SESSION['alogin']) == "") {
                         let fileUpload4 = response[i].FILE_UPLOAD4;
                         let fileUpload5 = response[i].FILE_UPLOAD5;
 
-// Function สำหรับแสดงภาพและชื่อไฟล์ในรูปแบบ Bootstrap Card
-                        function displayFile(file, inputId) {
+                        function displayFile(file) {
                             if (file) {
-                                let fileType = file.split('.').pop().toLowerCase(); // ตรวจสอบประเภทของไฟล์
+                                let fileType = file.split('.').pop().toLowerCase();
                                 let imgSrc = (fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png' || fileType === 'gif')
                                     ? fileBasePath + file
                                     : placeholderImage;
 
-                                // สร้าง Bootstrap Card โดยใส่ชื่อไฟล์ใน Header และรูปภาพใน Body
                                 let cardElement = `
-            <div class="card" style="width: 18rem; margin-bottom: 10px;">
-                ${!(fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png' || fileType === 'gif')
+                                <div class="col-lg-4 col-md-6 col-sm-12">
+                                    <div class="card" style="margin-bottom: 20px;">
+                                        ${!(fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png' || fileType === 'gif')
                                     ? '<div class="card-header">' + file + '</div>'
                                     : ''}
-                <div class="card-body">
-                    <img src="${imgSrc}" class="card-img" alt="${file}">
-                </div>
-            </div>
-        `;
+                                        <div class="card-body">
+                                            <img src="${imgSrc}" class="card-img" alt="${file}">
+                                        </div>
+                                    </div>
+                                </div>
+                            `;
 
-                                // ใช้ jQuery เพื่อแสดง card ใน div ที่เกี่ยวข้อง
-                                $('#' + inputId).val(file).after(cardElement);
+                                $('#fileLink').append(cardElement);
                             }
                         }
 

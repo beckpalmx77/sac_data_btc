@@ -31,7 +31,7 @@ if (strlen($_SESSION['alogin']) == "") {
                 width: 100%;
                 height: auto;
                 object-fit: cover;
-                max-height: 50px; /* กำหนดความสูงสูงสุดของรูปภาพ */
+                max-height: 250px; /* กำหนดความสูงสูงสุดของรูปภาพ */
             }
         </style>
 
@@ -59,13 +59,13 @@ if (strlen($_SESSION['alogin']) == "") {
                                            placeholder="">
                                 </div>
                                 <!--div class="col-sm-4"-->
-                                <!--label for="DI_DATE" class="control-label">วันที่เอกสาร</label-->
-                                <input type="hidden" class="form-control" id="DI_DATE" name="DI_DATE" readonly="true"
-                                       placeholder="วันที่เอกสาร">
+                                    <!--label for="DI_DATE" class="control-label">วันที่เอกสาร</label-->
+                                    <input type="hidden" class="form-control" id="DI_DATE" name="DI_DATE" readonly="true"
+                                           placeholder="วันที่เอกสาร">
                                 <!--/div-->
-                                <!--/div>
+                            <!--/div>
 
-                                <div class="form-group row"-->
+                            <div class="form-group row"-->
                                 <div class="col-sm-6">
                                     <label for="ADDB_COMPANY" class="control-label">ชื่อลูกค้า</label>
                                     <input type="text" class="form-control" id="ADDB_COMPANY" name="ADDB_COMPANY"

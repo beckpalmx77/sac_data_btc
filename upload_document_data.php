@@ -246,7 +246,9 @@ if (strlen($_SESSION['alogin']) == "") {
                                     ? fileBasePath + file
                                     : placeholderImage;
 
-                                let imgElement = '<img src="' + imgSrc + '" class="preview-img">';
+                                //let imgElement = '<img src="' + imgSrc + '" class="preview-img">';
+                                let imgElement = '<img src="' + imgSrc + '" class="preview-img" title="' + imgSrc + '">';
+
                                 $('#' + inputId).val(file).after(imgElement);
                             }
                         }

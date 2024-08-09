@@ -88,8 +88,6 @@ if (strlen($_SESSION['alogin']) == "") {
                             <button type="button" class="btn btn-primary" onclick="uploadFile()">Upload</button>
                         </div>
 
-                        <label for="FILE_UPLOAD" class="control-label">File</label>
-
                         <div class="col-sm-10">
                             <input type="hidden" class="form-control" id="FILE_UPLOAD1" name="FILE_UPLOAD1"
                                    readonly="true" placeholder="">
@@ -110,6 +108,7 @@ if (strlen($_SESSION['alogin']) == "") {
                             <input type="hidden" class="form-control" id="FILE_UPLOAD5" name="FILE_UPLOAD5"
                                    readonly="true" placeholder="">
                         </div>
+
                         <div class="col-sm-12">
                             <div id="fileLink"></div> <!-- Add this div for showing file link -->
                         </div>
@@ -117,7 +116,6 @@ if (strlen($_SESSION['alogin']) == "") {
                 </div>
             </div>
         </div>
-
 
 
         <div id="err"></div>
@@ -249,7 +247,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                     : placeholderImage;
 
                                 let imgElement = '<img src="' + imgSrc + '" class="preview-img">';
-                                 $('#' + inputId).val(file).after(imgElement);
+                                $('#' + inputId).val(file).after(imgElement);
                             }
                         }
 
@@ -278,7 +276,6 @@ if (strlen($_SESSION['alogin']) == "") {
     </script>
     </body>
     </html>
-
 
 
     <?php

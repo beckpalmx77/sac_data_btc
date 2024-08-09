@@ -161,10 +161,12 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
             for ($i = 1; $i <= 5; $i++) {
                 $fileKey = 'FILE_UPLOAD' . $i;
                 if (!empty($row[$fileKey])) {
+/*
                     $txt .=$row[$fileKey] . "\n\r";
                     $myfile = fopen("file-up-param.txt", "w") or die("Unable to open file!");
                     fwrite($myfile,  $txt );
                     fclose($myfile);
+*/
                     ${$fileKey} = "<a href='" . $row[$fileKey] . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
                     $txt .= ${$fileKey} . "\n\r";
                 } else {

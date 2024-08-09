@@ -1,13 +1,14 @@
 <?php
+
 // ตั้งค่าตัวแปร
 $host = '192.168.88.7';
 $port = '3307';
-$dbname = 'sac_data2';
+$dbname = 'sac_data_btc';
 $backupDir = "D:\DB\backup_directory";
 $date = date('Ymd_His');
 $backupFile = $backupDir . DIRECTORY_SEPARATOR . $dbname . "_" . $date . ".sql";
 
-// สร้างคำสั่ง mysqldump
+// สร้างคำสั่ง mysqldump (ไม่ระบุรหัสผ่าน)
 $command = "mysqldump --defaults-file=\"D:\\wamp64\\bin\\mysql\\mysql8.3.0\\my.ini\" -h $host -P $port $dbname > \"$backupFile\"";
 
 // เรียกใช้งานคำสั่ง
@@ -19,4 +20,5 @@ if ($returnVar === 0) {
 } else {
     echo "Backup failed!";
 }
+
 

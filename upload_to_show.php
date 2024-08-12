@@ -25,4 +25,12 @@ if (isset($_GET['filename'])) {
     <img src="<?php echo $_GET['filename']; ?>">
 </div>
 
+<?php } else { ?>
+
+    <div class="center-container">
+        <img src="img/file_not_found.png">
+    </div>
+
 <?php } ?>
+
+</body>

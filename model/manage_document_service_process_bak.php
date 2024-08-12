@@ -160,23 +160,19 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
 
             for ($i = 1; $i <= 5; $i++) {
                 $fileKey = 'FILE_UPLOAD' . $i;
-
                 if (!empty($row[$fileKey])) {
-                    $filePath = $row[$fileKey];
-
-                        $fileExtension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-
-                        // ตรวจสอบว่าไฟล์เป็นรูปภาพหรือไม่
-                        if (in_array($fileExtension, ['jpg', 'jpeg', 'png'])) {
-                            ${$fileKey} = "<a href='upload_to_show.php?filename=" . urlencode($filePath) . "&id=" . $i . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
-                        } else {
-                            ${$fileKey} = "<a href='" . $row[$fileKey] . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
-                        }
-
-                    } else {
+                    ${$fileKey} = "<a href='" . $row[$fileKey] . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
+                    $txt .= ${$fileKey} . "\n\r";
+                } else {
                     ${$fileKey} = "-";
                 }
             }
+
+/*
+            $myfile = fopen("file-up-param.txt", "w") or die("Unable to open file!");
+            fwrite($myfile,  $txt );
+            fclose($myfile);
+*/
 
             $data[] = array(
                 "id" => $row['id'],

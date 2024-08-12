@@ -163,14 +163,14 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
 
                 if (!empty($row[$fileKey])) {
                     $filePath = $row[$fileKey];
-                        $fileExtension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-                        // ตรวจสอบว่าไฟล์เป็นรูปภาพหรือไม่
-                        if (in_array($fileExtension, ['jpg', 'jpeg', 'png'])) {
-                            ${$fileKey} = "<a href='upload_to_show.php?filename=" . urlencode($filePath) . "&id=" . $i . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
-                        } else {
-                            ${$fileKey} = "<a href='" . $row[$fileKey] . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
-                        }
+                    $fileExtension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
+                    // ตรวจสอบว่าไฟล์เป็นรูปภาพหรือไม่
+                    if (in_array($fileExtension, ['jpg', 'jpeg', 'png'])) {
+                        ${$fileKey} = "<a href='upload_to_show.php?filename=" . urlencode($filePath) . "&id=" . $i . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
                     } else {
+                        ${$fileKey} = "<a href='" . $row[$fileKey] . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
+                    }
+                } else {
                     ${$fileKey} = "-";
                 }
             }
@@ -178,7 +178,7 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
             $data[] = array(
                 "id" => $row['id'],
                 "DI_REF" => $row['DI_REF'],
-                "DI_DATE" => substr($row['DI_DATE'],0,10),
+                "DI_DATE" => substr($row['DI_DATE'], 0, 10),
                 "ADDB_COMPANY" => $row['ADDB_COMPANY'],
                 "ADDB_PHONE" => $row['ADDB_PHONE'],
                 "CAR_NO" => $row['CAR_NO'],

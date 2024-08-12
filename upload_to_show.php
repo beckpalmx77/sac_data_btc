@@ -1,12 +1,7 @@
 <?php
 include 'includes/Header.php';
-
 if (isset($_GET['filename'])) {
-
-}
-
 ?>
-
 <style>
     body {
         margin: 0;
@@ -16,19 +11,18 @@ if (isset($_GET['filename'])) {
         width: 100%;
         text-align: center;
     }
-
     img {
         vertical-align: middle;
         display: inline-block;
     }
-
     .center-container {
         display: table-cell;
         vertical-align: middle;
     }
 </style>
-
 <body>
 <div class="center-container">
     <img src="<?php echo $_GET['filename']; ?>">
 </div>
+
+<?php } ?>

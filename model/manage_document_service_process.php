@@ -163,16 +163,13 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
 
                 if (!empty($row[$fileKey])) {
                     $filePath = $row[$fileKey];
-
                         $fileExtension = strtolower(pathinfo($filePath, PATHINFO_EXTENSION));
-
                         // ตรวจสอบว่าไฟล์เป็นรูปภาพหรือไม่
                         if (in_array($fileExtension, ['jpg', 'jpeg', 'png'])) {
                             ${$fileKey} = "<a href='upload_to_show.php?filename=" . urlencode($filePath) . "&id=" . $i . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
                         } else {
                             ${$fileKey} = "<a href='" . $row[$fileKey] . "' data-title='File " . $i . " Title' data-favicon='img/favicon.ico' class='open-window' target='_blank'>File" . $i . "</a>";
                         }
-
                     } else {
                     ${$fileKey} = "-";
                 }

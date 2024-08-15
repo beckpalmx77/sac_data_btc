@@ -247,6 +247,7 @@ if (strlen($_SESSION['alogin']) == "") {
                     let placeholderImage = "img/file.jpg"; // Path ของรูปภาพแทน
 
                     for (let i = 0; i < len; i++) {
+                        let id = response[i].id;
                         let fileUpload1 = response[i].FILE_UPLOAD1;
                         let fileUpload2 = response[i].FILE_UPLOAD2;
                         let fileUpload3 = response[i].FILE_UPLOAD3;
@@ -254,7 +255,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         let fileUpload5 = response[i].FILE_UPLOAD5;
 
                         // Function สำหรับแสดงภาพและชื่อไฟล์ในรูปแบบ Bootstrap Card
-                        function displayFile(file, inputId) {
+                        function displayFile(file, inputId,id) {
                             if (file) {
                                 let fileType = file.split('.').pop().toLowerCase(); // ตรวจสอบประเภทของไฟล์
                                 let imgSrc = (fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png' || fileType === 'gif')
@@ -269,7 +270,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         <div class="card-body">
                             <img src="${imgSrc}" class="card-img" alt="${file}">
                         </div>
-                            <!--button type="button" class="btn btn-danger btn-sm" onclick="deleteFile('${file}')">ลบ</button-->
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteFile('${file}','${id}'">ลบ</button>
                         </div>
                         `;
                                 // ใช้ jQuery เพื่อแสดง card ใน div ที่เกี่ยวข้อง
@@ -278,11 +279,11 @@ if (strlen($_SESSION['alogin']) == "") {
                         }
 
                         // เรียกใช้ function displayFile สำหรับแต่ละไฟล์
-                        displayFile(fileUpload1, 'FILE_UPLOAD1');
-                        displayFile(fileUpload2, 'FILE_UPLOAD2');
-                        displayFile(fileUpload3, 'FILE_UPLOAD3');
-                        displayFile(fileUpload4, 'FILE_UPLOAD4');
-                        displayFile(fileUpload5, 'FILE_UPLOAD5');
+                        displayFile(fileUpload1, 'FILE_UPLOAD1',id);
+                        displayFile(fileUpload2, 'FILE_UPLOAD2',id);
+                        displayFile(fileUpload3, 'FILE_UPLOAD3',id);
+                        displayFile(fileUpload4, 'FILE_UPLOAD4',id);
+                        displayFile(fileUpload5, 'FILE_UPLOAD5',id);
                     }
                 },
                 error: function (xhr, status, error) {
@@ -294,6 +295,7 @@ if (strlen($_SESSION['alogin']) == "") {
 
     <script>
         function deleteFile(fileName, fileIndex) {
+            alert(fileName + " | " + fileIndex);
             if (confirm("คุณต้องการลบไฟล์นี้หรือไม่?")) {
                 let rec_id = $('#id').val();
                 $.ajax({

@@ -247,6 +247,7 @@ if (strlen($_SESSION['alogin']) == "") {
                     let placeholderImage = "img/file.jpg"; // Path ของรูปภาพแทน
 
                     for (let i = 0; i < len; i++) {
+                        let id = response[i].id;
                         let fileUpload1 = response[i].FILE_UPLOAD1;
                         let fileUpload2 = response[i].FILE_UPLOAD2;
                         let fileUpload3 = response[i].FILE_UPLOAD3;
@@ -269,7 +270,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         <div class="card-body">
                             <img src="${imgSrc}" class="card-img" alt="${file}">
                         </div>
-                            <!--button type="button" class="btn btn-danger btn-sm" onclick="deleteFile('${file}')">ลบ</button-->
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteFile('${file}')">ลบ</button>
                         </div>
                         `;
                                 // ใช้ jQuery เพื่อแสดง card ใน div ที่เกี่ยวข้อง
@@ -294,6 +295,7 @@ if (strlen($_SESSION['alogin']) == "") {
 
     <script>
         function deleteFile(fileName, fileIndex) {
+            alert(fileName + " | " fileIndex);
             if (confirm("คุณต้องการลบไฟล์นี้หรือไม่?")) {
                 let rec_id = $('#id').val();
                 $.ajax({

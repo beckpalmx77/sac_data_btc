@@ -269,7 +269,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         <div class="card-body">
                             <img src="${imgSrc}" class="card-img" alt="${file}">
                         </div>
-                            <!--button type="button" class="btn btn-danger btn-sm" onclick="deleteFile('${file}', '${inputId}')">-</button-->
+                            <!--button type="button" class="btn btn-danger btn-sm" onclick="deleteFile('${file}')">ลบ</button-->
                         </div>
                         `;
                                 // ใช้ jQuery เพื่อแสดง card ใน div ที่เกี่ยวข้อง

@@ -139,16 +139,7 @@ if ($_POST["action"] === 'DELETE_FILE') {
     // จัดเรียงอาร์เรย์ใหม่ให้เลื่อนไฟล์ที่เหลือขึ้นมา
     $files = array_values(array_filter($files));
 
-
-    // เขียนข้อมูลอาร์เรย์ที่ปรับปรุงแล้วลงในไฟล์
-    //$filePath = 'a_delete_filexxx.txt'; // กำหนดตำแหน่งที่ต้องการบันทึกไฟล์
     $fileContent = implode("\n", $files); // แปลงอาร์เรย์เป็นสตริงโดยใช้ new line เป็นตัวคั่น
-    //file_put_contents($filePath, $fileContent);
-
-    $file1 = $fileContent;
-
-// จัดเรียงอาร์เรย์ใหม่ให้เลื่อนไฟล์ที่เหลือขึ้นมา
-    //$files = array_values(array_filter($files));
 
 // แยกค่าจากอาร์เรย์ลงในตัวแปรแยก
     $file1 = isset($files[0]) ? $files[0] : null;

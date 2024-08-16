@@ -254,6 +254,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         let fileUpload4 = response[i].FILE_UPLOAD4;
                         let fileUpload5 = response[i].FILE_UPLOAD5;
 
+                        // Function สำหรับแสดงภาพและชื่อไฟล์ในรูปแบบ Bootstrap Card
                         function displayFile(file, inputId) {
                             if (file) {
                                 let fileType = file.split('.').pop().toLowerCase(); // ตรวจสอบประเภทของไฟล์
@@ -262,29 +263,18 @@ if (strlen($_SESSION['alogin']) == "") {
                                     : placeholderImage;
 
                                 // สร้าง Bootstrap Card โดยใส่ชื่อไฟล์ใน Header และรูปภาพใน Body
-                                let cardElement = `
-            <div class="col-md-6 mb-3">
-                <div class="card" style="width: 100%;">
-                    ${!(fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png' || fileType === 'gif')
+                                let cardElement = `<div class="card" style="width: 18rem; margin-bottom: 10px;">
+                                ${!(fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png' || fileType === 'gif')
                                     ? '<div class="card-header">' + file + '</div>'
                                     : ''}
-                    <div class="card-body">
-                        <img src="${imgSrc}" class="card-img" alt="${file}">
-                    </div>
-                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteFile('${file}', '${inputId}')">ลบ</button>
-                </div>
-            </div>
-        `;
-
-                                // ถ้า div ของไฟล์ยังไม่ถูกสร้าง ให้สร้างใหม่
-                                let $targetRow = $('#fileLink .row').last();
-
-                                // ถ้ายังไม่มี row หรือล่าสุดมีครบ 2 cards ให้สร้าง row ใหม่
-                                if ($targetRow.length === 0 || $targetRow.children('.col-md-6').length >= 2) {
-                                    $targetRow = $('<div class="row"></div>').appendTo('#fileLink');
-                                }
-
-                                $targetRow.append(cardElement);
+                        <div class="card-body">
+                            <img src="${imgSrc}" class="card-img" alt="${file}">
+                        </div>
+                            <button type="button" class="btn btn-danger btn-sm" onclick="deleteFile('${file}', '${inputId}')">ลบ</button>
+                        </div>
+                        `;
+                                // ใช้ jQuery เพื่อแสดง card ใน div ที่เกี่ยวข้อง
+                                $('#' + inputId).val(file).after(cardElement);
                             }
                         }
 

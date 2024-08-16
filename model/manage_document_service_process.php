@@ -117,12 +117,12 @@ if ($_POST["action"] === 'DELETE_FILE') {
         'FILE_UPLOAD5' => $record['FILE_UPLOAD5'],
     ];
 
-/*
-    $txt = $_POST["action"] . " | " . $file_name . " | " . $id;
-    $myfile = fopen("a_delete_file1.txt", "w") or die("Unable to open file!");
-    fwrite($myfile,  $file_name . " | DELETE | ID = " . $id . " | " . print_r($files, TRUE));
-    fclose($myfile);
-*/
+    /*
+        $txt = $_POST["action"] . " | " . $file_name . " | " . $id;
+        $myfile = fopen("a_delete_file1.txt", "w") or die("Unable to open file!");
+        fwrite($myfile,  $file_name . " | DELETE | ID = " . $id . " | " . print_r($files, TRUE));
+        fclose($myfile);
+    */
 
     foreach ($files as $key => $file) {
         if ($file == $file_name) {
@@ -153,17 +153,17 @@ if ($_POST["action"] === 'DELETE_FILE') {
     $file5 = isset($files[4]) ? $files[4] : null;
 
     $txt = "1 = " . $file1 . " | " . "\n\r" .
-           "2 = " . $file2 . " | " . "\n\r" .
-           "3 = " . $file3 . " | " . "\n\r" .
-           "4 = " . $file4 . " | " . "\n\r" .
-           "5 = " . $file5 . "\n\r" .
-           " ID = " . $id ;
+        "2 = " . $file2 . " | " . "\n\r" .
+        "3 = " . $file3 . " | " . "\n\r" .
+        "4 = " . $file4 . " | " . "\n\r" .
+        "5 = " . $file5 . "\n\r" .
+        " ID = " . $id;
 
-/*
-    $myfile = fopen("a_delete_file1.txt", "w") or die("Unable to open file!");
-    fwrite($myfile,  $txt);
-    fclose($myfile);
-*/
+    /*
+        $myfile = fopen("a_delete_file1.txt", "w") or die("Unable to open file!");
+        fwrite($myfile,  $txt);
+        fclose($myfile);
+    */
 
     $sql_update = "UPDATE ims_document_customer_service SET FILE_UPLOAD1=:FILE_UPLOAD1,FILE_UPLOAD2=:FILE_UPLOAD2
             ,FILE_UPLOAD3=:FILE_UPLOAD3,FILE_UPLOAD4=:FILE_UPLOAD4,FILE_UPLOAD5=:FILE_UPLOAD5            
@@ -178,11 +178,11 @@ if ($_POST["action"] === 'DELETE_FILE') {
     $query->execute();
     echo $save_success;
 
-/*
-    $myfile = fopen("a_delete_file_update.txt", "w") or die("Unable to open file!");
-    fwrite($myfile,  $sql_update);
-    fclose($myfile);
-*/
+    /*
+        $myfile = fopen("a_delete_file_update.txt", "w") or die("Unable to open file!");
+        fwrite($myfile,  $sql_update);
+        fclose($myfile);
+    */
 
 }
 

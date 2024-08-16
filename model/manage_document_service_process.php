@@ -91,6 +91,101 @@ if ($_POST["action"] === 'UPDATE') {
     }
 }
 
+if ($_POST["action"] === 'DELETE_FILE') {
+
+    $file_name = $_POST['file_name'];
+    $id = $_POST['id'];
+
+    // ลบไฟล์จากระบบไฟล์
+    $file_path = $file_name;
+
+    if (file_exists($file_path)) {
+        unlink($file_path);
+    }
+
+    // อัปเดตฐานข้อมูล
+    $stmt = $conn->prepare("SELECT * FROM ims_document_customer_service WHERE id = ?");
+    $stmt->execute([$id]);
+    $record = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    // Remove the file from record
+    $files = [
+        'FILE_UPLOAD1' => $record['FILE_UPLOAD1'],
+        'FILE_UPLOAD2' => $record['FILE_UPLOAD2'],
+        'FILE_UPLOAD3' => $record['FILE_UPLOAD3'],
+        'FILE_UPLOAD4' => $record['FILE_UPLOAD4'],
+        'FILE_UPLOAD5' => $record['FILE_UPLOAD5'],
+    ];
+
+/*
+    $txt = $_POST["action"] . " | " . $file_name . " | " . $id;
+    $myfile = fopen("a_delete_file1.txt", "w") or die("Unable to open file!");
+    fwrite($myfile,  $file_name . " | DELETE | ID = " . $id . " | " . print_r($files, TRUE));
+    fclose($myfile);
+*/
+
+    foreach ($files as $key => $file) {
+        if ($file == $file_name) {
+            $files[$key] = null; // Remove the file name
+            break;
+        }
+    }
+
+    // จัดเรียงอาร์เรย์ใหม่ให้เลื่อนไฟล์ที่เหลือขึ้นมา
+    $files = array_values(array_filter($files));
+
+
+    // เขียนข้อมูลอาร์เรย์ที่ปรับปรุงแล้วลงในไฟล์
+    //$filePath = 'a_delete_filexxx.txt'; // กำหนดตำแหน่งที่ต้องการบันทึกไฟล์
+    $fileContent = implode("\n", $files); // แปลงอาร์เรย์เป็นสตริงโดยใช้ new line เป็นตัวคั่น
+    //file_put_contents($filePath, $fileContent);
+
+    $file1 = $fileContent;
+
+// จัดเรียงอาร์เรย์ใหม่ให้เลื่อนไฟล์ที่เหลือขึ้นมา
+    //$files = array_values(array_filter($files));
+
+// แยกค่าจากอาร์เรย์ลงในตัวแปรแยก
+    $file1 = isset($files[0]) ? $files[0] : null;
+    $file2 = isset($files[1]) ? $files[1] : null;
+    $file3 = isset($files[2]) ? $files[2] : null;
+    $file4 = isset($files[3]) ? $files[3] : null;
+    $file5 = isset($files[4]) ? $files[4] : null;
+
+    $txt = "1 = " . $file1 . " | " . "\n\r" .
+           "2 = " . $file2 . " | " . "\n\r" .
+           "3 = " . $file3 . " | " . "\n\r" .
+           "4 = " . $file4 . " | " . "\n\r" .
+           "5 = " . $file5 . "\n\r" .
+           " ID = " . $id ;
+
+/*
+    $myfile = fopen("a_delete_file1.txt", "w") or die("Unable to open file!");
+    fwrite($myfile,  $txt);
+    fclose($myfile);
+*/
+
+    $sql_update = "UPDATE ims_document_customer_service SET FILE_UPLOAD1=:FILE_UPLOAD1,FILE_UPLOAD2=:FILE_UPLOAD2
+            ,FILE_UPLOAD3=:FILE_UPLOAD3,FILE_UPLOAD4=:FILE_UPLOAD4,FILE_UPLOAD5=:FILE_UPLOAD5            
+            WHERE id = :id";
+    $query = $conn->prepare($sql_update);
+    $query->bindParam(':FILE_UPLOAD1', $file1, PDO::PARAM_STR);
+    $query->bindParam(':FILE_UPLOAD2', $file2, PDO::PARAM_STR);
+    $query->bindParam(':FILE_UPLOAD3', $file3, PDO::PARAM_STR);
+    $query->bindParam(':FILE_UPLOAD4', $file4, PDO::PARAM_STR);
+    $query->bindParam(':FILE_UPLOAD5', $file5, PDO::PARAM_STR);
+    $query->bindParam(':id', $id, PDO::PARAM_STR);
+    $query->execute();
+    echo $save_success;
+
+/*
+    $myfile = fopen("a_delete_file_update.txt", "w") or die("Unable to open file!");
+    fwrite($myfile,  $sql_update);
+    fclose($myfile);
+*/
+
+}
+
 if ($_POST["action"] === 'GET_DOCUMENT') {
 
 ## Read value

@@ -376,6 +376,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         let ADDB_COMPANY = response[i].ADDB_COMPANY;
                         let ADDB_PHONE = response[i].ADDB_PHONE;
                         let CAR_NO = response[i].CAR_NO;
+                        let REMARK = response[i].REMARK;
 
                         let main_menu = "นำเข้าข้อมูล";
                         let sub_menu = "ข้อมูลเช็ครถเบื้องต้น BTC";
@@ -386,6 +387,7 @@ if (strlen($_SESSION['alogin']) == "") {
                             + '&CAR_NO=' + CAR_NO
                             + '&ADDB_PHONE=' + ADDB_PHONE
                             + '&ADDB_COMPANY=' + ADDB_COMPANY
+                            + '&REMARK=' + REMARK
                             + '&action=UPDATE';
 
                         OpenPopupCenter(originalURL, "", "");

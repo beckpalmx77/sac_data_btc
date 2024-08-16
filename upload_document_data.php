@@ -54,7 +54,7 @@ if (strlen($_SESSION['alogin']) == "") {
                     <form method="post" id="uploadForm" name="uploadForm" enctype="multipart/form-data">
                         <div class="modal-body">
                             <div class="form-group row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <label for="DI_REF" class="control-label">เลขที่เอกสาร</label>
                                     <input type="text" class="form-control" id="DI_REF" name="DI_REF" readonly="true"
                                            placeholder="">
@@ -67,7 +67,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                 <!--/div>
 
                                 <div class="form-group row"-->
-                                <div class="col-sm-6">
+                                <div class="col-sm-8">
                                     <label for="ADDB_COMPANY" class="control-label">ชื่อลูกค้า</label>
                                     <input type="text" class="form-control" id="ADDB_COMPANY" name="ADDB_COMPANY"
                                            readonly="true" required="required" placeholder="">
@@ -80,15 +80,20 @@ if (strlen($_SESSION['alogin']) == "") {
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-sm-10">
+                                <div class="col-sm-4">
                                     <label for="CAR_NO" class="control-label">ทะเบียนรถ</label>
                                     <input type="text" class="form-control" id="CAR_NO" name="CAR_NO" readonly="true"
+                                           placeholder="">
+                                </div>
+                                <div class="col-sm-8">
+                                    <label for="REMARK" class="control-label">หมายเหตุ</label>
+                                    <input type="text" class="form-control" id="REMARK" name="REMARK" readonly="true"
                                            placeholder="">
                                 </div>
                             </div>
 
                             <div class="form-group row">
-                                <div class="col-sm-10">
+                                <div class="col-sm-12">
                                     <label for="files" class="control-label">เลือกไฟล์ EXCEL หรือ PDF หรือ รูปภาพ
                                         JPG หรือ PNG ที่ต้องการ Upload (สูงสุด 5 ไฟล์)</label>
                                     <input class="form-control" type="file" name="files[]" id="files"
@@ -161,6 +166,7 @@ if (strlen($_SESSION['alogin']) == "") {
                 $('#id').val(queryString["id"]);
                 $('#DI_REF').val(queryString["DI_REF"]);
                 $('#DI_DATE').val(queryString["DI_DATE"]);
+                $('#REMARK').val(queryString["REMARK"]);
                 $('#ADDB_COMPANY').val(queryString["ADDB_COMPANY"]);
                 $('#ADDB_PHONE').val(queryString["ADDB_PHONE"]);
                 $('#CAR_NO').val(queryString["CAR_NO"]);

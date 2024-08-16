@@ -260,7 +260,6 @@ if (strlen($_SESSION['alogin']) == "") {
                                 let imgSrc = (fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png' || fileType === 'gif')
                                     ? fileBasePath + file
                                     : placeholderImage;
-
                                 // สร้าง Bootstrap Card โดยใส่ชื่อไฟล์ใน Header และรูปภาพใน Body
                                 let cardElement = `
             <div class="col-md-6 mb-3">
@@ -275,15 +274,12 @@ if (strlen($_SESSION['alogin']) == "") {
                 </div>
             </div>
         `;
-
                                 // ถ้า div ของไฟล์ยังไม่ถูกสร้าง ให้สร้างใหม่
                                 let $targetRow = $('#fileLink .row').last();
-
                                 // ถ้ายังไม่มี row หรือล่าสุดมีครบ 2 cards ให้สร้าง row ใหม่
                                 if ($targetRow.length === 0 || $targetRow.children('.col-md-6').length >= 2) {
                                     $targetRow = $('<div class="row"></div>').appendTo('#fileLink');
                                 }
-
                                 $targetRow.append(cardElement);
                             }
                         }

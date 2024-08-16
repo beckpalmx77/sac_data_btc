@@ -138,6 +138,12 @@ if (strlen($_SESSION['alogin']) == "") {
                                                                                placeholder="ทะเบียนรถ">
                                                                     </div>
                                                                 </div>
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-12">
+                                                                        <label for="REMARK" class="control-label">หมายเหตุ</label>
+                                                                        <textarea class="form-control" id="REMARK" name="REMARK" rows="3"></textarea>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                         <div class="modal-footer">
@@ -326,6 +332,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         let ADDB_COMPANY = response[i].ADDB_COMPANY;
                         let ADDB_PHONE = response[i].ADDB_PHONE;
                         let CAR_NO = response[i].CAR_NO;
+                        let REMARK = response[i].REMARK;
 
                         $('#recordModal').modal('show');
                         $('#id').val(id);
@@ -334,6 +341,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         $('#ADDB_COMPANY').val(ADDB_COMPANY);
                         $('#ADDB_PHONE').val(ADDB_PHONE);
                         $('#CAR_NO').val(CAR_NO);
+                        $('#REMARK').val(REMARK);
                         $('.modal-title').html("<i class='fa fa-plus'></i> Edit Record");
                         $('#action').val('UPDATE');
                         $('#save').val('Save');

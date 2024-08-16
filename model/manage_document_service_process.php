@@ -20,6 +20,7 @@ if ($_POST["action"] === 'GET_DATA') {
         $return_arr[] = array("id" => $result['id'],
             "DI_REF" => $result['DI_REF'],
             "DI_DATE" => $result['DI_DATE'],
+            "REMARK" => $result['REMARK'],
             "ADDB_COMPANY" => $result['ADDB_COMPANY'],
             "ADDB_PHONE" => $result['ADDB_PHONE'],
             "CAR_NO" => $result['CAR_NO']);
@@ -77,13 +78,15 @@ if ($_POST["action"] === 'UPDATE') {
     if ($_POST["id"] != '') {
         $id = $_POST["id"];
         $CAR_NO = $_POST["CAR_NO"];
+        $REMARK = $_POST["REMARK"];
         $sql_find = "SELECT * FROM ims_document_customer_service WHERE id = '" . $id . "'";
         $nRows = $conn->query($sql_find)->fetchColumn();
         if ($nRows > 0) {
-            $sql_update = "UPDATE ims_document_customer_service SET CAR_NO=:CAR_NO            
+            $sql_update = "UPDATE ims_document_customer_service SET CAR_NO=:CAR_NO,REMARK=:REMARK            
             WHERE id = :id";
             $query = $conn->prepare($sql_update);
             $query->bindParam(':CAR_NO', $CAR_NO, PDO::PARAM_STR);
+            $query->bindParam(':REMARK', $REMARK, PDO::PARAM_STR);
             $query->bindParam(':id', $id, PDO::PARAM_STR);
             $query->execute();
             echo $save_success;
@@ -277,6 +280,7 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
                 "ADDB_COMPANY" => $row['ADDB_COMPANY'],
                 "ADDB_PHONE" => $row['ADDB_PHONE'],
                 "CAR_NO" => $row['CAR_NO'],
+                "REMARK" => $row['REMARK'],
 
                 "FILE_UPLOAD" => $FILE_UPLOAD,
                 "FILE_UPLOAD1" => $FILE_UPLOAD1,

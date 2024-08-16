@@ -47,8 +47,8 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <th>ชื่อลูกค้า</th>
                                                     <th>โทรศัพท์</th>
                                                     <th>เลขทะเบียนรถ</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
+                                                    <th>Form Check</th>
+                                                    <th>รูปหน้ารถ</th>
                                                     <th>File</th>
                                                     <th>File</th>
                                                     <th>File</th>
@@ -63,8 +63,8 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <th>ชื่อลูกค้า</th>
                                                     <th>โทรศัพท์</th>
                                                     <th>เลขทะเบียนรถ</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
+                                                    <th>Form Check</th>
+                                                    <th>รูปหน้ารถ</th>
                                                     <th>File</th>
                                                     <th>File</th>
                                                     <th>File</th>

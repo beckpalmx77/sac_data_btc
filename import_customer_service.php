@@ -384,9 +384,11 @@ if (strlen($_SESSION['alogin']) == "") {
                         let main_menu = "นำเข้าข้อมูล";
                         let sub_menu = "ข้อมูลเช็ครถเบื้องต้น BTC";
                         let originalURL = "upload_document_data.php?title=ข้อมูลเช็ครถเบื้องต้น (BTC)"
-                            + '&main_menu=' + main_menu + '&sub_menu=' + sub_menu
+                            + '&main_menu=' + main_menu
+                            + '&sub_menu=' + sub_menu
                             + '&id=' + id
-                            + '&DI_REF=' + DI_REF + '&DI_DATE=' + DI_DATE
+                            + '&DI_REF=' + DI_REF
+                            + '&DI_DATE=' + DI_DATE
                             + '&CAR_NO=' + CAR_NO
                             + '&ADDB_PHONE=' + ADDB_PHONE
                             + '&ADDB_COMPANY=' + ADDB_COMPANY

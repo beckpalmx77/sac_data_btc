@@ -95,7 +95,7 @@ if (strlen($_SESSION['alogin']) == "") {
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <label for="files" class="control-label">เลือกไฟล์ EXCEL หรือ PDF หรือ รูปภาพ
-                                        JPG หรือ PNG ที่ต้องการ Upload (สูงสุด 5 ไฟล์)</label>
+                                        JPG หรือ PNG ที่ต้องการ Upload (สูงสุด 6 ไฟล์)</label>
                                     <input class="form-control" type="file" name="files[]" id="files"
                                            accept=".xls,.xlsx,.pdf,.jpg,.png" multiple>
                                 </div>
@@ -126,6 +126,11 @@ if (strlen($_SESSION['alogin']) == "") {
                         </div>
                         <div class="col-sm-10">
                             <input type="hidden" class="form-control" id="FILE_UPLOAD5" name="FILE_UPLOAD5"
+                                   readonly="true" placeholder="">
+                        </div>
+
+                        <div class="col-sm-10">
+                            <input type="hidden" class="form-control" id="FILE_UPLOAD6" name="FILE_UPLOAD6"
                                    readonly="true" placeholder="">
                         </div>
 
@@ -176,8 +181,8 @@ if (strlen($_SESSION['alogin']) == "") {
 
         document.getElementById('files').addEventListener('change', function (event) {
             let preview = document.getElementById('preview');
-            if (this.files.length > 5) {
-                alert('You can only upload up to 5 files.');
+            if (this.files.length > 6) {
+                alert('You can only upload up to 6 files.');
                 this.value = ''; // Clear the file input
                 return;
             }
@@ -259,6 +264,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         let fileUpload3 = response[i].FILE_UPLOAD3;
                         let fileUpload4 = response[i].FILE_UPLOAD4;
                         let fileUpload5 = response[i].FILE_UPLOAD5;
+                        let fileUpload6 = response[i].FILE_UPLOAD6;
 
                         function displayFile(file, inputId) {
                             if (file) {
@@ -296,6 +302,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         displayFile(fileUpload3, 'FILE_UPLOAD3');
                         displayFile(fileUpload4, 'FILE_UPLOAD4');
                         displayFile(fileUpload5, 'FILE_UPLOAD5');
+                        displayFile(fileUpload6, 'FILE_UPLOAD6');
                     }
                 },
                 error: function (xhr, status, error) {

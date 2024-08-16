@@ -17,7 +17,7 @@ $CAR_NO = $_POST["CAR_NO"];
 if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FILE) {
     $fileCount = count($_FILES['files']['name']);
     if ($fileCount > 5) {
-        echo "คุณสามารถอัปโหลดไฟล์ได้สูงสุด 5 ไฟล์เท่านั้น";
+        echo "คุณสามารถอัปโหลดไฟล์ได้สูงสุด 6 ไฟล์เท่านั้น";
         exit;
     }
 
@@ -36,14 +36,14 @@ if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FIL
     }
 
     // Fetch current file fields from database
-    $sql_fetch = "SELECT FILE_UPLOAD1, FILE_UPLOAD2, FILE_UPLOAD3, FILE_UPLOAD4, FILE_UPLOAD5 FROM ims_document_customer_service WHERE id = :id";
+    $sql_fetch = "SELECT FILE_UPLOAD1,FILE_UPLOAD2,FILE_UPLOAD3,FILE_UPLOAD4,FILE_UPLOAD5,FILE_UPLOAD6 FROM ims_document_customer_service WHERE id = :id";
     $query = $conn->prepare($sql_fetch);
     $query->bindParam(':id', $id, PDO::PARAM_STR);
     $query->execute();
     $row = $query->fetch(PDO::FETCH_ASSOC);
 
     // Initialize file fields array
-    $fileFields = ['FILE_UPLOAD1', 'FILE_UPLOAD2', 'FILE_UPLOAD3', 'FILE_UPLOAD4', 'FILE_UPLOAD5'];
+    $fileFields = ['FILE_UPLOAD1', 'FILE_UPLOAD2', 'FILE_UPLOAD3', 'FILE_UPLOAD4', 'FILE_UPLOAD5', 'FILE_UPLOAD6'];
     $fileNames = [];
 
     // Populate existing files into fileNames array
@@ -85,7 +85,8 @@ if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FIL
                    FILE_UPLOAD2=:file2, 
                    FILE_UPLOAD3=:file3, 
                    FILE_UPLOAD4=:file4, 
-                   FILE_UPLOAD5=:file5 
+                   FILE_UPLOAD5=:file5,
+                   FILE_UPLOAD6=:file6 
                    WHERE id = :id";
     $query = $conn->prepare($sql_update);
     $query->bindParam(':file1', $fileNames['FILE_UPLOAD1']);
@@ -93,6 +94,7 @@ if (isset($_FILES['files']) && $_FILES['files']['error'][0] != UPLOAD_ERR_NO_FIL
     $query->bindParam(':file3', $fileNames['FILE_UPLOAD3']);
     $query->bindParam(':file4', $fileNames['FILE_UPLOAD4']);
     $query->bindParam(':file5', $fileNames['FILE_UPLOAD5']);
+    $query->bindParam(':file6', $fileNames['FILE_UPLOAD6']);
     $query->bindParam(':id', $id, PDO::PARAM_STR);
 
     // Execute the statement

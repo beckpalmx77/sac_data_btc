@@ -45,7 +45,8 @@ if ($_POST["action"] === 'GET_FILE') {
             "FILE_UPLOAD2" => $result['FILE_UPLOAD2'],
             "FILE_UPLOAD3" => $result['FILE_UPLOAD3'],
             "FILE_UPLOAD4" => $result['FILE_UPLOAD4'],
-            "FILE_UPLOAD5" => $result['FILE_UPLOAD5']);
+            "FILE_UPLOAD5" => $result['FILE_UPLOAD5'],
+            "FILE_UPLOAD6" => $result['FILE_UPLOAD6']);
     }
 
     echo json_encode($return_arr);
@@ -118,6 +119,7 @@ if ($_POST["action"] === 'DELETE_FILE') {
         'FILE_UPLOAD3' => $record['FILE_UPLOAD3'],
         'FILE_UPLOAD4' => $record['FILE_UPLOAD4'],
         'FILE_UPLOAD5' => $record['FILE_UPLOAD5'],
+        'FILE_UPLOAD6' => $record['FILE_UPLOAD6'],
     ];
 
     /*
@@ -154,12 +156,14 @@ if ($_POST["action"] === 'DELETE_FILE') {
     $file3 = isset($files[2]) ? $files[2] : null;
     $file4 = isset($files[3]) ? $files[3] : null;
     $file5 = isset($files[4]) ? $files[4] : null;
+    $file6 = isset($files[5]) ? $files[5] : null;
 
     $txt = "1 = " . $file1 . " | " . "\n\r" .
         "2 = " . $file2 . " | " . "\n\r" .
         "3 = " . $file3 . " | " . "\n\r" .
         "4 = " . $file4 . " | " . "\n\r" .
-        "5 = " . $file5 . "\n\r" .
+        "5 = " . $file5 . " | " . "\n\r" .
+        "6 = " . $file6 . "\n\r" .
         " ID = " . $id;
 
     /*
@@ -169,7 +173,7 @@ if ($_POST["action"] === 'DELETE_FILE') {
     */
 
     $sql_update = "UPDATE ims_document_customer_service SET FILE_UPLOAD1=:FILE_UPLOAD1,FILE_UPLOAD2=:FILE_UPLOAD2
-            ,FILE_UPLOAD3=:FILE_UPLOAD3,FILE_UPLOAD4=:FILE_UPLOAD4,FILE_UPLOAD5=:FILE_UPLOAD5            
+            ,FILE_UPLOAD3=:FILE_UPLOAD3,FILE_UPLOAD4=:FILE_UPLOAD4,FILE_UPLOAD5=:FILE_UPLOAD5,FILE_UPLOAD6=:FILE_UPLOAD6
             WHERE id = :id";
     $query = $conn->prepare($sql_update);
     $query->bindParam(':FILE_UPLOAD1', $file1, PDO::PARAM_STR);
@@ -177,6 +181,7 @@ if ($_POST["action"] === 'DELETE_FILE') {
     $query->bindParam(':FILE_UPLOAD3', $file3, PDO::PARAM_STR);
     $query->bindParam(':FILE_UPLOAD4', $file4, PDO::PARAM_STR);
     $query->bindParam(':FILE_UPLOAD5', $file5, PDO::PARAM_STR);
+    $query->bindParam(':FILE_UPLOAD6', $file6, PDO::PARAM_STR);
     $query->bindParam(':id', $id, PDO::PARAM_STR);
     $query->execute();
     echo $save_success;
@@ -255,8 +260,9 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
             $FILE_UPLOAD3 = "";
             $FILE_UPLOAD4 = "";
             $FILE_UPLOAD5 = "";
+            $FILE_UPLOAD6 = "";
 
-            for ($i = 1; $i <= 5; $i++) {
+            for ($i = 1; $i <= 6; $i++) {
                 $fileKey = 'FILE_UPLOAD' . $i;
 
                 if (!empty($row[$fileKey])) {
@@ -288,6 +294,7 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
                 "FILE_UPLOAD3" => $FILE_UPLOAD3,
                 "FILE_UPLOAD4" => $FILE_UPLOAD4,
                 "FILE_UPLOAD5" => $FILE_UPLOAD5,
+                "FILE_UPLOAD6" => $FILE_UPLOAD6,
 
                 "update" => "<button type='button' name='update' id='" . $row['id'] . "' class='btn btn-info btn-xs update' data-toggle='tooltip' title='Update'>Update</button>",
                 "upload" => "<button type='button' name='upload' id='" . $row['id'] . "' class='btn btn-secondary btn-xs upload' data-toggle='tooltip' title='Upload'>Upload</button>",

@@ -52,6 +52,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <th>File</th>
                                                     <th>File</th>
                                                     <th>File</th>
+                                                    <th>File</th>
                                                     <th>Action</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -65,6 +66,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <th>เลขทะเบียนรถ</th>
                                                     <th>Form Check</th>
                                                     <th>รูปหน้ารถ</th>
+                                                    <th>File</th>
                                                     <th>File</th>
                                                     <th>File</th>
                                                     <th>File</th>
@@ -287,6 +289,7 @@ if (strlen($_SESSION['alogin']) == "") {
                     {data: 'FILE_UPLOAD3'},
                     {data: 'FILE_UPLOAD4'},
                     {data: 'FILE_UPLOAD5'},
+                    {data: 'FILE_UPLOAD6'},
                     {data: 'upload'},
                     {data: 'update'}
                 ]

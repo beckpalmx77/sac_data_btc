@@ -140,7 +140,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                                                 </div>
                                                                 <div class="form-group row">
                                                                     <div class="col-sm-12">
-                                                                        <label for="REMARK" class="control-label">หมายเหตุ</label>
+                                                                        <label for="REMARK" class="control-label">หมายเหตุ (รายละเอียดเพิ่มเติม)</label>
                                                                         <textarea class="form-control" id="REMARK" name="REMARK" rows="3"></textarea>
                                                                     </div>
                                                                 </div>

@@ -254,7 +254,6 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
     foreach ($empRecords as $row) {
         if ($_POST['sub_action'] === "GET_MASTER") {
 
-            $FILE_UPLOAD = "";
             $FILE_UPLOAD1 = "";
             $FILE_UPLOAD2 = "";
             $FILE_UPLOAD3 = "";
@@ -288,7 +287,6 @@ if ($_POST["action"] === 'GET_DOCUMENT') {
                 "CAR_NO" => $row['CAR_NO'],
                 "REMARK" => $row['REMARK'],
 
-                "FILE_UPLOAD" => $FILE_UPLOAD,
                 "FILE_UPLOAD1" => $FILE_UPLOAD1,
                 "FILE_UPLOAD2" => $FILE_UPLOAD2,
                 "FILE_UPLOAD3" => $FILE_UPLOAD3,

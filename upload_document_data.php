@@ -105,7 +105,7 @@ if (strlen($_SESSION['alogin']) == "") {
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="uploadField"
                                                id="uploadField2" value="FILE_UPLOAD2">
-                                        <label class="form-check-label" for="uploadField2">ใบกำกับ</label>
+                                        <label class="form-check-label" for="uploadField2">ใบกำกับฯ</label>
                                     </div>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="uploadField"

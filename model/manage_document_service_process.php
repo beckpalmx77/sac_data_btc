@@ -196,13 +196,13 @@ if ($_POST["action"] === 'DELETE_FILE_SINGLE') {
     $file_index = $_POST['file_index'];
     $id = $_POST['id'];
 
-    $file_path = $file_name;
+    $file_path = "../" . $file_name;
 
-    /*
-        if (file_exists($file_path)) {
-            unlink($file_path);
-        }
-    */
+
+    if (file_exists($file_path)) {
+        unlink($file_path);
+    }
+
 
     $sql_delete = "UPDATE ims_document_customer_service SET $file_index = '' WHERE id = " . $id;
     $query = $conn->prepare($sql_delete);

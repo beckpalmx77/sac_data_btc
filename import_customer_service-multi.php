@@ -47,11 +47,13 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <th>ชื่อลูกค้า</th>
                                                     <th>โทรศัพท์</th>
                                                     <th>เลขทะเบียนรถ</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
+                                                    <th>ใบรับงาน</th>
+                                                    <th>ใบกำกับ</th>
+                                                    <th>ทะเบียนรถ</th>
+                                                    <th>เลขไมล์</th>
+                                                    <th>รูปรถ</th>
+                                                    <th>อะไหล่ที่เปลี่ยน</th>
+                                                    <th>ยางที่เปลี่ยน</th>
                                                     <th>Action</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -63,11 +65,13 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <th>ชื่อลูกค้า</th>
                                                     <th>โทรศัพท์</th>
                                                     <th>เลขทะเบียนรถ</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
+                                                    <th>ใบรับงาน</th>
+                                                    <th>ใบกำกับ</th>
+                                                    <th>ทะเบียนรถ</th>
+                                                    <th>เลขไมล์</th>
+                                                    <th>รูปรถ</th>
+                                                    <th>อะไหล่ที่เปลี่ยน</th>
+                                                    <th>ยางที่เปลี่ยน</th>
                                                     <th>Action</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -136,6 +140,14 @@ if (strlen($_SESSION['alogin']) == "") {
                                                                                id="CAR_NO"
                                                                                name="CAR_NO"
                                                                                placeholder="ทะเบียนรถ">
+                                                                    </div>
+                                                                </div>
+                                                                <div class="form-group row">
+                                                                    <div class="col-sm-12">
+                                                                        <label for="REMARK" class="control-label">หมายเหตุ
+                                                                            (รายละเอียดเพิ่มเติม)</label>
+                                                                        <textarea class="form-control" id="REMARK"
+                                                                                  name="REMARK" rows="3"></textarea>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -279,6 +291,8 @@ if (strlen($_SESSION['alogin']) == "") {
                     {data: 'FILE_UPLOAD3'},
                     {data: 'FILE_UPLOAD4'},
                     {data: 'FILE_UPLOAD5'},
+                    {data: 'FILE_UPLOAD6'},
+                    {data: 'FILE_UPLOAD7'},
                     {data: 'upload'},
                     {data: 'update'}
                 ]
@@ -326,6 +340,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         let ADDB_COMPANY = response[i].ADDB_COMPANY;
                         let ADDB_PHONE = response[i].ADDB_PHONE;
                         let CAR_NO = response[i].CAR_NO;
+                        let REMARK = response[i].REMARK;
 
                         $('#recordModal').modal('show');
                         $('#id').val(id);
@@ -334,6 +349,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         $('#ADDB_COMPANY').val(ADDB_COMPANY);
                         $('#ADDB_PHONE').val(ADDB_PHONE);
                         $('#CAR_NO').val(CAR_NO);
+                        $('#REMARK').val(REMARK);
                         $('.modal-title').html("<i class='fa fa-plus'></i> Edit Record");
                         $('#action').val('UPDATE');
                         $('#save').val('Save');
@@ -366,16 +382,20 @@ if (strlen($_SESSION['alogin']) == "") {
                         let ADDB_COMPANY = response[i].ADDB_COMPANY;
                         let ADDB_PHONE = response[i].ADDB_PHONE;
                         let CAR_NO = response[i].CAR_NO;
+                        let REMARK = response[i].REMARK;
 
                         let main_menu = "นำเข้าข้อมูล";
                         let sub_menu = "ข้อมูลเช็ครถเบื้องต้น BTC";
                         let originalURL = "upload_document_data.php?title=ข้อมูลเช็ครถเบื้องต้น (BTC)"
-                            + '&main_menu=' + main_menu + '&sub_menu=' + sub_menu
+                            + '&main_menu=' + main_menu
+                            + '&sub_menu=' + sub_menu
                             + '&id=' + id
-                            + '&DI_REF=' + DI_REF + '&DI_DATE=' + DI_DATE
+                            + '&DI_REF=' + DI_REF
+                            + '&DI_DATE=' + DI_DATE
                             + '&CAR_NO=' + CAR_NO
                             + '&ADDB_PHONE=' + ADDB_PHONE
                             + '&ADDB_COMPANY=' + ADDB_COMPANY
+                            + '&REMARK=' + REMARK
                             + '&action=UPDATE';
 
                         OpenPopupCenter(originalURL, "", "");
@@ -388,27 +408,6 @@ if (strlen($_SESSION['alogin']) == "") {
             });
         });
 
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('.open-window').click(function (e) {
-                e.preventDefault();
-
-                let url = $(this).attr('href');
-                let title = $(this).data('title');
-                let favicon = $(this).data('favicon');
-
-                let newWindow = window.open(url, '_blank');
-                newWindow.onload = function () {
-                    let link = document.createElement('link');
-                    link.rel = 'icon';
-                    link.href = favicon;
-                    newWindow.document.head.appendChild(link);
-                    newWindow.document.title = title;
-                };
-            });
-        });
     </script>
 
     </body>

@@ -32,9 +32,10 @@ if (strlen($_SESSION['alogin']) == "") {
                 width: 100%;
                 height: auto;
                 object-fit: cover;
-                max-height: 50px;
+                max-height: 50px; /* กำหนดความสูงสูงสุดของรูปภาพ */
             }
         </style>
+
     </head>
     <body>
     <div id="content-wrapper" class="d-flex flex-column">
@@ -58,14 +59,21 @@ if (strlen($_SESSION['alogin']) == "") {
                                     <input type="text" class="form-control" id="DI_REF" name="DI_REF" readonly="true"
                                            placeholder="">
                                 </div>
+                                <!--div class="col-sm-4"-->
+                                <!--label for="DI_DATE" class="control-label">วันที่เอกสาร</label-->
                                 <input type="hidden" class="form-control" id="DI_DATE" name="DI_DATE" readonly="true"
                                        placeholder="วันที่เอกสาร">
+                                <!--/div-->
+                                <!--/div>
+
+                                <div class="form-group row"-->
                                 <div class="col-sm-8">
                                     <label for="ADDB_COMPANY" class="control-label">ชื่อลูกค้า</label>
                                     <input type="text" class="form-control" id="ADDB_COMPANY" name="ADDB_COMPANY"
                                            readonly="true" required="required" placeholder="">
                                 </div>
                                 <div class="col-sm-4">
+                                    <!--label for="ADDB_PHONE" class="control-label">โทรศัพท์</label-->
                                     <input type="hidden" class="form-control" id="ADDB_PHONE" name="ADDB_PHONE"
                                            readonly="true" placeholder="">
                                 </div>
@@ -87,51 +95,9 @@ if (strlen($_SESSION['alogin']) == "") {
                             <div class="form-group row">
                                 <div class="col-sm-12">
                                     <label for="files" class="control-label">เลือกไฟล์ EXCEL หรือ PDF หรือ รูปภาพ
-                                        JPG หรือ PNG ที่ต้องการ Upload (สูงสุด 7 ไฟล์)</label>
+                                        JPG หรือ PNG ที่ต้องการ Upload (สูงสุด 6 ไฟล์)</label>
                                     <input class="form-control" type="file" name="files[]" id="files"
                                            accept=".xls,.xlsx,.pdf,.jpg,.png" multiple>
-                                </div>
-                            </div>
-
-                            <!-- เพิ่ม radio buttons เพื่อเลือกฟิลด์ที่จะอัปโหลดไฟล์ -->
-                            <div class="form-group row">
-                                <div class="col-sm-12">
-                                    <label class="control-label">เลือกตำแหน่งที่จะอัปโหลดไฟล์:</label>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="uploadField"
-                                               id="uploadField1" value="FILE_UPLOAD1" checked>
-                                        <label class="form-check-label" for="uploadField1">ใบรับงาน</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="uploadField"
-                                               id="uploadField2" value="FILE_UPLOAD2">
-                                        <label class="form-check-label" for="uploadField2">ใบกำกับ</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="uploadField"
-                                               id="uploadField3" value="FILE_UPLOAD3">
-                                        <label class="form-check-label" for="uploadField3">ทะเบียนรถ</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="uploadField"
-                                               id="uploadField4" value="FILE_UPLOAD4">
-                                        <label class="form-check-label" for="uploadField4">เลขไมล์</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="uploadField"
-                                               id="uploadField5" value="FILE_UPLOAD5">
-                                        <label class="form-check-label" for="uploadField5">รูปรถ</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="uploadField"
-                                               id="uploadField6" value="FILE_UPLOAD6">
-                                        <label class="form-check-label" for="uploadField6">อะไหล่ที่เปลี่ยน</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio" name="uploadField"
-                                               id="uploadField7" value="FILE_UPLOAD7">
-                                        <label class="form-check-label" for="uploadField7">ยางที่เปลี่ยน</label>
-                                    </div>
                                 </div>
                             </div>
 
@@ -173,7 +139,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         </div>
 
                         <div class="col-sm-12">
-                            <div id="fileLink"></div>
+                            <div id="fileLink"></div> <!-- Add this div for showing file link -->
                         </div>
 
                     </form>
@@ -217,62 +183,35 @@ if (strlen($_SESSION['alogin']) == "") {
             }
         });
 
-    </script>
-
-    <script type="text/javascript">
-        // Your existing script remains unchanged...
-
-        function uploadFile_Temp() {
-            let formData = new FormData(document.getElementById('uploadForm'));
-
-            // ดึงค่าฟิลด์ที่เลือกจาก radio button
-            const uploadField = document.querySelector('input[name="uploadField"]:checked').value;
-
-            formData.append('uploadField', uploadField);
-
-            $.ajax({
-                url: 'upload.php',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    console.log(response); // For testing purposes
-
-                    let linkHtml = '';
-                    if (response !== 'failed') {
-                        const fileLinks = response.split(','); // Assume that upload.php returns links separated by commas
-
-                        fileLinks.forEach(function (link) {
-                            if (link.trim() !== '') {
-                                linkHtml += '<a href="' + link + '" target="_blank">' + link + '</a><br>';
-                            }
-                        });
-
-                        // Update the hidden input with the correct field
-                        document.getElementById(uploadField).value = fileLinks.join(',');
-
-                        document.getElementById('fileLink').innerHTML = linkHtml;
-                        alertify.success('File uploaded successfully');
-                    } else {
-                        alertify.error('File upload failed');
-                    }
+        document.getElementById('files').addEventListener('change', function (event) {
+            let preview = document.getElementById('preview');
+            if (this.files.length > 6) {
+                alert('You can only upload up to 6 files.');
+                this.value = ''; // Clear the file input
+                return;
+            }
+            Array.from(this.files).forEach(file => {
+                if (file.type.startsWith('image/')) {
+                    let reader = new FileReader();
+                    reader.onload = function (e) {
+                        let img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.classList.add('preview-img');
+                        preview.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                } else {
+                    let div = document.createElement('div');
+                    div.textContent = file.name;
+                    preview.appendChild(div);
                 }
             });
-
-        }
-
+        });
     </script>
 
     <script>
         function uploadFile() {
-
             let formData = new FormData(document.getElementById('uploadForm'));
-            // ดึงค่าฟิลด์ที่เลือกจาก radio button
-            const uploadField = document.querySelector('input[name="uploadField"]:checked').value;
-
-            //alert("uploadField = " + uploadField);
-
             $.ajax({
                 url: 'upload_ajax_file_img.php',
                 type: 'POST',
@@ -304,39 +243,7 @@ if (strlen($_SESSION['alogin']) == "") {
                     alertify.alert('Upload failed: ' + error);
                 }
             });
-
         }
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('#files').on('change', function () {
-                let files = this.files;
-                let preview = $('#preview');
-                preview.empty();
-
-                if (files.length > 0) {
-                    for (let i = 0; i < files.length; i++) {
-                        let file = files[i];
-                        let fileType = file.type.toLowerCase();
-
-                        let reader = new FileReader();
-
-                        reader.onload = function (e) {
-                            if (fileType.startsWith('image/')) {
-                                let img = $('<img>').attr('src', e.target.result).addClass('preview-img');
-                                preview.append(img);
-                            } else {
-                                let fileName = $('<div>').text(file.name);
-                                preview.append(fileName);
-                            }
-                        }
-
-                        reader.readAsDataURL(file);
-                    }
-                }
-            });
-        });
     </script>
 
     <script>
@@ -415,15 +322,12 @@ if (strlen($_SESSION['alogin']) == "") {
         function deleteFile(fileName, fileIndex) {
             if (confirm("คุณต้องการลบไฟล์นี้หรือไม่?")) {
                 let rec_id = $('#id').val();
-                //alert(fileName + " "  + fileIndex + " "+ rec_id);
-
                 $.ajax({
                     url: 'model/manage_document_service_process.php',
                     type: 'POST',
                     data: {
-                        action: 'DELETE_FILE_SINGLE',
+                        action: 'DELETE_FILE',
                         file_name: fileName,
-                        file_index: fileIndex,
                         id: rec_id
                     },
                     success: function (response) {
@@ -435,7 +339,6 @@ if (strlen($_SESSION['alogin']) == "") {
                         alertify.error("การลบไฟล์ล้มเหลว: " + error);
                     }
                 });
-
             }
         }
     </script>
@@ -448,7 +351,10 @@ if (strlen($_SESSION['alogin']) == "") {
             });
         });
     </script>
-
     </body>
     </html>
-<?php } ?>
+
+
+    <?php
+}
+?>

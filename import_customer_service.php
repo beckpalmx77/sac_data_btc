@@ -47,12 +47,13 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <th>ชื่อลูกค้า</th>
                                                     <th>โทรศัพท์</th>
                                                     <th>เลขทะเบียนรถ</th>
-                                                    <th>Form Check</th>
-                                                    <th>รูปหน้ารถ</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
+                                                    <th>ใบรับงาน</th>
+                                                    <th>ใบกำกับ</th>
+                                                    <th>ทะเบียนรถ</th>
+                                                    <th>เลขไมล์</th>
+                                                    <th>รูปรถ</th>
+                                                    <th>อะไหล่ที่เปลี่ยน</th>
+                                                    <th>ยางที่เปลี่ยน</th>
                                                     <th>Action</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -64,12 +65,13 @@ if (strlen($_SESSION['alogin']) == "") {
                                                     <th>ชื่อลูกค้า</th>
                                                     <th>โทรศัพท์</th>
                                                     <th>เลขทะเบียนรถ</th>
-                                                    <th>Form Check</th>
-                                                    <th>รูปหน้ารถ</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
-                                                    <th>File</th>
+                                                    <th>ใบรับงาน</th>
+                                                    <th>ใบกำกับ</th>
+                                                    <th>ทะเบียนรถ</th>
+                                                    <th>เลขไมล์</th>
+                                                    <th>รูปรถ</th>
+                                                    <th>อะไหล่ที่เปลี่ยน</th>
+                                                    <th>ยางที่เปลี่ยน</th>
                                                     <th>Action</th>
                                                     <th>Action</th>
                                                 </tr>
@@ -290,6 +292,7 @@ if (strlen($_SESSION['alogin']) == "") {
                     {data: 'FILE_UPLOAD4'},
                     {data: 'FILE_UPLOAD5'},
                     {data: 'FILE_UPLOAD6'},
+                    {data: 'FILE_UPLOAD7'},
                     {data: 'upload'},
                     {data: 'update'}
                 ]

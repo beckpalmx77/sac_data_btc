@@ -385,6 +385,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         alertify.success("ไฟล์ถูกลบเรียบร้อยแล้ว");
                         // ลบ card ที่เกี่ยวข้องกับไฟล์นั้นๆ
                         $('#card-' + fileIndex).remove();
+                        location.reload();
                     },
                     error: function (xhr, status, error) {
                         alertify.error("การลบไฟล์ล้มเหลว: " + error);

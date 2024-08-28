@@ -198,20 +198,20 @@ if ($_POST["action"] === 'DELETE_FILE_SINGLE') {
 
     $file_path = $file_name;
 
-/*
-    if (file_exists($file_path)) {
-        unlink($file_path);
-    }
-*/
+    /*
+        if (file_exists($file_path)) {
+            unlink($file_path);
+        }
+    */
 
     $sql_delete = "UPDATE ims_document_customer_service SET $file_index = '' WHERE id = " . $id;
     $query = $conn->prepare($sql_delete);
     $query->execute();
-/*
-    $myfile = fopen("a_delete_file_update.txt", "w") or die("Unable to open file!");
-    fwrite($myfile,  $sql_delete);
-    fclose($myfile);
-*/
+    /*
+        $myfile = fopen("a_delete_file_update.txt", "w") or die("Unable to open file!");
+        fwrite($myfile,  $sql_delete);
+        fclose($myfile);
+    */
 
 }
 

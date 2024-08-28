@@ -414,7 +414,7 @@ if (strlen($_SESSION['alogin']) == "") {
     <script>
         function deleteFile(fileName, fileIndex) {
             if (confirm("คุณต้องการลบไฟล์นี้หรือไม่?")) {
-                let rec_id = $('#id').val();
+                let id = $('#id').val();
                 //alert(fileName + " "  + fileIndex + " "+ rec_id);
 
                 $.ajax({
@@ -424,7 +424,7 @@ if (strlen($_SESSION['alogin']) == "") {
                         action: 'DELETE_FILE_SINGLE',
                         file_name: fileName,
                         file_index: fileIndex,
-                        id: rec_id
+                        id: id
                     },
                     success: function (response) {
                         alertify.success("ไฟล์ถูกลบเรียบร้อยแล้ว");

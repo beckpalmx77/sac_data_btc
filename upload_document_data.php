@@ -219,51 +219,6 @@ if (strlen($_SESSION['alogin']) == "") {
 
     </script>
 
-    <script type="text/javascript">
-        // Your existing script remains unchanged...
-
-        function uploadFile_Temp() {
-            let formData = new FormData(document.getElementById('uploadForm'));
-
-            // ดึงค่าฟิลด์ที่เลือกจาก radio button
-            const uploadField = document.querySelector('input[name="uploadField"]:checked').value;
-
-            formData.append('uploadField', uploadField);
-
-            $.ajax({
-                url: 'upload.php',
-                type: 'POST',
-                data: formData,
-                contentType: false,
-                processData: false,
-                success: function (response) {
-                    console.log(response); // For testing purposes
-
-                    let linkHtml = '';
-                    if (response !== 'failed') {
-                        const fileLinks = response.split(','); // Assume that upload.php returns links separated by commas
-
-                        fileLinks.forEach(function (link) {
-                            if (link.trim() !== '') {
-                                linkHtml += '<a href="' + link + '" target="_blank">' + link + '</a><br>';
-                            }
-                        });
-
-                        // Update the hidden input with the correct field
-                        document.getElementById(uploadField).value = fileLinks.join(',');
-
-                        document.getElementById('fileLink').innerHTML = linkHtml;
-                        alertify.success('File uploaded successfully');
-                    } else {
-                        alertify.error('File upload failed');
-                    }
-                }
-            });
-
-        }
-
-    </script>
-
     <script>
         function uploadFile() {
 

@@ -35,6 +35,44 @@ if (strlen($_SESSION['alogin']) == "") {
                 max-height: 50px;
             }
         </style>
+
+        <style>
+
+            /* Container to hold the preview */
+            #preview {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px; /* Adjusts the gap between images */
+            }
+
+            /* Image preview with zoom effect */
+            .preview-img {
+                max-width: 100px; /* Adjust the size of the image preview */
+                max-height: 100px;
+                transition: transform 0.3s ease; /* Smooth transition */
+            }
+
+            /* Hover effect to zoom the image */
+            .preview-img:hover {
+                transform: scale(3); /* Adjust the scale as needed */
+            }
+
+        </style>
+
+        <style>
+            /* Image preview with zoom effect */
+            .zoom-image {
+                max-width: 100%;
+                max-height: 200px; /* Adjust the size as needed */
+                transition: transform 0.3s ease;
+            }
+
+            /* Hover effect to zoom the image */
+            .zoom-image:hover {
+                transform: scale(1.5); /* Adjust the scale as needed */
+            }
+        </style>
+
     </head>
     <body>
     <div id="content-wrapper" class="d-flex flex-column">
@@ -279,7 +317,9 @@ if (strlen($_SESSION['alogin']) == "") {
 
                         reader.onload = function (e) {
                             if (fileType.startsWith('image/')) {
-                                let img = $('<img>').attr('src', e.target.result).addClass('preview-img');
+                                let img = $('<img>')
+                                    .attr('src', e.target.result)
+                                    .addClass('preview-img zoom-image'); // Add 'zoom-image' class
                                 preview.append(img);
                             } else {
                                 let fileName = $('<div>').text(file.name);
@@ -294,9 +334,10 @@ if (strlen($_SESSION['alogin']) == "") {
         });
     </script>
 
+
     <script>
 
-        function loadFile() {
+        function loadFile_bak() {
             let rec_id = $('#id').val();
             let formData = {action: "GET_FILE", id: rec_id};
 
@@ -358,6 +399,68 @@ if (strlen($_SESSION['alogin']) == "") {
                         displayFile(fileUpload6, 'FILE_UPLOAD6');
                         displayFile(fileUpload7, 'FILE_UPLOAD7');
                     }
+                },
+                error: function (xhr, status, error) {
+                    alertify.error("error : " + xhr.responseText);
+                }
+            });
+        }
+    </script>
+
+    <script>
+        function loadFile() {
+            let rec_id = $('#id').val();
+            let formData = {action: "GET_FILE", id: rec_id};
+
+            $.ajax({
+                type: "POST",
+                url: 'model/manage_document_service_process.php',
+                dataType: "json",
+                data: formData,
+                success: function (response) {
+                    let fileBasePath = ""; // Base path ของไฟล์ที่ upload
+                    let placeholderImage = "img/file.jpg"; // Path ของรูปภาพแทน
+
+                    response.forEach((fileData, index) => {
+                        const files = [
+                            fileData.FILE_UPLOAD1,
+                            fileData.FILE_UPLOAD2,
+                            fileData.FILE_UPLOAD3,
+                            fileData.FILE_UPLOAD4,
+                            fileData.FILE_UPLOAD5,
+                            fileData.FILE_UPLOAD6,
+                            fileData.FILE_UPLOAD7,
+                        ];
+
+                        files.forEach((file, i) => {
+                            if (file) {
+                                let fileType = file.split('.').pop().toLowerCase();
+                                let imgSrc = (['jpg', 'jpeg', 'png', 'gif'].includes(fileType))
+                                    ? fileBasePath + file
+                                    : placeholderImage;
+
+                                let cardElement = `
+                                <div class="col-md-6 mb-3">
+                                    <div class="card" style="width: 100%;">
+                                        ${!(fileType === 'jpg' || fileType === 'jpeg' || fileType === 'png' || fileType === 'gif')
+                                    ? '<div class="card-header">' + file + '</div>'
+                                    : ''}
+                                        <div class="card-body">
+                                            <img src="${imgSrc}" class="card-img zoom-image" alt="${file}">
+                                        </div>
+                                        <button type="button" class="btn btn-danger btn-sm" onclick="deleteFile('${file}', 'FILE_UPLOAD${i + 1}')">ลบ</button>
+                                    </div>
+                                </div>
+                            `;
+
+                                let $targetRow = $('#fileLink .row').last();
+                                if ($targetRow.length === 0 || $targetRow.children('.col-md-6').length >= 2) {
+                                    $targetRow = $('<div class="row"></div>').appendTo('#fileLink');
+                                }
+                                $targetRow.append(cardElement);
+                            }
+                        });
+                    });
                 },
                 error: function (xhr, status, error) {
                     alertify.error("error : " + xhr.responseText);

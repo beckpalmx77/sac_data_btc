@@ -247,7 +247,7 @@ if (strlen($_SESSION['alogin']) == "") {
                 $('#id').val(queryString["id"]);
                 $('#DI_REF').val(queryString["DI_REF"]);
                 $('#DI_DATE').val(queryString["DI_DATE"]);
-                $('#REMARK').val(queryString["REMARK"]);
+                $('#REMARK').val((queryString["REMARK"] === null || queryString["REMARK"] === 'null') ? '-' : queryString["REMARK"]);
                 $('#ADDB_COMPANY').val(queryString["ADDB_COMPANY"]);
                 $('#ADDB_PHONE').val(queryString["ADDB_PHONE"]);
                 $('#CAR_NO').val(queryString["CAR_NO"]);

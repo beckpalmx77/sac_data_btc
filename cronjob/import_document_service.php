@@ -78,12 +78,14 @@ while ($result_sqlsvr = $stmt_sqlsvr->fetch(PDO::FETCH_ASSOC)) {
 
         $sql_update = " UPDATE ims_document_customer_service  SET CAR_NO=:CAR_NO , DI_DATE=:DI_DATE               
         WHERE DI_REF  = :DI_REF ";
+/*
 
         $query = $conn->prepare($sql_update);
         $query->bindParam(':CAR_NO', $result_sqlsvr["ADDB_SEARCH"], PDO::PARAM_STR);
         $query->bindParam(':DI_DATE', $result_sqlsvr["DI_DATE"], PDO::PARAM_STR);
         $query->bindParam(':DI_REF', $result_sqlsvr["DI_REF"], PDO::PARAM_STR);
         $query->execute();
+*/
 
         $update_data = $result_sqlsvr["DI_DATE"] . " : " . $result_sqlsvr["DI_REF"] . " | " . $result_sqlsvr["ADDB_SEARCH"] . "\n\r";
         echo "UPDATE DATA " . $update_data;

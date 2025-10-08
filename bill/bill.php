@@ -228,7 +228,7 @@ header("Location: index.php");
                                         <input type="hidden" name="id" id="id"/>
                                         <input type="hidden" name="action" id="action" value=""/>
                                         <button type="button" class="btn btn-primary" id="btnSubmit">Save <i class="fa fa-check"></i></button>
-                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close <i class="fa fa-window-close"></i></button>
+                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close <i class="fa fa-times"></i></button>
                                     </div>
 
                                 </div>
